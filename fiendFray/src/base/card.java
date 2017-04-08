@@ -5,11 +5,12 @@ import java.util.Random;
 public class card {
 	
 	private String info;
+	private int value; 
 	private String imgURL; 
 	
 	card() {
 		Random rand = new Random(); 
-		int value = rand.nextInt(13);	// max is 13 for right now
+		value = rand.nextInt(13);	// max is 13 for right now
 		info=value+"";
 	}
 	

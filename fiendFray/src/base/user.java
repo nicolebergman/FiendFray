@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class user {
 	private String username;
 	private String password;
-	private Pet userPet;
+	private pet userPet;
 	private int gems;
 	private boolean isGuest;
 	
-	public user(String username, String password, Pet userPet){
+	public user(String username, String password, pet userPet){
 		this.username = username;
 		this.password = password;
 		this.userPet = userPet;
@@ -21,7 +21,7 @@ public class user {
 		// TODO: add automatic guest name
 		this.username = "Guest";
 		this.password = "";
-		this.userPet = new Pet();
+		this.userPet = new pet();
 		this.gems = 10;
 		this.isGuest = true;
 	}
@@ -42,11 +42,11 @@ public class user {
 		this.password = password;
 	}
 
-	public Pet getUserPet() {
+	public pet getUserPet() {
 		return userPet;
 	}
 
-	public void setUserPet(Pet userPet) {
+	public void setUserPet(pet userPet) {
 		this.userPet = userPet;
 	}
 

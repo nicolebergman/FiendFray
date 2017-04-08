@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Pet Profile</title>
+<title>Home Page</title>
 <script>
 	// scope socket correctly
 	var socket;
@@ -39,7 +39,7 @@
 			<h3>Pet Name</h3>
 			<h3>Level: </h3>
 			<h3>Current EXP: </h3>
-			<h3> CurrHP/MaxHP</h3>
+			<h3>CurrHP/MaxHP</h3>
 			<h3>Weapon Card</h3>
 			<h3>Weapon Card Damage</h3>
 		</div>

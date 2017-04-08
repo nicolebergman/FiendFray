@@ -5,9 +5,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Pet Profile</title>
+<script>
+	// scope socket correctly
+	var socket;
+	function connectToServer() {
+		// create connection to server
+		socket = new WebSocket("ws://localhost:8080/fiendFray/fiendFrayServer");
+		// overriding functions
+		socket.onopen = function(event) {
+			document.getElementById("mytext").innerHTML += "Connecting...<br />";
+		}
+		socket.onmessage = function(event) {
+			document.getElementById("mytext").innerHTML += event.data + "<br />";
+		}
+		socket.onclose = function(event) {
+			document.getElementById("mytext").innerHTML += "Closing...<br />";
+		}
+	}
+	function sendMessage() {
+		socket.send("Yuvan - " + document.chatform.message.value);
+		// do not submit the form
+		return false;
+	}
+</script>
  <link rel = "stylesheet" type = "text/css" href = "../css/homePage.css" />
 </head>
-<body>
+<body onload="connectToServer();">
 	<div id="container">
 		<div id="petInfoContainer">
 			<div id="petImage">
@@ -23,6 +46,7 @@
 		
 		<div id="battleFeedContainer">
 			<h3>Battle Feed</h3>
+			<div id="mytext"></div>
 		</div>
 		
 		<div id="activeUsersContainer">

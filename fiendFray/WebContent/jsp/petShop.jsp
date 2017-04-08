@@ -23,19 +23,19 @@
 
 <div class="iconbox">
     <div id="bow">
-        <img src="../images/bowandarrow.png" />
+        <img src="../images/weapon_1.png" />
         <p>Bow and Arrow</p>
         <p>Price: 10</p>
         <button class="button">Buy</button>
     </div>
     <div id="club">
-        <img src="../images/club.png" />
+        <img src="../images/weapon_2.png" />
         <p>Club</p>
         <p>Price: 10</p>
         <button class="button">Buy</button>
     </div>
     <div id="hammer">
-        <img src="../images/hammer.png" />
+        <img src="../images/weapon_3.png" />
         <p>Hammer</p>
         <p>Price: 10</p>
         <button class="button">Buy</button>
@@ -46,19 +46,19 @@
 
 <div class="iconbox">
     <div id="swords">
-        <img src="../images/swords.png" />
+        <img src="../images/weapon_4.png" />
         <p>Dual Swords</p>
         <p>Price: 10</p>
         <button class="button">Buy</button>
     </div>
     <div id="staff">
-        <img src="../images/staff.png" />
+        <img src="../images/weapon_5.png" />
         <p>Staff</p>
         <p>Price: 10</p>
         <button class="button">Buy</button>
     </div>
     <div id="lasergun">
-        <img src="../images/lasergun.png" />
+        <img src="../images/weapon_6.png" />
         <p>Laser Gun</p>
         <p>Price: 10</p>
         <button class="button">Buy</button>

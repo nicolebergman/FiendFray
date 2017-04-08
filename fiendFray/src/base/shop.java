@@ -10,9 +10,13 @@ public class shop {
 	}
 	
 	public boolean buyWeapon(weapon buyableWeapon, user user1){
-		//TO DO
-		//Add logic whether user can buy weapon or not
-		return true;
+		if(buyableWeapon.getPrice()<=user1.getGems()){
+			user1.getUserPet().setEquppedWeapon(buyableWeapon);
+			user1.setGems(user1.getGems()-buyableWeapon.getPrice());
+			return true;
+		} else{
+			return false;
+		}
 	}
 	
 	public void setBuyableWeapons(ArrayList<weapon> buyableWeapons){

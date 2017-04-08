@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class user {
 	private String username;
 	private String password;
+	private ArrayList<card> currentHand;
 	private pet userPet;
 	private int gems;
 	private boolean isGuest;
@@ -15,6 +16,7 @@ public class user {
 		this.userPet = userPet;
 		this.gems = 10;
 		this.isGuest = false;
+		this.currentHand = new ArrayList<card>();
 	}
 	
 	public user() {
@@ -24,6 +26,7 @@ public class user {
 		this.userPet = new pet();
 		this.gems = 10;
 		this.isGuest = true;
+		this.currentHand = new ArrayList<card>();
 	}
 
 	public String getUsername() {
@@ -64,5 +67,17 @@ public class user {
 
 	public void setGuest(boolean isGuest) {
 		this.isGuest = isGuest;
+	} 
+	
+	//battle functions
+	public void addCardToHand(card newCard){
+		this.currentHand.add(newCard);
+	}
+	
+	public void emptyHand(){
+		this.currentHand = new ArrayList<card>();
+	}
+	public int playHand(ArrayList<card> hand){
+		return this.userPet.calculateDamage(hand);
 	}
 }

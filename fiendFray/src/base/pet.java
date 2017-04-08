@@ -1,5 +1,7 @@
 package base;
 
+import java.util.ArrayList;
+
 public class pet {
 	private String name; 
 	private String imageURL; 
@@ -70,13 +72,11 @@ public class pet {
 	{
 		currentLevel = level; 
 	}
-	private int currentEXP; 
-	private int requiredEXPToLevelUp; 
 	public void setMaxHP(int hp)
 	{
 		maxHP = hp; 
 	}
-	public int currentHP(int hp)
+	public void setCurrentHP(int hp)
 	{
 		currentHP = hp;
 	}
@@ -89,6 +89,12 @@ public class pet {
 	public void takeDamage(int damage)
 	{
 		currentHP -= damage; 
+	}
+	
+	public int calculateDamage(ArrayList<card> hand){
+		//pass the hand to the weapon
+		//weapon.returnDamage(hand)
+		return 0;
 	}
 	
 	public void levelUp()

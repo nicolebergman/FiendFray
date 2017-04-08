@@ -29,9 +29,7 @@ public class battle {
 	}
 	
 	public int calcDamage(ArrayList<card> hand, user user1){
-		//TO DO
-		//Add logic to figure out hand damage
-		return 0;
+		return user1.playHand(hand);
 	}
 	
 	public boolean gameLoop(){

@@ -6,10 +6,11 @@ import java.util.HashMap;
 public class weapon {
 	private String imgURL;
 	private int damage;
+	private int price;
 	private HashMap<String, Integer> handToDamage;
 	
-	weapon() {
-		setHandToDamage(new HashMap<String, Integer>());
+	public weapon() {
+		handToDamage = new HashMap<String, Integer>();
 	}
 	
 	public void setImgURL(String imgURL) {
@@ -20,8 +21,19 @@ public class weapon {
 		return imgURL;
 	}
 	
-	public int returnDamage(ArrayList<String> pokerHand) {	//returns a number based on pokerHand
-		// to do 	
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
+	public int getPrice() {
+		return price;
+	}
+	
+	public int returnDamage(ArrayList<card> pokerHand) {
+		//TODO:
+		//figure out what kind of pokerHand it is
+		//pass it to our HashMap
+		//get back the damage and return it
 		return damage;
 	}
 

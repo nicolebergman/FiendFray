@@ -13,13 +13,13 @@
 		socket = new WebSocket("ws://localhost:8080/fiendFray/fiendFrayServer");
 		// overriding functions
 		socket.onopen = function(event) {
-			document.getElementById("mytext").innerHTML += "Connecting...<br />";
+			document.getElementById("feedtext").innerHTML += "Welcome to Fiend Fray!<br />";
 		}
 		socket.onmessage = function(event) {
-			document.getElementById("mytext").innerHTML += event.data + "<br />";
+			document.getElementById("feedtext").innerHTML += event.data + "<br />";
 		}
 		socket.onclose = function(event) {
-			document.getElementById("mytext").innerHTML += "Closing...<br />";
+			document.getElementById("feedtext").innerHTML += "Closing...<br />";
 		}
 	}
 	function sendMessage() {
@@ -45,12 +45,13 @@
 		</div>
 		
 		<div id="battleFeedContainer">
-			<h3>Battle Feed</h3>
-			<div id="mytext"></div>
+			<h3>Event Feed: </h3>
+			<div id="feedtext"></div>
 		</div>
 		
 		<div id="activeUsersContainer">
 			<h3>Active Users</h3>
+			<div id="usertext"></div>
 		</div>
 	</div>
 </body>

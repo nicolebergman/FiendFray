@@ -17,13 +17,13 @@ public class fiendFrayServer {
 	
 	@OnOpen
 	public void open(Session session) {
-		System.out.println("user connected to server!");
+		System.out.println("user has connected to server!");
 		
 		// notify other users (if any) of new connection
 		try {
 			for(Session s : sessionVector) {
 				// send data back out to all clients
-				s.getBasicRemote().sendText("User connected to Fiend Fray!");
+				s.getBasicRemote().sendText("Someone has entered the fray!");
 			}
 		} catch(IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
@@ -48,13 +48,23 @@ public class fiendFrayServer {
 	
 	@OnClose
 	public void close(Session session) {
-		System.out.println("closing");
+		System.out.println("user has disconnected from server!");
+		
 		sessionVector.remove(session);
+		
+		// notify other users (if any) of disconnect
+		try {
+			for(Session s : sessionVector) {
+				// send data back out to all clients
+				s.getBasicRemote().sendText("Someone has left the fray!");
+			}
+		} catch(IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
 	}
 	
 	@OnError
 	public void onError(Throwable error) {
 		System.out.println("error");
-		error.printStackTrace();
 	}
 }

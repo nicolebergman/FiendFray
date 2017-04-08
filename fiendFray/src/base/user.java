@@ -75,9 +75,14 @@ public class user {
 	}
 	
 	public void emptyHand(){
-		this.currentHand = new ArrayList<card>();
+		this.currentHand.clear(); 
 	}
 	public int playHand(ArrayList<card> hand){
 		return this.userPet.calculateDamage(hand);
+	}
+	
+	public void takeDamage(int damage)
+	{
+		userPet.takeDamage(damage);
 	}
 }

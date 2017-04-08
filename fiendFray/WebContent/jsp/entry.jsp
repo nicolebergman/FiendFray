@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="base.StringConstants" %>
+<%@ page import="base.stringConstants" %>
 <html>
 <head>
 	<title>Login</title>
@@ -23,13 +23,13 @@
 			<div id = "login_container">
 					Username
 					<br>
-					<input type="text" name="<%= StringConstants.USERNAME%>" id = "<%=StringConstants.USERNAME%>">
+					<input type="text" name="<%= stringConstants.USERNAME%>" id = "<%=stringConstants.USERNAME%>">
 					<br>
 					Password
 					<br>
-					<input type="text" name="<%= StringConstants.PASSWORD%>" id = "<%=StringConstants.PASSWORD%>">
+					<input type="text" name="<%= stringConstants.PASSWORD%>" id = "<%=stringConstants.PASSWORD%>">
 					<br><br>
-					<input style = "margin-left: 5px;" type="submit" value="Log In" onclick = "return errorCheck('<%=StringConstants.LOGIN_SERVLET %>', ['<%=StringConstants.USERNAME %>', '<%=StringConstants.PASSWORD %>'], 2, 'error_message')">
+					<input style = "margin-left: 5px;" type="submit" value="Log In" onclick = "return errorCheck('<%=stringConstants.LOGIN_SERVLET %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD %>'], 2, 'error_message')">
 				<form action = "${pageContext.request.contextPath}/jsp/sign_up.jsp">
 					<input style = "margin-left: 5px;" type="submit" value="Register">
 				</form>

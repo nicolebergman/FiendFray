@@ -71,6 +71,11 @@ public class user {
 	
 	//battle functions
 	public void addCardToHand(card newCard){
+		//Do not add more cards to hand if you're maxed at 4
+		if(currentHand.size() == 4)
+		{
+			return; 
+		}
 		this.currentHand.add(newCard);
 	}
 	
@@ -81,6 +86,25 @@ public class user {
 		return this.userPet.calculateDamage(hand);
 	}
 	
+	public card chooseCardFromHand(int index)
+	{
+		card chosenCard = null; 
+		if(index >= 0 && index < currentHand.size())
+		{
+			chosenCard = currentHand.get(index); 
+			currentHand.remove(index);
+		}
+		return chosenCard; 
+	}
+	
+	public int getSizeOfHand()
+	{
+		return currentHand.size(); 
+	}
+	public card getCardAtIndex(int index)
+	{
+		return currentHand.get(index);
+	}
 	public void takeDamage(int damage)
 	{
 		userPet.takeDamage(damage);

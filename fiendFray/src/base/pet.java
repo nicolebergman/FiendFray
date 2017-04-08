@@ -58,12 +58,12 @@ public class pet {
 	}
 
 	//SETTERS
-	public void SetName(String name)
+	public void setName(String name)
 	{
 		this.name = name; 
 	}
 	
-	public void SetImageURL(String imageURL)
+	public void setImageURL(String imageURL)
 	{
 		this.imageURL = imageURL;  
 	}

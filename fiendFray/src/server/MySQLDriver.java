@@ -1,10 +1,14 @@
 package server;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import com.mysql.jdbc.Statement;
 
 import base.parser;
+import base.pet;
+import base.user;
+import base.weapon;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -54,12 +58,68 @@ public class MySQLDriver {
 				String pass = rs.getString("pass");
 				int gems = rs.getInt("gems");
 				boolean isGuest = rs.getBoolean("isGuest");
-				
-				}
+				user newUser = new user();
+				newUser.setUsername(username);
+				newUser.setPassword(pass);
+				newUser.setGuest(isGuest);
+				newUser.setGems(gems);
+				newParser.addUser(newUser);
+			}
+			ps = conn.prepareStatement("SELECT * FROM weapons");
+			rs = ps.executeQuery();
+			while(rs.next()){
+				int weaponID = rs.getInt("weaponID");
+				int price = rs.getInt("price");
+				String imgURL = "/images/weapon_"+weaponID+".png";
+				weapon newWeapon = new weapon();
+				newWeapon.setPrice(price);
+				newWeapon.setImgURL(imgURL);
+				newParser.addWeapon(newWeapon);
+			}
+			ps = conn.prepareStatement("SELECT * FROM handToDamage");
+			rs = ps.executeQuery();
+			while(rs.next()){
+				int weaponID = rs.getInt("weaponID");
+				int nothing = rs.getInt("nothing");
+				int onePair = rs.getInt("onePair");
+				int twoPair = rs.getInt("twoPair");
+				int threeKind = rs.getInt("threeKind");
+				int straight = rs.getInt("straight");
+				int fourKind = rs.getInt("fourKind");
+				int fiveKind = rs.getInt("fiveKind");
+				HashMap<String, Integer> handToDamage  = new HashMap<String, Integer>();
+				handToDamage.put("nothing", nothing);
+				handToDamage.put("onePair", onePair);
+				handToDamage.put("twoPair", twoPair);
+				handToDamage.put("threeKind", threeKind);
+				handToDamage.put("straight", straight);
+				handToDamage.put("fourKind", fourKind);
+				handToDamage.put("fiveKind", fiveKind);
+				newParser.getAllWeapons().get(weaponID-1).setHandToDamage(handToDamage);
+			}
+			ps = conn.prepareStatement("SELECT * FROM pets");
+			rs = ps.executeQuery();
+			while(rs.next()){
+				int id = rs.getInt("id");
+				String petName = rs.getString("petName");
+				int currentLevel = rs.getInt("currentLevel");
+				int currentXP = rs.getInt("currentXP");
+				int requiredXPToLevelUp = rs.getInt("requiredXPToLevelUp");
+				int maxHP = rs.getInt("maxHP");
+				int currentHP = rs.getInt("currentHp");
+				int weaponID = rs.getInt("weaponID");
+				pet newPet = new pet();
+				newPet.setCurrentHP(currentHP);
+				newPet.setCurrentLevel(currentLevel);
+				newPet.setMaxHP(maxHP);
+				newPet.setName(petName);
+				newPet.setEquppedWeapon(newParser.getAllWeapons().get(weaponID));
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		newParser.printInfo();
 		return newParser;
 	}
 	

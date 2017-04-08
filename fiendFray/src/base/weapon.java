@@ -8,7 +8,14 @@ public class weapon {
 	private int damage;
 	private int price;
 	private HashMap<String, Integer> handToDamage;
-	
+	//String for HashMap are
+	//nothing
+	//onePair
+	//twoPair
+	//threeKind
+	//straight
+	//fourKind
+	//fiveKind
 	public weapon() {
 		handToDamage = new HashMap<String, Integer>();
 	}

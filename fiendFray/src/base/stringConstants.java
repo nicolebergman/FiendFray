@@ -17,4 +17,5 @@ public class stringConstants {
 	public static final String INFILE = "infile";
 	public static final String FULL_NAME = "fullname";
 	public static final String JSP_EXT = "jsp/";
+	public static final String HOME_PAGE_JSP = "homePage.jsp";
 }

@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 
 import base.parser;
 import base.stringConstants;
+import base.user;
 import server.MySQLDriver;
 
 
@@ -27,15 +28,17 @@ public class loginServlet extends HttpServlet {
 		MySQLDriver msql = new MySQLDriver();
 		msql.connect();
 		parser newParser = msql.parseDB();
-
+		
 		String username = (String)request.getParameter(stringConstants.USERNAME);
 		String password = (String)request.getParameter(stringConstants.PASSWORD);
+		user loggedInUser;
 		
 		if (newParser.validUsername(username)){
 			//correct password
 			if (newParser.correctPassword(username, password)){
+				loggedInUser = newParser.getUsersMap().get(username);
 				HttpSession session = request.getSession(true);
-				session.setAttribute(stringConstants.USER, username);
+				session.setAttribute(stringConstants.USER, loggedInUser);
 			}
 			//incorrect password
 			else{

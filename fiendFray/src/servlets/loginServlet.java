@@ -13,7 +13,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import base.parser;
 import base.stringConstants;
+import server.MySQLDriver;
 
 
 @WebServlet("/loginServlet")
@@ -22,17 +24,28 @@ public class loginServlet extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//		DataStorage ds = (DataStorage) request.getSession().getAttribute(StringConstants.DATA);
+		MySQLDriver msql = new MySQLDriver();
+		msql.connect();
+		parser newParser = msql.parseDB();
 
 		String username = (String)request.getParameter(stringConstants.USERNAME);
 		String password = (String)request.getParameter(stringConstants.PASSWORD);
-		//if it is a valid username
-		if (password.isEmpty() || password == null){
-			response.getWriter().write("no password provided");
+		
+		if (newParser.validUsername(username)){
+			//correct password
+			if (newParser.correctPassword(username, password)){
+				HttpSession session = request.getSession(true);
+				session.setAttribute(stringConstants.USER, username);
+			}
+			//incorrect password
+			else{
+				response.getWriter().write("Incorrect password");
+			}
 		}
-		else if (username.isEmpty() || username == null){
-			response.getWriter().write("no username provided");
-		}
+		//invalid username
+		else{
+			response.getWriter().write("Invalid username");
+		}	
 	}
 		
 			

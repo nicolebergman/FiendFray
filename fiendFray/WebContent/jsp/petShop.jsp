@@ -21,7 +21,7 @@
 	}
 </script>
 </head>
-<body onload="connectToServer();" style="background-color:#83c0ef;">
+<body onload="connectToServer();" background="../images/clean-pixel-landscape.jpg" style="background-color:#83c0ef;">
 
 <div id="title">
 	<h1>Welcome to the Pet Shop!</h1>

@@ -7,7 +7,7 @@
 }
 #petInfoContainer
 {
-	width: 33%; 
+	width: 50%; 
 	height: 1000px; 
 	float: left; 
 }
@@ -20,18 +20,49 @@
 		
 #battleFeedContainer
 {
-	width:33%;
+	width:25%;
 	height: 1000px; 
 	float: left; 
-	background-color: red;  
 }
-		
 		
 #activeUsersContainer
 {
-	width:33%; 
+	width:25%; 
 	height: 1000px; 
 	float: left; 
-	background-color: black; 
+}
+
+.iconbox {
+    height: 128px;
+    padding: 20px;
+   	width: 100%;
+   	margin: 0 auto;
+}
+.iconbox > div {
+    text-align: center;
+    width: 128px;
+    display: inline-block;
+    margin-right: 60px;
+}
+.iconbox p {
+    margin: 0;
+}
+
+img {
+	width:  100px;
+    height: 100px;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
 		

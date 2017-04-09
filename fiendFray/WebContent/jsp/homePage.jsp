@@ -24,20 +24,33 @@
 		}
 	}
 	
-	function shop() {
-		window.location = "petShop.jsp";
+	function switchPage(page) {
+		window.location = page + ".jsp";
 		socket.send("SwitchPage~");
 		return false;
 	}
 </script>
  <link rel = "stylesheet" type = "text/css" href = "../css/homePage.css" />
 </head>
-<body onload="connectToServer();">
+<body onload="connectToServer();" background="../images/clean-pixel-landscape.jpg" style="background-color:#83c0ef;">
 	<div id="container">
 		<div id="petInfoContainer">
-			<div id="petImage">
+			<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px;"> Welcome Home! </h3>
 			
+			<div class="iconbox">
+			    <div id="bow">
+			        <img src="../images/pet3.png" />
+			        <p>Sparky</p>
+			    </div>
+			    <div id="menus">
+			        <button class="button" onclick="switchPage('battlePage')">Battle!</button>
+			        <button class="button" onclick="switchPage('petShop')">Pet Shop</button>
+			        <button class="button" onclick="switchPage('Leaderboard')">Leaderboard</button>
+			    </div>
 			</div>
+					
+			<br/><br/><br/><br/>
+				
 			<h3>Pet Name</h3>
 			<h3>Level: </h3>
 			<h3>Current EXP: </h3>
@@ -47,13 +60,12 @@
 		</div>
 		
 		<div id="battleFeedContainer">
-			<h3>Event Feed: </h3>
-			<button onclick="shop()">Shop!</button>
+			<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px;"> Event Feed: </h3>
 			<div id="feedtext"></div>
 		</div>
 		
 		<div id="activeUsersContainer">
-			<h3>Active Users</h3>
+			<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px;"> Active Users </h3>
 			<div id="usertext"></div>
 		</div>
 	</div>

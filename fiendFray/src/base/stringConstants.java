@@ -5,6 +5,8 @@ public class stringConstants {
 	//user fields
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
+	public static final String PETNAME = "petname";
+	public static final String PET = "pet";
 
 	//servlets
 	public static final String FILE_CHOOSER_SERVLET = "/FileChooserServlet";
@@ -18,4 +20,5 @@ public class stringConstants {
 	public static final String FULL_NAME = "fullname";
 	public static final String JSP_EXT = "jsp/";
 	public static final String HOME_PAGE_JSP = "homePage.jsp";
+
 }

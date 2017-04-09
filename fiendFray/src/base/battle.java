@@ -72,7 +72,7 @@ public class battle {
 		
 		for(int i=1; i<3; ++i)
 		{
-			for(j=1; j<3; ++j)
+			for(int j=1; j<3; ++j)
 			{
 				board[i][j] = new card(); 
 			}
@@ -88,17 +88,17 @@ public class battle {
 		//Add placing card log
 		if(board[coord.x][coord.y] != null)
 		{
-			board[x][y] = userCard; 
+			board[coord.x][coord.y] = userCard; 
 			return true; 
 		}
 		return false; 
 		
 	}
-	
+	/** DEBUG
 	public int calcDamage(ArrayList<card> hand, user user1){
 		return user1.playHand(hand);
 	}
-	
+	**/
 	public void gameLoop(){
 		//TO DO
 		//as long as both pets have current HP > 0, keep looping
@@ -149,7 +149,7 @@ public class battle {
 		while(true)
 		{
 			System.out.println("Please enter a x coordinate");
-			String temp; 
+			String temp = ""; 
 			if(scan.hasNextLine())
 			{
 				temp = scan.nextLine();
@@ -174,7 +174,7 @@ public class battle {
 		while(true)
 		{
 			System.out.println("Please enter a y coordinate");
-			String temp; 
+			String temp = ""; 
 			if(scan.hasNextLine())
 			{
 				temp = scan.nextLine();
@@ -415,7 +415,7 @@ public class battle {
 		for(pokerHand hand : madePokerHands)
 		{
 			String handName = convertPokerHandToString(hand); 
-			damage += currentUser.getUserPet().calculateDamage(handName)
+			damage += currentUser.getUserPet().calculateDamage(handName);
 		}
 		//get the opponent's index by flipping whatever the current layer's index is
 		int opponentIndex = getCurrentPlayerIndex();

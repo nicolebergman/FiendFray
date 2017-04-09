@@ -91,10 +91,9 @@ public class pet {
 		currentHP -= damage; 
 	}
 	
-	public int calculateDamage(ArrayList<card> hand){
+	public int calculateDamage(String handName){
 		//pass the hand to the weapon
-		//weapon.returnDamage(hand)
-		return 0;
+		equippedWeapon.returnDamage(handName)
 	}
 	
 	public void levelUp()

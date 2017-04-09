@@ -23,12 +23,14 @@ public class battle {
 	
 	private enum pokerHand
 	{
+		NOTHING,
 		PAIR,
 		TWOPAIR,
 		THREEOFAKIND,
 		FOUROFAKIND,
 		FIVEOFAKIND,
-		STRAIGHT
+		STRAIGHT, 
+		FULLHOUSE
 	};
 	
 	private ArrayList<user> allUsers;
@@ -100,7 +102,7 @@ public class battle {
 	public void gameLoop(){
 		//TO DO
 		//as long as both pets have current HP > 0, keep looping
-		while(!hasGameEnded())
+		while(true)
 		{
 			drawCard();
 			//whole chunk below is just asking player to place 2 cards somewhere
@@ -124,8 +126,17 @@ public class battle {
 			//checks if the placed card creates any hands
 			checkBoard(coord1, coord2); 
 			determineHand(); 
-			//deal damage
+			dealDamage();
+			if(!hasGameEnded())
+			{
+				endTurn(); 
+			}
+			else
+			{
+				break; 
+			}
 		}
+		endGame(); 
 		
 	}
 	
@@ -306,12 +317,18 @@ public class battle {
 		}
 		for(ArrayList<card> hand : allHandCombos)
 		{
-			checkHandIsStraight(hand); 
-			checkHandForSameValue(hand); 
+			
+			boolean b1 = checkHandIsStraight(hand); 
+			boolean b2 = checkHandForSameValue(hand);
+			//if both these are false. There is no valid hand. Add nothing to the madePokerHand array
+			if(!b1 && !b2)
+			{
+				madePokerHands.add(pokerHand.NOTHING);
+			}
 		}
 		
 	}
-	void checkHandIsStraight(ArrayList<card> hand)
+	boolean checkHandIsStraight(ArrayList<card> hand)
 	{
 		Collections.sort(hand);
 		int prevValue = hand.get(0).getValue(); 
@@ -319,14 +336,15 @@ public class battle {
 		{
 			if(hand.get(i).getValue() - prevValue != 1)
 			{
-				return; 
+				return false; 
 			}
 		}
-		madePokerHands.add(pokerHand.STRAIGHT);  
+		madePokerHands.add(pokerHand.STRAIGHT);
+		return true;
 	}
 	
 	//checks for pair 3 of a kind etc 
-	void checkHandForSameValue(ArrayList<card> hand)
+	boolean checkHandForSameValue(ArrayList<card> hand)
 	{
 		int[] valueArray = new int[13];
 		//initialise the count of each value to 0 
@@ -340,6 +358,7 @@ public class battle {
 			valueArray[card.getValue()] += 1; 
 		}
 		int pairCount =0; 
+		int threeOfAKindCount = 0; 
 		for(int i=0; i<13; ++i)
 		{
 			switch(valueArray[i])
@@ -351,7 +370,7 @@ public class battle {
 			}
 			case 3:
 			{
-				madePokerHands.add(pokerHand.THREEOFAKIND);
+				threeOfAKindCount++;;
 				break; 
 			}
 			case 4:
@@ -369,17 +388,83 @@ public class battle {
 			}
 			}
 		}
-		if(pairCount == 1)
+		if(pairCount == 1 && threeOfAKindCount == 0)
 		{
 			madePokerHands.add(pokerHand.PAIR);
+		}
+		else if(pairCount == 1 && threeOfAKindCount ==1)
+		{
+			madePokerHands.add(pokerHand.FULLHOUSE);
 		}
 		else if(pairCount==2)
 		{
 			madePokerHands.add(pokerHand.TWOPAIR);
 		}
+		if(madePokerHands.size() == 0)
+		{
+			return false; 
+		}
+		return true;
+	}
+	
+	void dealDamage()
+	{
+		user currentUser = allUsers.get(getCurrentPlayerIndex()); 
+		int damage =0; 
+		for(pokerHand hand : madePokerHands)
+		{
+			String handName = convertPokerHandToString(hand); 
+			damage += currentUser.getUserPet().calculateDamage(handName)
+		}
+		//get the opponent's index by flipping whatever the current layer's index is
+		int opponentIndex = getCurrentPlayerIndex();
+		if(opponentIndex == 0)
+		{
+			opponentIndex = 1; 
+		}
+		else
+		{
+			opponentIndex = 0; 
+		}
+		user opponent = allUsers.get(opponentIndex); 
+		opponent.takeDamage(damage);
+	}
+	
+	String convertPokerHandToString(pokerHand hand)
+	{
+		switch(hand)
+		{
+	
+		case NOTHING:
+			return "nothing";
+		case PAIR:
+			return "onePair";
+		case TWOPAIR:
+			return "twoPair";
+		case THREEOFAKIND:
+			return "threeKind";
+		case STRAIGHT:
+			return "straight";
+		case FOUROFAKIND:
+			return "fourKind";
+		case FIVEOFAKIND:
+			return "fiveKind";
+		case FULLHOUSE:
+			return "fullhouse";
+		default:
+			return "";
+		}
+	
+			
+	}
+	
+	//switch the turn of the players
+	void endTurn()
+	{
+		bUser2Turn = !bUser2Turn; 
 	}
 	//returns true if only 1 pet has HP left 
-	public boolean hasGameEnded()
+	boolean hasGameEnded()
 	{
 		for(int i=0; i<allUsers.size(); ++i)
 		{
@@ -392,6 +477,7 @@ public class battle {
 		}
 		return false; 
 	}
+	
 	public void endGame(){
 		//TO DO
 		//Add EndGame stuff

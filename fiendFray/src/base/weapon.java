@@ -36,12 +36,12 @@ public class weapon {
 		return price;
 	}
 	
-	public int returnDamage(ArrayList<card> pokerHand) {
+	public int returnDamage(String handName) {
 		//TODO:
 		//figure out what kind of pokerHand it is
 		//pass it to our HashMap
 		//get back the damage and return it
-		return damage;
+		return handToDamage.get(handName);
 	}
 
 	public HashMap<String, Integer> getHandToDamage() {

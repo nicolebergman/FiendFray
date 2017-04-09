@@ -104,6 +104,7 @@ public class battle {
 		//as long as both pets have current HP > 0, keep looping
 		while(true)
 		{
+			printBoard(); 
 			drawCard();
 			//whole chunk below is just asking player to place 2 cards somewhere
 			int cardIndex1= promptPlayerChooseCard();
@@ -481,5 +482,38 @@ public class battle {
 	public void endGame(){
 		//TO DO
 		//Add EndGame stuff
+	}
+	
+	//DEBUG
+	void printBoard()
+	{
+		
+		for(int i=0; i<5; ++i)
+		{
+			for(int j=0; j<5; ++j)
+			{
+				card cardValue = board[i][j]; 
+				if(cardValue != null)
+				{
+					System.out.print(cardValue.getCardInfo());
+				}
+				else
+				{
+					System.out.print(" ");
+				}
+				System.out.println("");
+			}
+		}
+		
+		int index = this.getCurrentPlayerIndex();
+		user currentUser = allUsers.get(index); 
+		ArrayList<card> userCurrentHand = currentUser.getCurrentHand(); 
+		for(card card : userCurrentHand)
+		{
+			System.out.print(card.getCardInfo());
+		}
+		int maxHP = currentUser.getUserPet().getMaxHP(); 
+		int currentHP = currentUser.getUserPet().getCurrentHP(); 
+		System.out.print("HP: " + currentHP + "/" + maxHP);
 	}
 }

@@ -10,6 +10,8 @@ public class user {
 	private int gems;
 	private boolean isGuest;
 	
+	//debug
+	
 	public user(String username, String password, pet userPet){
 		this.username = username;
 		this.password = password;
@@ -82,9 +84,6 @@ public class user {
 	public void emptyHand(){
 		this.currentHand.clear(); 
 	}
-	public int playHand(ArrayList<card> hand){
-		return this.userPet.calculateDamage(hand);
-	}
 	
 	public card chooseCardFromHand(int index)
 	{
@@ -105,6 +104,11 @@ public class user {
 	{
 		return currentHand.get(index);
 	}
+	public ArrayList<card> getCurrentHand()
+	{
+		return currentHand; 
+	}
+	
 	public void takeDamage(int damage)
 	{
 		userPet.takeDamage(damage);

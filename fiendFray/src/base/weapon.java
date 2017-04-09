@@ -18,6 +18,19 @@ public class weapon {
 	//fiveKind
 	public weapon() {
 		handToDamage = new HashMap<String, Integer>();
+		//debug 
+		handToDamage.put("nothing", 1);
+		handToDamage.put("onePai", 2);
+		handToDamage.put("twoPair", 3);
+		handToDamage.put("threeKind", 4);
+		handToDamage.put("straight", 5);
+		handToDamage.put("fullHouse", 6);
+		handToDamage.put("fourKind", 7);
+		handToDamage.put("fiveKind", 10);
+
+
+
+
 	}
 	
 	public void setImgURL(String imgURL) {

@@ -31,6 +31,7 @@ public class battle {
 		allUsers.add(user2); 
 		onlineUsers = new ArrayList<user>();
 		board= new card[5][5];
+		initialiseBoard(); 
 		//the player who initiates the battle starts first
 		bUser2Turn = false;
 		allHandCombos = new ArrayList< ArrayList<card> >(); 
@@ -43,6 +44,24 @@ public class battle {
 		int currentUserIndex = bUser2Turn ? 1 : 0; 
 		allUsers.get(currentUserIndex).addCardToHand(new card());
 		allUsers.get(currentUserIndex).addCardToHand(new card());
+	}
+	void initialiseBoard()
+	{
+		for(int i=0; i< 5; ++i)
+		{
+			for(int j=0; j<5; ++j)
+			{
+				board[i][j] = null; 
+			}
+		}
+		
+		for(int i=1; i<3; ++i)
+		{
+			for(j=1; j<3; ++j)
+			{
+				board[i][j] = new card(); 
+			}
+		}
 	}
 	
 	public card[][] getBoard(){
@@ -80,6 +99,8 @@ public class battle {
 				System.out.println("Incorrect info given. Try again");
 				continue;
 			}
+			//checks if the placed card creates any hands
+			checkBoard(); 
 			
 			//deal damage
 		}
@@ -181,86 +202,91 @@ public class battle {
 		return currentPlayer; 
 	}
 	//Checks to see if I have a 5 card combo
-	void checkBoard()
+	void checkBoard(coordinate coord1, coordinate coord2)
 	{
-		checkHorizontal(); 
-		checkVertical(); 
-		checkDiagonal(); 
+		//ust checks if the placed cards were in the corners
+		checkHorizontal(coord1); 
+		checkHorizontal(coord2); 
+		checkVertical(coord1); 
+		checkVertical(coord2); 
+		checkLeftDiagonal(); 
+		checkRightDiagonal(); 
 	}
 	
-	void checkHorizontal()
+	void checkHorizontal(coordinate coord)
 	{
+		int y = coord.y;
+		ArrayList hand = new ArrayList<card>(); 
 		for(int i=0; i<5; ++i)
 		{
-			ArrayList currentHand = new ArrayList<card>(); 
-			for(int j=0, count =0 ; count<5; ++count)
-			{
-				currentHand.add(board[i][j]); 
-			}
-			if(!currentHand.contains(null))
-			{
-				allHandCombos.add(currentHand);
-			}
+			hand.add(board[i][y]); 
 		}
-	}
-	
-	void checkVertical()
-	{
-		for(int i=0, count=0; ; count<5; ++count)
+		if(!hand.contains(null))
 		{
-			ArrayList currentHand = new ArrayList<card>(); 
-			for(int j=0; j<5; ++j)
-			{
-				currentHand.add(board[i][j]); 
-			}
-			if(!currentHand.contains(null))
-			{
-				allHandCombos.add(currentHand);
-			}
+			allHandCombos.add(hand); 
 		}
 	}
 	
+	void checkVertical(coordinate coord)
+	{
+		ArrayList hand = new ArrayList<card> (); 
+		int x = coord.x; 
+		for(int i =0; i<5; ++i)
+		{
+			hand.add(board[x][i]);
+		}
+		if(!hand.contains(null))
+		{
+			allHandCombos.add(hand); 
+		}
+	}
 	void checkLeftDiagonal()
 	{
+		ArrayList hand = new ArrayList<card> ();
 		for(int i=0; i<5; ++i)
 		{
-			ArrayList currentHand = new ArrayList<card>(); 
 			for(int j=0; j<5; ++j)
 			{
-				if(i == j)
+				if(i ==j)
 				{
-					currentHand.add(board[i][j]); 
+					hand.add(board[i][j]);
 				}
 			}
-			if(!currentHand.contains(null))
-			{
-				allHandCombos.add(currentHand);
-			}
+		}
+		if(!hand.contains(null))
+		{
+			allHandCombos.add(hand);
 		}
 	}
 	
 	void checkRightDiagonal()
 	{
-		for(int i=4; i>-1; --i)
+		ArrayList hand = new ArrayList<card> (); 
+		int i = 4; 
+		int j = 0; 
+		for(int count=0; count<4; count++)
 		{
-			ArrayList currentHand = new ArrayList<card>(); 
-			for(int j=0; j<5; ++j)
-			{
-				if(i + j == 5)
-				{
-					currentHand.add(board[i][j]); 
-				}
-			}
-			if(!currentHand.contains(null))
-			{
-				allHandCombos.add(currentHand);
-			}
+			hand.add(board[i][j]);
+			i--; 
+			j++; 
+		}
+		if(!hand.contains(null))
+		{
+			allHandCombos.add(hand);
 		}
 	}
 	//Check what the hand is. Pair, 2 pair, 3 of a kind etc
-	void determineHand(ArrayList<card> hand )
+	void determineHand()
 	{
+		if(allHandCombos.isEmpty())
+		{
+			return; 
+		}
 		
+	}
+	boolean checkHandIsStraight(ArrayList<card> hand)
+	{
+		hand.sort(c);
 	}
 	//returns true if only 1 pet has HP left 
 	public boolean hasGameEnded()

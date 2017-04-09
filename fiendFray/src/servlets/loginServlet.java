@@ -34,18 +34,18 @@ public class loginServlet extends HttpServlet {
 		user loggedInUser;
 		
 		if (newParser.validUsername(username)){
-			//correct password
+			// correct password
 			if (newParser.correctPassword(username, password)){
 				loggedInUser = newParser.getUsersMap().get(username);
 				HttpSession session = request.getSession(true);
 				session.setAttribute(stringConstants.USER, loggedInUser);
 			}
-			//incorrect password
+			// incorrect password
 			else{
 				response.getWriter().write("Incorrect password");
 			}
 		}
-		//invalid username
+		// invalid username
 		else{
 			response.getWriter().write("Invalid username");
 		}	

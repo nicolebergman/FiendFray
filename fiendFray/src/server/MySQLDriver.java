@@ -110,11 +110,13 @@ public class MySQLDriver {
 				int maxHP = rs.getInt("maxHP");
 				int currentHP = rs.getInt("currentHp");
 				int weaponID = rs.getInt("weaponID");
+				String imgURL = "/images/pet"+id+".png";
 				pet newPet = new pet();
 				newPet.setCurrentHP(currentHP);
 				newPet.setCurrentLevel(currentLevel);
 				newPet.setMaxHP(maxHP);
 				newPet.setName(petName);
+				newPet.setImageURL(imgURL);
 				newPet.setEquppedWeapon(newParser.getAllWeapons().get(weaponID-1));
 				newParser.getAllUsers().get(id-1).setUserPet(newPet);
 			}

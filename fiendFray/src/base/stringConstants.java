@@ -6,7 +6,7 @@ public class stringConstants {
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
 	public static final String PETNAME = "petname";
-	public static final String PET = "pet";
+	public static final String PETIMAGEURL = "petImageURL";
 
 	//servlets
 	public static final String FILE_CHOOSER_SERVLET = "/FileChooserServlet";

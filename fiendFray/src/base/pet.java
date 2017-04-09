@@ -96,7 +96,7 @@ public class pet {
 	
 	public int calculateDamage(String handName){
 		//pass the hand to the weapon
-		equippedWeapon.returnDamage(handName)
+		return equippedWeapon.returnDamage(handName);
 	}
 	
 	public void levelUp()

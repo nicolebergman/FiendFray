@@ -20,6 +20,7 @@ public class MySQLDriver {
 	private Connection conn;
 	private PreparedStatement ps;
 	private ResultSet rs;
+	
 	public MySQLDriver(){
 		try{
 			new com.mysql.jdbc.Driver();
@@ -46,7 +47,10 @@ public class MySQLDriver {
 		}
 	}
 	
-
+	public void addUser(user newUser){
+		
+	}
+	
 	public parser parseDB(){
 		parser newParser = new parser();
 		try {

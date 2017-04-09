@@ -50,6 +50,8 @@
 				        	<div class="inner"><input type="radio" name="<%=stringConstants.PET %>" value="pet3"> Pet 3</div>
 					 	</form>
     				</div> 
+    				Pet's Name
+    				<br>
     				<input type="text" name="<%=stringConstants.PETNAME %>" id="<%=stringConstants.PETNAME %>" placeholder="Pet's Name">
 					 
 				<br>

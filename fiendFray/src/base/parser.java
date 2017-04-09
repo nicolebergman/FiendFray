@@ -27,6 +27,10 @@ public class parser {
 		usersMap.put(username, newUser);
 	}
 	
+	public HashMap<String, user> getUsersMap() {
+		return usersMap;
+	}
+	
 	public ArrayList<user> getAllUsers(){
 		return allUsers;
 	}

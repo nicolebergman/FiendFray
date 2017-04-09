@@ -1,26 +1,48 @@
 package base;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class parser {
 	private ArrayList<battle> currentBattles;
 	private ArrayList<user> allUsers;
 	private ArrayList<weapon> allWeapons;
+	private HashMap<String, user> usersMap;
+	
 	private shop currentShop;
 	
 	public parser(){
 		currentBattles = new ArrayList<battle>();
 		allUsers = new ArrayList<user>();
 		allWeapons = new ArrayList<weapon>();
+		usersMap = new HashMap<String, user>();
 		currentShop = new shop();
 	}
 	
 	public void addUser(user newUser){
 		allUsers.add(newUser);
 	}
+	
+	public void addToUserMap(String username, user newUser) {
+		usersMap.put(username, newUser);
+	}
+	
 	public ArrayList<user> getAllUsers(){
 		return allUsers;
 	}
+	
+	
+	
+	// validation functions
+	// check is username is valid
+	 public Boolean validUsername(String username) {
+		 return allUsers.contains(username);
+	 }
+	 // check if password is valid
+	 public Boolean correctPassword(String username, String password) {
+		 return usersMap.get(username).getPassword().equals(password); 
+	 }
+	
 	
 	public void addWeapon(weapon newWeapon){
 		allWeapons.add(newWeapon);

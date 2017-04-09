@@ -33,7 +33,7 @@ public class MySQLDriver {
 	
 	public void connect(){
 		try{
-			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=chrisnick&useSSL=false");
+			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=january9th&useSSL=false");
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -48,38 +48,7 @@ public class MySQLDriver {
 	}
 	
 	public void addUser(user newUser){
-		String insertPet = "INSERT INTO pets (petName, currentLevel, currentXP, requiredXPToLevelUp, maxHP, currentHP, weaponID) VALUES (?, 1, 0, 100, 30, 30, 1);";
-		try {
-			ps = conn.prepareStatement(insertPet);
-			ps.setString(1, newUser.getUserPet().getName());
-			rs = ps.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String insertUser = "INSERT INTO users (username, pass, gems, isGuest) VALUES (?, ?, 10, false)";
-		try {
-			ps = conn.prepareStatement(insertUser);
-			ps.setString(1, newUser.getUsername());
-			ps.setString(2, newUser.getPassword());
-			rs = ps.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void updateUser(user newUser){
-		//TO DO:
-//		String insert = "INSERT INTO pets (petName, currentLevel, currentXP, requiredXPToLevelUp, maxHP, currentHP, weaponID) VALUES (?, 1, 0, 100, 30, 30, 1);";
-//		try {
-//			ps = conn.prepareStatement(insert);
-//			ps.setString(1, newUser.getUserPet().getName());
-//			rs = ps.executeQuery();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		
 	}
 	
 	public parser parseDB(){
@@ -99,6 +68,7 @@ public class MySQLDriver {
 				newUser.setGuest(isGuest);
 				newUser.setGems(gems);
 				newParser.addUser(newUser);
+				newParser.addToUserMap(username, newUser);
 			}
 			ps = conn.prepareStatement("SELECT * FROM weapons");
 			rs = ps.executeQuery();

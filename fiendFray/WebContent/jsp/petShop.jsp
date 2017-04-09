@@ -13,17 +13,10 @@
 		// create connection to server
 		socket = new WebSocket("ws://localhost:8080/fiendFray/fiendFrayServer");
 	}
-	function sendMessage() {
-		socket.send("Yuvan - " + document.chatform.message.value);
-		// do not submit the form
-		return false;
-	}
-	function shop() {
-		window.location = "petShop.jsp";
-		return false;
-	}
-	function buy() {
-		socket.send("Someone bought a weapon!");
+	
+	// notify other user's that weapon was bought
+	function buy(weapon) {
+		socket.send("Someone bought a " + weapon + "!");
 		return false;
 	}
 </script>
@@ -47,19 +40,19 @@
         <img src="../images/weapon_1.png" />
         <p>Bow and Arrow</p>
         <p>Price: 10</p>
-        <button class="button" onclick="buy()">Buy</button>
+        <button class="button" onclick="buy('bow and arrow')">Buy</button>
     </div>
     <div id="club">
         <img src="../images/weapon_2.png" />
         <p>Club</p>
         <p>Price: 10</p>
-        <button class="button">Buy</button>
+        <button class="button" onclick="buy('club')">Buy</button>
     </div>
     <div id="hammer">
         <img src="../images/weapon_3.png" />
         <p>Hammer</p>
         <p>Price: 10</p>
-        <button class="button">Buy</button>
+        <button class="button" onclick="buy('hammer')">Buy</button>
     </div>
 </div>
 
@@ -70,19 +63,19 @@
         <img src="../images/weapon_4.png" />
         <p>Dual Swords</p>
         <p>Price: 10</p>
-        <button class="button">Buy</button>
+        <button class="button" onclick="buy('dual sword')">Buy</button>
     </div>
     <div id="staff">
         <img src="../images/weapon_5.png" />
         <p>Staff</p>
         <p>Price: 10</p>
-        <button class="button">Buy</button>
+        <button class="button" onclick="buy('staff')">Buy</button>
     </div>
     <div id="lasergun">
         <img src="../images/weapon_6.png" />
         <p>Laser Gun</p>
         <p>Price: 10</p>
-        <button class="button">Buy</button>
+        <button class="button" onclick="buy('laser gun')">Buy</button>
     </div>
 </div>
 	

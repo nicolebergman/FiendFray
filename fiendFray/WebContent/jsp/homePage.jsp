@@ -8,6 +8,7 @@
 <script>
 	// scope socket correctly
 	var socket;
+	
 	function connectToServer() {
 		// create connection to server
 		socket = new WebSocket("ws://localhost:8080/fiendFray/fiendFrayServer");
@@ -21,17 +22,11 @@
 		socket.onmessage = function(event) {
 			document.getElementById("feedtext").innerHTML += event.data + "<br />";
 		}
-		socket.onclose = function(event) {
-			document.getElementById("feedtext").innerHTML += "Closing...<br />";
-		}
 	}
-	function sendMessage() {
-		socket.send("Yuvan - " + document.chatform.message.value);
-		// do not submit the form
-		return false;
-	}
+	
 	function shop() {
 		window.location = "petShop.jsp";
+		socket.send("SwitchPage~");
 		return false;
 	}
 </script>

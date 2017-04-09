@@ -1,4 +1,4 @@
-//called in login.jsp, file_chooser.jsp, and sign_up.jsp
+//called in loginPage.jsp and signUo.jsp
 //parameters:
 //servletName -- servlet that the ajax call will go to
 //jspName -- window location to navigate to if there was no error
@@ -16,7 +16,7 @@ function errorCheck (servletName, jspName, paramArgs, numArgs, errorDivName){
 	for (let i = 1; i<numArgs; i++){
 		url += "&"+paramArgs[i]+"="+document.getElementById(paramArgs[i]).value;
 	}
-	//send synchronous ajax call to servelt
+	//send synchronous ajax call to servlet
 	xhttp.open("GET", url, false);
 	xhttp.send();
 	//if we got a response text, there must have been an error

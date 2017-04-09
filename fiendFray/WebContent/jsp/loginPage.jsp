@@ -8,11 +8,11 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato:700i" rel="stylesheet">
-	<script src="../js/main.js" type="text/javascript"></script>
+	<script src="../main.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id = "title_container">
-		Welcome to Fiend Fray!
+		Welcome to Pets and Battles 201!
 	</div>
 	<div id = "welcome_text">
 		Please log in, register, or sign in as a guest:

@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 import base.stringConstants;
 
 
-@WebServlet("/LoginServlet")
+@WebServlet("/loginServlet")
 public class loginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,19 +27,13 @@ public class loginServlet extends HttpServlet {
 		String username = (String)request.getParameter(stringConstants.USERNAME);
 		String password = (String)request.getParameter(stringConstants.PASSWORD);
 		//if it is a valid username
-//		if (ds.validUsername(username)){
-//			//correct password
-//			if (ds.correctPassword(username, password)){
-//				ds.setLoggedInUser(username);
-//			}
-//			//incorrect password
-//			else{
-//				response.getWriter().write("Incorrect password");
-//			}
-//		}
-		//invalid username
-//		else{
-//			response.getWriter().write("Invalid username");
-//		}	
+		if (password.isEmpty() || password == null){
+			response.getWriter().write("no password provided");
+		}
+		else if (username.isEmpty() || username == null){
+			response.getWriter().write("no username provided");
+		}
 	}
+		
+			
 }

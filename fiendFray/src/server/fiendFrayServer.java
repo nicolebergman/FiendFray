@@ -14,20 +14,10 @@ import javax.websocket.server.ServerEndpoint;
 public class fiendFrayServer {
 	// only once instance through all instances of this class
 	private static Vector<Session> sessionVector = new Vector<Session>();
-	
+		
 	@OnOpen
 	public void open(Session session) {
 		System.out.println("user has connected to server!");
-		
-		// notify other users (if any) of new connection
-		try {
-			for(Session s : sessionVector) {
-				// send data back out to all clients
-				s.getBasicRemote().sendText("Someone has entered the fray!");
-			}
-		} catch(IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
-		}
 		
 		// add user to sessions vector
 		sessionVector.add(session);
@@ -38,8 +28,10 @@ public class fiendFrayServer {
 		System.out.println("message: " + message);
 		try {
 			for(Session s : sessionVector) {
-				// send data back out to all clients
-				s.getBasicRemote().sendText(message);
+				// send data back out to all other clients
+				if(s != session) {
+					s.getBasicRemote().sendText(message);
+				}
 			}
 		} catch(IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
@@ -53,14 +45,14 @@ public class fiendFrayServer {
 		sessionVector.remove(session);
 		
 		// notify other users (if any) of disconnect
-		try {
-			for(Session s : sessionVector) {
-				// send data back out to all clients
-				s.getBasicRemote().sendText("Someone has left the fray!");
-			}
-		} catch(IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
-		}
+//		try {
+//			for(Session s : sessionVector) {
+//				// send data back out to all clients
+//				s.getBasicRemote().sendText("Someone has left the fray!");
+//			}
+//		} catch(IOException ioe) {
+//			System.out.println("ioe: " + ioe.getMessage());
+//		}
 	}
 	
 	@OnError

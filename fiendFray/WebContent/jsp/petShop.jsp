@@ -6,8 +6,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel = "stylesheet" type = "text/css" href = "../css/petShop.css" />
 <title>Pet Shop</title>
+<script>
+	// scope socket correctly
+	var socket;
+	function connectToServer() {
+		// create connection to server
+		socket = new WebSocket("ws://localhost:8080/fiendFray/fiendFrayServer");
+	}
+	function sendMessage() {
+		socket.send("Yuvan - " + document.chatform.message.value);
+		// do not submit the form
+		return false;
+	}
+	function shop() {
+		window.location = "petShop.jsp";
+		return false;
+	}
+	function buy() {
+		socket.send("Someone bought a weapon!");
+		return false;
+	}
+</script>
 </head>
-<body style="background-color:#83c0ef;">
+<body onload="connectToServer();" style="background-color:#83c0ef;">
 
 <div id="title">
 	<h1>Welcome to the Pet Shop!</h1>
@@ -26,7 +47,7 @@
         <img src="../images/weapon_1.png" />
         <p>Bow and Arrow</p>
         <p>Price: 10</p>
-        <button class="button">Buy</button>
+        <button class="button" onclick="buy()">Buy</button>
     </div>
     <div id="club">
         <img src="../images/weapon_2.png" />

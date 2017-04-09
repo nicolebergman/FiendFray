@@ -14,6 +14,9 @@
 		// overriding functions
 		socket.onopen = function(event) {
 			document.getElementById("feedtext").innerHTML += "Welcome to Fiend Fray!<br />";
+			
+			// notify other users of entry
+			socket.send("Someone has entered the fray!");
 		}
 		socket.onmessage = function(event) {
 			document.getElementById("feedtext").innerHTML += event.data + "<br />";
@@ -25,6 +28,10 @@
 	function sendMessage() {
 		socket.send("Yuvan - " + document.chatform.message.value);
 		// do not submit the form
+		return false;
+	}
+	function shop() {
+		window.location = "petShop.jsp";
 		return false;
 	}
 </script>
@@ -46,6 +53,7 @@
 		
 		<div id="battleFeedContainer">
 			<h3>Event Feed: </h3>
+			<button onclick="shop()">Shop!</button>
 			<div id="feedtext"></div>
 		</div>
 		

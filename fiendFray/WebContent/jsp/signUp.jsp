@@ -33,6 +33,7 @@
 				<br>
 				<input type="text" name="<%=stringConstants.PASSWORD %>" id="<%=stringConstants.PASSWORD %>" placeholder="Password">
 				<br>
+				<br>
 				<div id="pets">
 					<img src="../images/pet1.png" style="float: left; 
 					width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
@@ -46,10 +47,19 @@
 					 <div id="outer">
 					 	<form action="">
 					 		<div class="inner"><input type="radio" name="<%=stringConstants.PET %>" value="pet1"> Pet 1</div>
+				        	&nbsp;
+				        	&nbsp;
+				        	&nbsp;
+				        	&nbsp;
 				        	<div class="inner"><input type="radio" name="<%=stringConstants.PET %>" value="pet2"> Pet 2</div>
+				        	&nbsp;
+				        	&nbsp;
+				        	&nbsp;
+				        	&nbsp;
 				        	<div class="inner"><input type="radio" name="<%=stringConstants.PET %>" value="pet3"> Pet 3</div>
 					 	</form>
     				</div> 
+    				<br>
     				Pet's Name
     				<br>
     				<input type="text" name="<%=stringConstants.PETNAME %>" id="<%=stringConstants.PETNAME %>" placeholder="Pet's Name">

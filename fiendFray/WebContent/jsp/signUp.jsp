@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="../css/login.css">
 	<link rel="stylesheet" href="../css/signUp.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato:700i" rel="stylesheet">
-	<script src="../js/main.js" type="text/javascript"></script>
+	<script src="../main.js" type="text/javascript"></script>
 
 </head>
 <body>

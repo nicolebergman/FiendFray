@@ -28,6 +28,10 @@ public class parser {
 	public ArrayList<weapon> getAllWeapons(){
 		return allWeapons;
 	}
+	
+	public void setShop(){
+		currentShop.setBuyableWeapons(allWeapons);
+	}
 	public void printInfo(){
 		for(int i=0; i<allUsers.size(); i++){
 			System.out.println("-------------------------");

@@ -85,6 +85,7 @@ public class MySQLDriver {
 				int twoPair = rs.getInt("twoPair");
 				int threeKind = rs.getInt("threeKind");
 				int straight = rs.getInt("straight");
+				int fullHouse = rs.getInt("fullHouse");
 				int fourKind = rs.getInt("fourKind");
 				int fiveKind = rs.getInt("fiveKind");
 				HashMap<String, Integer> handToDamage  = new HashMap<String, Integer>();
@@ -93,6 +94,7 @@ public class MySQLDriver {
 				handToDamage.put("twoPair", twoPair);
 				handToDamage.put("threeKind", threeKind);
 				handToDamage.put("straight", straight);
+				handToDamage.put("fullHouse", fullHouse);
 				handToDamage.put("fourKind", fourKind);
 				handToDamage.put("fiveKind", fiveKind);
 				newParser.getAllWeapons().get(weaponID-1).setHandToDamage(handToDamage);
@@ -113,20 +115,27 @@ public class MySQLDriver {
 				newPet.setCurrentLevel(currentLevel);
 				newPet.setMaxHP(maxHP);
 				newPet.setName(petName);
-				newPet.setEquppedWeapon(newParser.getAllWeapons().get(weaponID));
+				newPet.setEquppedWeapon(newParser.getAllWeapons().get(weaponID-1));
+				newParser.getAllUsers().get(id-1).setUserPet(newPet);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		newParser.printInfo();
+		//newParser.printInfo();
+		newParser.setShop();
 		return newParser;
 	}
 	
-	public static void main(String[] args) {
-		MySQLDriver msql = new MySQLDriver();
-		msql.connect();
-		parser newParser = msql.parseDB();
-	}
+//	MySQLDriver msql = new MySQLDriver();
+//	msql.connect();
+//	parser newParser = msql.parseDB();
+	
+	
+//	public static void main(String[] args) {
+//		MySQLDriver msql = new MySQLDriver();
+//		msql.connect();
+//		parser newParser = msql.parseDB();
+//	}
 
 }

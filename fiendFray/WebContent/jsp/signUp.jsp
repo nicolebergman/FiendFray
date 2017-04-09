@@ -46,17 +46,17 @@
 					 
 					 <div id="outer">
 					 	<form action="">
-					 		<div class="inner"><input type="radio" name="<%=stringConstants.PET %>" value="pet1"> Pet 1</div>
+					 		<div class="inner"><input type="radio" name="<%=stringConstants.PETIMAGEURL %>" value="pet1"> Pet 1</div>
 				        	&nbsp;
 				        	&nbsp;
 				        	&nbsp;
 				        	&nbsp;
-				        	<div class="inner"><input type="radio" name="<%=stringConstants.PET %>" value="pet2"> Pet 2</div>
+				        	<div class="inner"><input type="radio" name="<%=stringConstants.PETIMAGEURL %>" value="pet2"> Pet 2</div>
 				        	&nbsp;
 				        	&nbsp;
 				        	&nbsp;
 				        	&nbsp;
-				        	<div class="inner"><input type="radio" name="<%=stringConstants.PET %>" value="pet3"> Pet 3</div>
+				        	<div class="inner"><input type="radio" name="<%=stringConstants.PETIMAGEURL %>" value="pet3"> Pet 3</div>
 					 	</form>
     				</div> 
     				<br>

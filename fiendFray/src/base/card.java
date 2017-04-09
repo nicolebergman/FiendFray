@@ -2,7 +2,7 @@ package base;
 
 import java.util.Random;
 
-public class card {
+public class card implements Comparable<card>{
 	
 	private String info;
 	private int value; 
@@ -30,11 +30,27 @@ public class card {
 		this.imgURL = imgURL;
 	}
 	
+	public int getValue()
+	{
+		return value; 
+	}
+	
+	public void setValue(int value)
+	{
+		this.value = value; 
+	}
+	
 //	public int randomCardValue() { //RNG to get a random card 
 //		// to do
 //		Random rand = new Random(); 
 //		int value = rand.nextInt(50);	// max is 50
 //		return value;
 //	}
+	
+	public int compareTo(card otherCard)
+	{
+		int otherCardValue = otherCard.getValue(); 
+		return this.value - otherCardValue; 
+	}
 
 }

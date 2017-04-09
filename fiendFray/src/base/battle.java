@@ -1,15 +1,10 @@
 package base;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class battle {
-	private ArrayList<user> allUsers;
-	private ArrayList<user> onlineUsers;
-	private card[][] board;
-	private boolean bUser2Turn;
-	private int winnerIndex;
-	private ArrayList< ArrayList<card> > allHandCombos; 
 	private class coordinate
 	{
 		public int x; 
@@ -25,6 +20,24 @@ public class battle {
 			this.y = y; 
 		}
 	};
+	
+	private enum pokerHand
+	{
+		PAIR,
+		TWOPAIR,
+		THREEOFAKIND,
+		FOUROFAKIND,
+		FIVEOFAKIND,
+		STRAIGHT
+	};
+	
+	private ArrayList<user> allUsers;
+	private ArrayList<user> onlineUsers;
+	private card[][] board;
+	private boolean bUser2Turn;
+	private int winnerIndex;
+	private ArrayList< ArrayList<card> > allHandCombos; 
+	private ArrayList<pokerHand> madePokerHands; 
 	public battle(user user1, user user2){
 		allUsers = new ArrayList<user>();
 		allUsers.add(user1); 
@@ -90,18 +103,27 @@ public class battle {
 		while(!hasGameEnded())
 		{
 			drawCard();
-			int cardIndex = promptPlayerChooseCard();
+			//whole chunk below is just asking player to place 2 cards somewhere
+			int cardIndex1= promptPlayerChooseCard();
 			user currentUser = allUsers.get(getCurrentPlayerIndex());
-			card cardToPlay = currentUser.getCardAtIndex(cardIndex);	
-			coordinate coord = promptToPlaceCard();
-			if(!placeCard(cardToPlay, coord))
+			card cardToPlay1 = currentUser.getCardAtIndex(cardIndex1);	
+			coordinate coord1 = promptToPlaceCard();
+			if(!placeCard(cardToPlay1, coord1))
+			{
+				System.out.println("Incorrect info given. Try again");
+				continue;
+			}
+			int cardIndex2= promptPlayerChooseCard();
+			card cardToPlay2 = currentUser.getCardAtIndex(cardIndex2);	
+			coordinate coord2 = promptToPlaceCard();
+			if(!placeCard(cardToPlay2, coord2))
 			{
 				System.out.println("Incorrect info given. Try again");
 				continue;
 			}
 			//checks if the placed card creates any hands
-			checkBoard(); 
-			
+			checkBoard(coord1, coord2); 
+			determineHand(); 
 			//deal damage
 		}
 		
@@ -282,11 +304,79 @@ public class battle {
 		{
 			return; 
 		}
+		for(ArrayList<card> hand : allHandCombos)
+		{
+			checkHandIsStraight(hand); 
+			checkHandForSameValue(hand); 
+		}
 		
 	}
-	boolean checkHandIsStraight(ArrayList<card> hand)
+	void checkHandIsStraight(ArrayList<card> hand)
 	{
-		hand.sort(c);
+		Collections.sort(hand);
+		int prevValue = hand.get(0).getValue(); 
+		for(int i=1; i<5; ++i)
+		{
+			if(hand.get(i).getValue() - prevValue != 1)
+			{
+				return; 
+			}
+		}
+		madePokerHands.add(pokerHand.STRAIGHT);  
+	}
+	
+	//checks for pair 3 of a kind etc 
+	void checkHandForSameValue(ArrayList<card> hand)
+	{
+		int[] valueArray = new int[13];
+		//initialise the count of each value to 0 
+		for(int i=0; i<13; ++i)
+		{
+			valueArray[i] = 0; 
+		}
+		//increment the index
+		for(card card : hand)
+		{
+			valueArray[card.getValue()] += 1; 
+		}
+		int pairCount =0; 
+		for(int i=0; i<13; ++i)
+		{
+			switch(valueArray[i])
+			{
+			case 2:
+			{
+				pairCount++;
+				break; 
+			}
+			case 3:
+			{
+				madePokerHands.add(pokerHand.THREEOFAKIND);
+				break; 
+			}
+			case 4:
+			{
+				madePokerHands.add(pokerHand.FOUROFAKIND);
+				break; 
+			}
+			case 5: 
+			{
+				madePokerHands.add(pokerHand.FIVEOFAKIND);
+			}
+			default:
+			{
+				break; 
+			}
+			}
+		}
+		if(pairCount == 1)
+		{
+			madePokerHands.add(pokerHand.PAIR);
+		}
+		else if(pairCount==2)
+		{
+			madePokerHands.add(pokerHand.TWOPAIR);
+		}
 	}
 	//returns true if only 1 pet has HP left 
 	public boolean hasGameEnded()

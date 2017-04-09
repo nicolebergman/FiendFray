@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -46,11 +47,10 @@ public class signUpServlet extends HttpServlet {
 		else if (petName.isEmpty() || petName == null) {
 			response.getWriter().write("no pet name provided");
 		}
-//		else if (ds.validUsername(username)){
-//			response.getWriter().write("username has already been chosen");
-//		}
+		else if (newParser.validUsername(username)){
+			response.getWriter().write("username has already been chosen");
+		}
 		else{
-			
 				//create a user object
 				user user = new user();
 				user.setPassword(password);
@@ -65,10 +65,8 @@ public class signUpServlet extends HttpServlet {
 				newPet.setEquppedWeapon(newParser.getAllWeapons().get(0));
 				user.setUserPet(newPet);
 				msql.addUser(user);
-				//add the user to the database
-//				ds.addUser(user);
-//				//set the loggedin user to be the new user
-//				ds.setLoggedInUser(user.getUsername());
+				HttpSession session = request.getSession(true);
+				session.setAttribute(stringConstants.USER, user);
 		}
 	}
 }

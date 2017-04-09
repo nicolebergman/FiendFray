@@ -20,7 +20,7 @@ import base.user;
 import server.MySQLDriver;
 
 
-@WebServlet("/loginServlet")
+@WebServlet("/loginGuestServlet")
 public class loginGuestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -25,7 +25,6 @@ public class loginGuestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		MySQLDriver msql = new MySQLDriver();
 		msql.connect();
 		parser newParser = msql.parseDB();
@@ -41,6 +40,7 @@ public class loginGuestServlet extends HttpServlet {
 		guestPet.setImageURL("/images/pet1.png");
 		guestPet.setMaxHP(30);
 		guestPet.setName("Guest Pet");
+		newGuest.setUserPet(guestPet);
 		newParser.addUser(newGuest);
 		HttpSession session = request.getSession(true);
 		session.setAttribute(stringConstants.USER, newGuest);

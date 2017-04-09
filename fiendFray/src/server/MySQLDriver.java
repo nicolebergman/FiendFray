@@ -58,11 +58,12 @@ public class MySQLDriver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String insertUser = "INSERT INTO users (username, pass, gems, isGuest) VALUES (?, ?, 10, false)";
+		String insertUser = "INSERT INTO users (username, pass, gems, isGuest) VALUES (?, ?, 10, ?)";
 		try {
 			ps = conn.prepareStatement(insertUser);
 			ps.setString(1, newUser.getUsername());
 			ps.setString(2, newUser.getPassword());
+			ps.setBoolean(3, newUser.isGuest());
 			rs = ps.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

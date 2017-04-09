@@ -5,6 +5,40 @@
 	background-color: green;
 }
 
+#shop {
+	background-color: #1978c1;
+}
+
+#shopTitle {
+	text-align: center;
+}
+
+#currentMoney {
+	text-align: center;
+}
+
+.iconbox {
+    height: 128px;
+    padding: 20px;
+   	width: 60%;
+   	margin: 0 auto;
+}
+.iconbox > div {
+    text-align: center;
+    width: 128px;
+    display: inline-block;
+    margin-left: 40px;
+    margin-right: 60px;
+}
+.iconbox p {
+    margin: 0;
+}
+
+img {
+	width:  100px;
+    height: 100px;
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;

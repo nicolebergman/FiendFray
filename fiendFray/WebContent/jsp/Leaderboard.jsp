@@ -41,5 +41,18 @@
     <td>kcin</td>
   </tr>
 </table>
+
+<div class="iconbox">
+    <div id="swords">
+        <img src="../images/pet1.png" />
+    </div>
+    <div id="staff">
+        <img src="../images/pet2.png" />
+    </div>
+    <div id="lasergun">
+        <img src="../images/pet3.png" />
+    </div>
+</div>
+
 </body>
 </html>

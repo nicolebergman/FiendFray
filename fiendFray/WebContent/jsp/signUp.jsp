@@ -34,13 +34,13 @@
 				<input type="text" name="<%=stringConstants.PASSWORD %>" id="<%=stringConstants.PASSWORD %>" placeholder="Password">
 				<br>
 				<div id="pets">
-					<img src="../images/paw-print.png" style="float: left; 
+					<img src="../images/pet1.png" style="float: left; 
 					width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
 					
-					<img src="../images/paw-print.png" style="float: left;
+					<img src="../images/pet2.png" style="float: left;
 					 width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
 					 
-					 <img src="../images/paw-print.png" style="float: left;
+					 <img src="../images/pet3.png" style="float: left;
 					 width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
 					 
 					 <div id="outer">

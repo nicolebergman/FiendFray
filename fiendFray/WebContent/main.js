@@ -31,3 +31,14 @@ function errorCheck (servletName, jspName, paramArgs, numArgs, errorDivName){
 	return false;
 	
 }
+
+
+function getRadioValue() {
+	var pet = document.getElementsByName('stringConstants.PETIMAGEURL');
+	var petValue;
+	for(var i = 0; i < pet.length; i++){
+	    if(pet[i].checked){
+	        petValue = pet[i].value;
+	    }
+	}
+}

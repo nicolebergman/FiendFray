@@ -37,26 +37,29 @@
 		<div id="petInfoContainer">
 			<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px;"> Welcome Home! </h3>
 			
-			<div class="iconbox">
-			    <div id="bow">
-			        <img src="../images/pet3.png" />
-			        <p>Sparky</p>
-			    </div>
-			    <div id="menus">
-			        <button class="button" onclick="switchPage('battlePage')">Battle!</button>
-			        <button class="button" onclick="switchPage('petShop')">Pet Shop</button>
-			        <button class="button" onclick="switchPage('Leaderboard')">Leaderboard</button>
-			    </div>
-			</div>
+			<img class="frame" src="../images/frame.png">
+			
+			<img class="petIcon" src="../images/pet2.png">
+			
+			<p class="petName">Sparky</p>
+			
+			<button class="battleButton" onclick="switchPage('battlePage')">Battle!</button>
+			
+			<button class="petShopButton" onclick="switchPage('petShop')">Pet Shop</button>
+			
+			<button class="leaderboardButton" onclick="switchPage('Leaderboard')">Leaderboard</button>
 					
+			<button class="logoutButton" onclick="switchPage('loginPage')">Logout</button>
+			
 			<br/><br/><br/><br/>
-				
-			<h3>Pet Name</h3>
-			<h3>Level: </h3>
-			<h3>Current EXP: </h3>
-			<h3>CurrHP/MaxHP</h3>
-			<h3>Weapon Card</h3>
-			<h3>Weapon Card Damage</h3>
+			
+			<div class="stats">
+				<h3>Level: </h3>
+				<h3>Current EXP: </h3>
+				<h3>CurrHP/MaxHP: </h3>
+				<h3>Weapon Card: </h3>
+				<h3>Weapon Card Damage:</h3>
+			</div>
 		</div>
 		
 		<div id="battleFeedContainer">

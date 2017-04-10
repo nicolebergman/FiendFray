@@ -6,6 +6,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel = "stylesheet" type = "text/css" href = "../css/petShop.css" />
 <title>Pet Shop</title>
+<%@ page import="base.stringConstants" %>
+<%@ page import="base.user" %>
+<%@ page import="base.parser" %>
+<%@ page import="server.MySQLDriver" %>
+<%@ page import="java.util.*" %>
+
+<% 
+	// connect to database
+	MySQLDriver msql = new MySQLDriver();
+	msql.connect();
+	parser newParser = msql.parseDB();
+	ArrayList<user> userList = newParser.getAllUsers();
+	String username = userList.get(0).getUsername();
+	
+	// get current user's name
+	/* user currUser = (user) session.getAttribute(stringConstants.USER);
+	String tempName = currUser.getUsername(); */
+%>
 <script>
 	// scope socket correctly
 	var socket;
@@ -16,7 +34,8 @@
 	
 	// notify other user's that weapon was bought
 	function buy(weapon) {
-		socket.send("Someone bought a " + weapon + "!");
+		var name = "<%= username %>";
+		socket.send(name + " bought a " + weapon + "!");
 		return false;
 	}
 </script>

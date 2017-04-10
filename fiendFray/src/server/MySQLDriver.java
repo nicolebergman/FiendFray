@@ -33,7 +33,7 @@ public class MySQLDriver {
 	
 	public void connect(){
 		try{
-			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=january9th&useSSL=false");
+			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=root&useSSL=false");
 		} catch(SQLException e){
 			e.printStackTrace();
 		}

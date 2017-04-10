@@ -38,6 +38,7 @@
 				  	</form>
 				  	<form action = "${pageContext.request.contextPath}/jsp/homePage.jsp">
 				 		<div class="inner"><input type="submit" value="Log in as Guest" style="width:100px;height:100px;" class="guest" onclick = <%=stringConstants.GUEST_LOGIN_SERVLET %>></div>
+				  	<!-- we should make guest something in the table so the user is never null -->
 				  	</form>
 				  	
 				</div>

@@ -31,6 +31,7 @@ public class loginServlet extends HttpServlet {
 		
 		String username = (String)request.getParameter(stringConstants.USERNAME);
 		String password = (String)request.getParameter(stringConstants.PASSWORD);
+		
 		user loggedInUser;
 		
 		if (newParser.validUsername(username)){
@@ -44,7 +45,6 @@ public class loginServlet extends HttpServlet {
 				response.getWriter().write("Incorrect password");
 			}
 		}
-		// invalid username
 		else{
 			response.getWriter().write("Invalid username");
 		}	

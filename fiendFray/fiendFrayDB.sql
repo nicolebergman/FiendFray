@@ -52,9 +52,10 @@ CREATE TABLE users (
   pass varchar(200) not null,
   gems int(11) not null,
   isGuest boolean,
+  isOnline boolean,
   FOREIGN KEY fk1(id) REFERENCES pets(id)
 );
 
-INSERT INTO users (username, pass, gems, isGuest) VALUES ('nick', 'nick', 10, false);
-INSERT INTO users (username, pass, gems, isGuest) VALUES ('test', 'test', 10, false);
-INSERT INTO users (username, pass, gems, isGuest) VALUES ('jmiller', 'jmiller', 10, false);
+INSERT INTO users (username, pass, gems, isGuest, isOnline) VALUES ('nick', 'nick', 10, false, false);
+INSERT INTO users (username, pass, gems, isGuest, isOnline) VALUES ('test', 'test', 10, false, false);
+INSERT INTO users (username, pass, gems, isGuest, isOnline) VALUES ('jmiller', 'jmiller', 10, false, false);

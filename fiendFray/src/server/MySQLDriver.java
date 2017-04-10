@@ -94,11 +94,13 @@ public class MySQLDriver {
 				String pass = rs.getString("pass");
 				int gems = rs.getInt("gems");
 				boolean isGuest = rs.getBoolean("isGuest");
+				boolean isOnline = rs.getBoolean("isOnline");
 				user newUser = new user();
 				newUser.setUsername(username);
 				newUser.setPassword(pass);
 				newUser.setGuest(isGuest);
 				newUser.setGems(gems);
+				newUser.isOnline=isOnline;
 				newParser.addUser(newUser);
 				newParser.addToUserMap(username, newUser);
 			}

@@ -8,6 +8,7 @@ public class parser {
 	private ArrayList<user> allUsers;
 	private ArrayList<weapon> allWeapons;
 	private HashMap<String, user> usersMap;
+	private ArrayList<user> onlineUsers;
 	
 	private shop currentShop;
 	
@@ -21,6 +22,13 @@ public class parser {
 	
 	public void addUser(user newUser){
 		allUsers.add(newUser);
+		if(newUser.isOnline){
+			onlineUsers.add(newUser);
+		}
+	}
+	
+	public ArrayList<user> getOnlineUsers(){
+		return onlineUsers;
 	}
 	
 	public void addToUserMap(String username, user newUser) {

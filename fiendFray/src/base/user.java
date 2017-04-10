@@ -9,7 +9,7 @@ public class user {
 	private pet userPet;
 	private int gems;
 	private boolean isGuest;
-	
+	public boolean isOnline;
 	//debug
 	
 	public user(String username, String password, pet userPet){

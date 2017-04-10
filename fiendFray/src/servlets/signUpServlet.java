@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +30,7 @@ public class signUpServlet extends HttpServlet {
 		MySQLDriver msql = new MySQLDriver();
 		msql.connect();
 		parser newParser = msql.parseDB();
+		
 		String password = request.getParameter(stringConstants.PASSWORD);
 		String username = request.getParameter(stringConstants.USERNAME);
 		String petImageURL = request.getParameter(stringConstants.PETIMAGEURL);

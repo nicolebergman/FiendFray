@@ -9,7 +9,7 @@ public class user {
 	private pet userPet;
 	private int gems;
 	private boolean isGuest;
-	
+	public boolean isOnline;
 	//debug
 	
 	public user(String username, String password, pet userPet){
@@ -103,6 +103,11 @@ public class user {
 	public card getCardAtIndex(int index)
 	{
 		return currentHand.get(index);
+	}
+	
+	public void removeCardAtIndex(int index)
+	{
+		currentHand.remove(index);
 	}
 	public ArrayList<card> getCurrentHand()
 	{

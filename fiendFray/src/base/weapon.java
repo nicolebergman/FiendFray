@@ -20,7 +20,7 @@ public class weapon {
 		handToDamage = new HashMap<String, Integer>();
 		//debug 
 		handToDamage.put("nothing", 1);
-		handToDamage.put("onePai", 2);
+		handToDamage.put("onePair", 2);
 		handToDamage.put("twoPair", 3);
 		handToDamage.put("threeKind", 4);
 		handToDamage.put("straight", 5);
@@ -54,6 +54,8 @@ public class weapon {
 		//figure out what kind of pokerHand it is
 		//pass it to our HashMap
 		//get back the damage and return it
+		System.out.println("Hash Map Value: "+ handToDamage);
+		System.out.println("Hand Name: "+ handName);
 		return handToDamage.get(handName);
 	}
 

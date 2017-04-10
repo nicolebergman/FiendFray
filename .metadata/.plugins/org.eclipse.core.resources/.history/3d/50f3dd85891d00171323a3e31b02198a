@@ -33,7 +33,7 @@ public class MySQLDriver {
 	
 	public void connect(){
 		try{
-			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=root&useSSL=false");
+			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=chrisnick&useSSL=false");
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -149,7 +149,7 @@ public class MySQLDriver {
 				int maxHP = rs.getInt("maxHP");
 				int currentHP = rs.getInt("currentHp");
 				int weaponID = rs.getInt("weaponID");
-				String imgURL = "../images/pet"+id+".png";
+				String imgURL = "/images/pet"+id+".png";
 				pet newPet = new pet();
 				newPet.setCurrentHP(currentHP);
 				newPet.setCurrentLevel(currentLevel);

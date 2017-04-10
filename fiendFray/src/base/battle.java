@@ -49,16 +49,16 @@ public class battle {
 		initialiseBoard(); 
 		//the player who initiates the battle starts first
 		bUser2Turn = false;
-		allHandCombos = new ArrayList< ArrayList<card> >(); 
+		allHandCombos = new ArrayList< ArrayList<card> >();
+		madePokerHands = new ArrayList<pokerHand>(); 
+		initialiseBoard(); 
+		gameLoop(); 
 	}
-	//Draws 2 cards at the satrt of eqch round automatically 
-	public void drawCard(){
-		//TO DO
-		//Randomly Draw a card
-		//if bUser2Turn = true return 1, else return 0
-		int currentUserIndex = bUser2Turn ? 1 : 0; 
-		allUsers.get(currentUserIndex).addCardToHand(new card());
-		allUsers.get(currentUserIndex).addCardToHand(new card());
+	public static void main(String[] args)
+	{
+		user user1 = new user(); 
+		user user2 = new user(); 
+		new battle(user1, user2); 
 	}
 	void initialiseBoard()
 	{
@@ -70,9 +70,9 @@ public class battle {
 			}
 		}
 		
-		for(int i=1; i<3; ++i)
+		for(int i=1; i<4; ++i)
 		{
-			for(int j=1; j<3; ++j)
+			for(int j=1; j<4; ++j)
 			{
 				board[i][j] = new card(); 
 			}
@@ -82,13 +82,28 @@ public class battle {
 	public card[][] getBoard(){
 		return board;
 	}
+	//Draws 2 cards at the satrt of eqch round automatically 
+	public void drawCard(){
+		//TO DO
+		//Randomly Draw a card
+		//if bUser2Turn = true return 1, else return 0
+		int currentUserIndex = bUser2Turn ? 1 : 0; 
+		allUsers.get(currentUserIndex).addCardToHand(new card());
+		allUsers.get(currentUserIndex).addCardToHand(new card());
+	}
+	
 	//returns true if a card is placed
-	public boolean placeCard(card userCard, coordinate coord){
+	public boolean placeCard(int cardIndex, coordinate coord){
 		//TO DO
 		//Add placing card log
-		if(board[coord.x][coord.y] != null)
+		user currentUser = allUsers.get(getCurrentPlayerIndex());
+		System.out.println("X value: " + coord.x);
+		System.out.println("Y value: "+ coord.y);
+		System.out.println("Board value: "+board[coord.x][coord.y]);
+		
+		if(board[coord.x][coord.y] == null)
 		{
-			board[coord.x][coord.y] = userCard; 
+			board[coord.x][coord.y] = currentUser.getCardAtIndex(cardIndex);
 			return true; 
 		}
 		return false; 
@@ -104,30 +119,43 @@ public class battle {
 		//as long as both pets have current HP > 0, keep looping
 		while(true)
 		{
-			printBoard(); 
 			drawCard();
+			printBoard(); 
 			//whole chunk below is just asking player to place 2 cards somewhere
 			int cardIndex1= promptPlayerChooseCard();
 			user currentUser = allUsers.get(getCurrentPlayerIndex());
 			card cardToPlay1 = currentUser.getCardAtIndex(cardIndex1);	
 			coordinate coord1 = promptToPlaceCard();
-			if(!placeCard(cardToPlay1, coord1))
+			if(!placeCard(cardIndex1, coord1))
 			{
 				System.out.println("Incorrect info given. Try again");
 				continue;
 			}
+			user user = allUsers.get(this.getCurrentPlayerIndex());
+			user.removeCardAtIndex(cardIndex1);
+			
+			printBoard(); 
+			
 			int cardIndex2= promptPlayerChooseCard();
 			card cardToPlay2 = currentUser.getCardAtIndex(cardIndex2);	
 			coordinate coord2 = promptToPlaceCard();
-			if(!placeCard(cardToPlay2, coord2))
+			if(!placeCard(cardIndex2, coord2))
 			{
 				System.out.println("Incorrect info given. Try again");
 				continue;
 			}
+			
+			user.removeCardAtIndex(cardIndex2);
+			
 			//checks if the placed card creates any hands
 			checkBoard(coord1, coord2); 
 			determineHand(); 
 			dealDamage();
+			if(isBoardFull())
+			{
+				initialiseBoard();
+			}
+			
 			if(!hasGameEnded())
 			{
 				endTurn(); 
@@ -243,8 +271,10 @@ public class battle {
 		checkHorizontal(coord2); 
 		checkVertical(coord1); 
 		checkVertical(coord2); 
-		checkLeftDiagonal(); 
-		checkRightDiagonal(); 
+		checkLeftDiagonal(coord1);
+		checkLeftDiagonal(coord2);
+		checkRightDiagonal(coord1);
+		checkRightDiagonal(coord2); 
 	}
 	
 	void checkHorizontal(coordinate coord)
@@ -274,8 +304,15 @@ public class battle {
 			allHandCombos.add(hand); 
 		}
 	}
-	void checkLeftDiagonal()
+	void checkLeftDiagonal(coordinate coord)
 	{
+		boolean bTopLeft = coord.x == 0 && coord.y == 0; 
+		boolean bBottomRight = coord.x == 4 && coord.y == 4; 
+		boolean bShouldCheck = bTopLeft && bBottomRight; 
+		if(!bShouldCheck)
+		{
+			return; 
+		}
 		ArrayList hand = new ArrayList<card> ();
 		for(int i=0; i<5; ++i)
 		{
@@ -293,8 +330,15 @@ public class battle {
 		}
 	}
 	
-	void checkRightDiagonal()
+	void checkRightDiagonal(coordinate coord)
 	{
+		boolean bTopRight = coord.x == 0 && coord.y == 4; 
+		boolean bBottomLeft = coord.x == 4 && coord.y == 0; 
+		boolean bShouldCheck = bTopRight && bBottomLeft; 
+		if(!bShouldCheck)
+		{
+			return; 
+		}
 		ArrayList hand = new ArrayList<card> (); 
 		int i = 4; 
 		int j = 0; 
@@ -410,6 +454,10 @@ public class battle {
 	
 	void dealDamage()
 	{
+		if(madePokerHands.isEmpty())
+		{
+			return; 
+		}
 		user currentUser = allUsers.get(getCurrentPlayerIndex()); 
 		int damage =0; 
 		for(pokerHand hand : madePokerHands)
@@ -458,11 +506,27 @@ public class battle {
 	
 			
 	}
-	
+	boolean isBoardFull()
+	{
+		for(int i=0; i<5; ++i)
+		{
+			for(int j=0; j<5; ++j)
+			{
+				if(board[i][j] == null)
+				{
+					return false; 
+				}
+			}
+		}
+		return true; 
+	}
 	//switch the turn of the players
 	void endTurn()
 	{
-		bUser2Turn = !bUser2Turn; 
+		bUser2Turn = !bUser2Turn;
+		madePokerHands.clear();
+		allHandCombos.clear();
+		
 	}
 	//returns true if only 1 pet has HP left 
 	boolean hasGameEnded()
@@ -495,14 +559,25 @@ public class battle {
 				card cardValue = board[i][j]; 
 				if(cardValue != null)
 				{
-					System.out.print(cardValue.getCardInfo());
+					int print = cardValue.getValue(); 
+					String toPrint = "";
+					if(print < 10)
+					{
+						toPrint = "0"+ Integer.toString(print);
+					}
+					else
+					{
+						toPrint = Integer.toString(print);
+					}
+					System.out.print(toPrint + " ");
 				}
 				else
 				{
-					System.out.print(" ");
+					System.out.print("xx ");
 				}
-				System.out.println("");
 			}
+			System.out.println("");
+
 		}
 		
 		int index = this.getCurrentPlayerIndex();
@@ -510,10 +585,28 @@ public class battle {
 		ArrayList<card> userCurrentHand = currentUser.getCurrentHand(); 
 		for(card card : userCurrentHand)
 		{
-			System.out.print(card.getCardInfo());
+			int print = card.getValue(); 
+			String toPrint = "";
+			if(print < 10)
+			{
+				toPrint = "0"+ Integer.toString(print);
+			}
+			else
+			{
+				toPrint = Integer.toString(print);
+			}
+			System.out.print(toPrint + " ");
 		}
+		System.out.println("");
+		int opponentIndex = (this.getCurrentPlayerIndex() == 0) ? 1 : 0; 
+		user opponent = allUsers.get(opponentIndex);
+		
 		int maxHP = currentUser.getUserPet().getMaxHP(); 
-		int currentHP = currentUser.getUserPet().getCurrentHP(); 
-		System.out.print("HP: " + currentHP + "/" + maxHP);
+		int currentHP = currentUser.getUserPet().getCurrentHP();
+		int maxHPOpponent = opponent.getUserPet().getMaxHP(); 
+		int currentHPOpponent = opponent.getUserPet().getCurrentHP();	
+		System.out.println("Current User HP: " + currentHP + "/" + maxHP);
+		System.out.println("Opponent User HP: " + currentHPOpponent + "/" + maxHPOpponent);
+
 	}
 }

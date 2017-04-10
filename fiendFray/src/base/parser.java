@@ -40,7 +40,7 @@ public class parser {
 	// validation functions
 	// check is username is valid
 	 public boolean validUsername(String username) {
-		 return allUsers.contains(username);
+		 return usersMap.containsKey(username);
 	 }
 	 // check if password is valid
 	 public boolean correctPassword(String username, String password) {

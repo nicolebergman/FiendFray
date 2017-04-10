@@ -17,12 +17,11 @@
 	MySQLDriver msql = new MySQLDriver();
 	msql.connect();
 	parser newParser = msql.parseDB();
-	ArrayList<user> userList = newParser.getAllUsers();
-	String username = userList.get(0).getUsername();
+	//ArrayList<user> userList = newParser.getAllUsers();
 	
 	// get current user's name
-	/* user currUser = (user) session.getAttribute(stringConstants.USER);
-	String tempName = currUser.getUsername(); */
+	user currUser = (user) session.getAttribute(stringConstants.USER);
+	String username = currUser.getUsername();
 %>
 <script>
 	// scope socket correctly

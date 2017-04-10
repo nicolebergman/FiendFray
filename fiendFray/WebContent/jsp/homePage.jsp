@@ -5,6 +5,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Home Page</title>
+<%@ page import="base.stringConstants" %>
+<%@ page import="base.user" %>
+<%@ page import="base.parser" %>
+<%@ page import="server.MySQLDriver" %>
+<%@ page import="java.util.*" %>
+
+<% 
+	//connect to database
+	MySQLDriver msql = new MySQLDriver();
+	msql.connect();
+	parser newParser = msql.parseDB();
+	//ArrayList<user> userList = newParser.getAllUsers();
+	
+	// get current user attributes
+	user currUser = (user) session.getAttribute(stringConstants.USER);
+	String username = currUser.getUsername();
+	String petName = currUser.getUserPet().getName();
+	String petImage = currUser.getUserPet().getImageURL();
+	String petLevel = Integer.toString(currUser.getUserPet().getCurrentLevel());
+	String maxHP = Integer.toString(currUser.getUserPet().getMaxHP());
+	String petExp = Integer.toString(currUser.getUserPet().getCurrentEXP());
+%>
 <script>
 	// scope socket correctly
 	var socket;
@@ -35,13 +57,13 @@
 <body onload="connectToServer();" background="../images/clean-pixel-landscape.jpg" style="background-color:#83c0ef;">
 	<div id="container">
 		<div id="petInfoContainer">
-			<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px;"> Welcome Home! </h3>
+			<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px;"> Welcome <%= username %>! </h3>
 			
 			<img class="frame" src="../images/frame.png">
 			
-			<img class="petIcon" src="../images/pet2.png">
+			<img class="petIcon" src="<%= petImage %>">
 			
-			<p class="petName">Sparky</p>
+			<p class="petName"><%= petName %></p>
 			
 			<button class="battleButton" onclick="switchPage('battlePage')">Battle!</button>
 			
@@ -54,9 +76,9 @@
 			<br/><br/><br/><br/>
 			
 			<div class="stats">
-				<h3>Level: </h3>
-				<h3>Current EXP: </h3>
-				<h3>CurrHP/MaxHP: </h3>
+				<h3>Level: <%= petLevel %></h3>
+				<h3>Current EXP: <%= petExp %></h3>
+				<h3>Max HP: <%= maxHP %></h3>
 				<h3>Weapon Card: </h3>
 				<h3>Weapon Card Damage:</h3>
 			</div>

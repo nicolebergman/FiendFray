@@ -11,13 +11,14 @@ CREATE TABLE handToDamage (
   twoPair int(11) not null,
   threeKind int(11) not null,
   straight int(11) not null,
+  fullHouse int(11) not null,
   fourKind int(11) not null,
   fiveKind int(11) not null
 );
 
-INSERT INTO handToDamage (nothing, onePair, twoPair, threeKind, straight, fourKind, fiveKind) VALUES (0, 1, 2, 4, 5, 7, 10);
-INSERT INTO handToDamage (nothing, onePair, twoPair, threeKind, straight, fourKind, fiveKind) VALUES (1, 2, 4, 8, 10, 14, 20);
-INSERT INTO handToDamage (nothing, onePair, twoPair, threeKind, straight, fourKind, fiveKind) VALUES (2, 4, 8, 16, 20, 28, 40);
+INSERT INTO handToDamage (nothing, onePair, twoPair, threeKind, straight, fullHouse, fourKind, fiveKind) VALUES (0, 1, 2, 3, 5, 7, 8, 10);
+INSERT INTO handToDamage (nothing, onePair, twoPair, threeKind, straight, fullHouse, fourKind, fiveKind) VALUES (0, 2, 4, 6, 8, 12, 14, 20);
+INSERT INTO handToDamage (nothing, onePair, twoPair, threeKind, straight, fullHouse, fourKind, fiveKind) VALUES (0, 3, 5, 7, 9, 14, 16, 24);
 
 CREATE TABLE weapons (
   weaponID int(11) not null,
@@ -41,9 +42,9 @@ CREATE TABLE pets (
   FOREIGN KEY fk1(weaponID) REFERENCES weapons(weaponID)
 );
 
-INSERT INTO pets (petName, currentLevel, currentXP, requiredXPToLevelUp, maxHP, currentHP, weaponID) VALUES ('Banana Cat', 1, 0, 100, 100, 100, 1);
-INSERT INTO pets (petName, currentLevel, currentXP, requiredXPToLevelUp, maxHP, currentHP, weaponID) VALUES ('Apple Dog', 1, 0, 100, 100, 100, 1);
-INSERT INTO pets (petName, currentLevel, currentXP, requiredXPToLevelUp, maxHP, currentHP, weaponID) VALUES ('Silly Birdy', 1, 0, 100, 100, 100, 1);
+INSERT INTO pets (petName, currentLevel, currentXP, requiredXPToLevelUp, maxHP, currentHP, weaponID) VALUES ('Banana Cat', 1, 0, 100, 30, 30, 1);
+INSERT INTO pets (petName, currentLevel, currentXP, requiredXPToLevelUp, maxHP, currentHP, weaponID) VALUES ('Apple Dog', 1, 0, 100, 30, 30, 1);
+INSERT INTO pets (petName, currentLevel, currentXP, requiredXPToLevelUp, maxHP, currentHP, weaponID) VALUES ('Silly Birdy', 1, 0, 100, 30, 30, 1);
 
 CREATE TABLE users (
   id int(11) primary key not null auto_increment,

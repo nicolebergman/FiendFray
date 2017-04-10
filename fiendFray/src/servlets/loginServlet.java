@@ -40,7 +40,6 @@ public class loginServlet extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				session.setAttribute(stringConstants.USER, loggedInUser);
 			}
-			// incorrect password
 			else{
 				response.getWriter().write("Incorrect password");
 			}

@@ -39,11 +39,11 @@ public class parser {
 	
 	// validation functions
 	// check is username is valid
-	 public Boolean validUsername(String username) {
+	 public boolean validUsername(String username) {
 		 return allUsers.contains(username);
 	 }
 	 // check if password is valid
-	 public Boolean correctPassword(String username, String password) {
+	 public boolean correctPassword(String username, String password) {
 		 return usersMap.get(username).getPassword().equals(password); 
 	 }
 	

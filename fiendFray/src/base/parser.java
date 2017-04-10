@@ -27,6 +27,10 @@ public class parser {
 		usersMap.put(username, newUser);
 	}
 	
+	public HashMap<String, user> getUsersMap() {
+		return usersMap;
+	}
+	
 	public ArrayList<user> getAllUsers(){
 		return allUsers;
 	}
@@ -35,11 +39,11 @@ public class parser {
 	
 	// validation functions
 	// check is username is valid
-	 public Boolean validUsername(String username) {
-		 return allUsers.contains(username);
+	 public boolean validUsername(String username) {
+		 return usersMap.containsKey(username);
 	 }
 	 // check if password is valid
-	 public Boolean correctPassword(String username, String password) {
+	 public boolean correctPassword(String username, String password) {
 		 return usersMap.get(username).getPassword().equals(password); 
 	 }
 	

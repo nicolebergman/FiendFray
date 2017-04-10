@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato:700i" rel="stylesheet">
-	<script src="../js/main.js" type="text/javascript"></script>
+	<script src="../main.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id = "title_container">
@@ -36,7 +36,10 @@
 				 	<form action = "${pageContext.request.contextPath}/jsp/signUp.jsp">
 				 		<div class="inner"><input type="submit" value="Register" style="width:60px;height:100px;" class="register" ></div>
 				  	</form>
-				  	<div class="inner"><input type="submit" value="Log in as Guest" style="width:100px;height:100px;" class="guest"></div>
+				  	<form action = "${pageContext.request.contextPath}/jsp/homePage.jsp">
+				 		<div class="inner"><input type="submit" value="Log in as Guest" style="width:100px;height:100px;" class="guest" onclick = <%=stringConstants.GUEST_LOGIN_SERVLET %>></div>
+				  	</form>
+				  	
 				</div>
 			<div class=error_message id = "error_message"> </div>
 		</div>

@@ -14,40 +14,36 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import base.parser;
+import base.pet;
 import base.stringConstants;
 import base.user;
 import server.MySQLDriver;
 
 
-@WebServlet("/loginServlet")
-public class loginServlet extends HttpServlet {
+@WebServlet("/loginGuestServlet")
+public class loginGuestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		MySQLDriver msql = new MySQLDriver();
 		msql.connect();
 		parser newParser = msql.parseDB();
-		
-		String username = (String)request.getParameter(stringConstants.USERNAME);
-		String password = (String)request.getParameter(stringConstants.PASSWORD);
-		user loggedInUser;
-		
-		if (newParser.validUsername(username)){
-			// correct password
-			if (newParser.correctPassword(username, password)){
-				loggedInUser = newParser.getUsersMap().get(username);
-				HttpSession session = request.getSession(true);
-				session.setAttribute(stringConstants.USER, loggedInUser);
-			}
-			else{
-				response.getWriter().write("Incorrect password");
-			}
-		}
-		// invalid username
-		else{
-			response.getWriter().write("Invalid username");
-		}	
+		user newGuest = new user();
+		newGuest.setGems(10);
+		newGuest.setGuest(true);
+		newGuest.setPassword("guest");
+		newGuest.setUsername("Guest"+newParser.getAllUsers().size());
+		pet guestPet = new pet();
+		guestPet.setCurrentHP(30);
+		guestPet.setCurrentLevel(1);
+		guestPet.setEquppedWeapon(newParser.getAllWeapons().get(0));
+		guestPet.setImageURL("/images/pet1.png");
+		guestPet.setMaxHP(30);
+		guestPet.setName("Guest Pet");
+		newGuest.setUserPet(guestPet);
+		newParser.addUser(newGuest);
+		HttpSession session = request.getSession(true);
+		session.setAttribute(stringConstants.USER, newGuest);
 	}
 		
 			

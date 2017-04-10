@@ -6,7 +6,6 @@
 //numArgs -- number of elements in paramArgs
 //errorDivName -- id of the error div
 function errorCheck (servletName, jspName, paramArgs, numArgs, errorDivName){
-	
 	var xhttp = new XMLHttpRequest();
 	//gets the path
 	var path = "/"+window.location.pathname.split("/")[1];

@@ -17,7 +17,8 @@ public class pet {
 		//debug
 		this.name = "p3t";
 		this.maxHP = 30; 
-		this.currentHP = this.maxHP; 
+		this.currentHP = this.maxHP;
+		this.equippedWeapon = new weapon(); 
 	}
 	//GETTERS
 	public String getName()

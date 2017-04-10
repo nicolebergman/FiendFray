@@ -104,6 +104,11 @@ public class user {
 	{
 		return currentHand.get(index);
 	}
+	
+	public void removeCardAtIndex(int index)
+	{
+		currentHand.remove(index);
+	}
 	public ArrayList<card> getCurrentHand()
 	{
 		return currentHand; 

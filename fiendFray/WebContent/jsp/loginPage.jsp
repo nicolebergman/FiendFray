@@ -41,7 +41,8 @@
 				  	</form>
 				  	
 				</div>
-			<div class=error_message id = "error_message"> </div>
+				<div class=error_message id = "error_message"> </div>
+			</div>
 		</div>
 	</div>
 </body>

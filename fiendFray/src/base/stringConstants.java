@@ -10,7 +10,6 @@ public class stringConstants {
 	public static final String PETIMAGEURL = "petImageURL";
 
 	//servlets
-	public static final String FILE_CHOOSER_SERVLET = "/FileChooserServlet";
 	public static final String LOGIN_SERVLET = "/loginServlet";
 	public static final String SIGN_UP_SERVLET = "/signUpServlet";
 	public static final String GUEST_LOGIN_SERVLET = "/loginGuestServlet";

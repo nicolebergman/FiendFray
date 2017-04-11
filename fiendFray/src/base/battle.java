@@ -145,7 +145,10 @@ public class battle {
 			}
 			
 			user.removeCardAtIndex(cardIndex2);
-			
+			if(isBoardFull())
+			{
+				initialiseBoard();
+			}
 			//checks if the placed card creates any hands
 			checkBoard(coord1, coord2); 
 			determineHand(); 
@@ -345,6 +348,7 @@ public class battle {
 	
 	void checkRightDiagonal(coordinate coord)
 	{
+		//only check right diag if it's placed in these 2 positions
 		boolean bTopRight = coord.x == 0 && coord.y == 4; 
 		boolean bBottomLeft = coord.x == 4 && coord.y == 0; 
 		boolean bShouldCheck = bTopRight || bBottomLeft; 
@@ -355,7 +359,7 @@ public class battle {
 		ArrayList hand = new ArrayList<card> (); 
 		int i = 4; 
 		int j = 0; 
-		for(int count=0; count<4; count++)
+		for(int count=0; count<5; count++)
 		{
 			hand.add(board[i][j]);
 			i--; 
@@ -402,6 +406,7 @@ public class battle {
 			{
 				return false; 
 			}
+			prevValue = hand.get(i).getValue(); 
 		}
 		madePokerHands.add(pokerHand.STRAIGHT);
 		return true;

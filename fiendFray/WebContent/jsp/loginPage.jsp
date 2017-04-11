@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div id = "title_container">
-		Welcome to Pets and Battles 201!
+		Welcome to Fiend Fray!
 	</div>
 	<div id = "welcome_text">
 		Please log in, register, or sign in as a guest:

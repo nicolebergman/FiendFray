@@ -107,7 +107,6 @@ public class battle {
 			return true; 
 		}
 		return false; 
-		
 	}
 	/** DEBUG
 	public int calcDamage(ArrayList<card> hand, user user1){
@@ -267,14 +266,28 @@ public class battle {
 	void checkBoard(coordinate coord1, coordinate coord2)
 	{
 		//ust checks if the placed cards were in the corners
+		//all if statements are used to prevent double counting the same row/column/diagonal
 		checkHorizontal(coord1); 
-		checkHorizontal(coord2); 
+		if(coord1.y != coord2.y)
+		{
+			checkHorizontal(coord2); 
+		}
 		checkVertical(coord1); 
-		checkVertical(coord2); 
+		if(coord1.x != coord2.x)
+		{
+			checkVertical(coord2); 
+		}
 		checkLeftDiagonal(coord1);
-		checkLeftDiagonal(coord2);
+		if(coord1.x + coord2.x != 4)
+		{
+			checkLeftDiagonal(coord2);
+		}
+		
 		checkRightDiagonal(coord1);
-		checkRightDiagonal(coord2); 
+		if(coord1.x + coord2.x != 4)
+		{
+			checkRightDiagonal(coord2); 
+		}
 	}
 	
 	void checkHorizontal(coordinate coord)
@@ -308,7 +321,7 @@ public class battle {
 	{
 		boolean bTopLeft = coord.x == 0 && coord.y == 0; 
 		boolean bBottomRight = coord.x == 4 && coord.y == 4; 
-		boolean bShouldCheck = bTopLeft && bBottomRight; 
+		boolean bShouldCheck = bTopLeft || bBottomRight; 
 		if(!bShouldCheck)
 		{
 			return; 
@@ -334,7 +347,7 @@ public class battle {
 	{
 		boolean bTopRight = coord.x == 0 && coord.y == 4; 
 		boolean bBottomLeft = coord.x == 4 && coord.y == 0; 
-		boolean bShouldCheck = bTopRight && bBottomLeft; 
+		boolean bShouldCheck = bTopRight || bBottomLeft; 
 		if(!bShouldCheck)
 		{
 			return; 
@@ -376,6 +389,12 @@ public class battle {
 	boolean checkHandIsStraight(ArrayList<card> hand)
 	{
 		Collections.sort(hand);
+		System.out.print("Sorted Hand: ");
+		for(int i=0; i<hand.size(); ++i)
+		{
+			System.out.print(hand.get(i).getValue() + " ");
+		}
+		System.out.println("");
 		int prevValue = hand.get(0).getValue(); 
 		for(int i=1; i<5; ++i)
 		{
@@ -499,7 +518,7 @@ public class battle {
 		case FIVEOFAKIND:
 			return "fiveKind";
 		case FULLHOUSE:
-			return "fullhouse";
+			return "fullHouse";
 		default:
 			return "";
 		}
@@ -546,6 +565,8 @@ public class battle {
 	public void endGame(){
 		//TO DO
 		//Add EndGame stuff
+		System.out.println("Game Ended.");
+		
 	}
 	
 	//DEBUG

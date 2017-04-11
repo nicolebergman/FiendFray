@@ -10,7 +10,7 @@ public class card implements Comparable<card>{
 	
 	card() {
 		Random rand = new Random(); 
-		value = rand.nextInt(13);	// max is 13 for right now
+		value = rand.nextInt(2);	// max is 13 for right now
 		info=value+"";
 	}
 	

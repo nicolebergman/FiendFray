@@ -109,7 +109,7 @@ public class MySQLDriver {
 			while(rs.next()){
 				int weaponID = rs.getInt("weaponID");
 				int price = rs.getInt("price");
-				String imgURL = "/images/weapon_"+weaponID+".png";
+				String imgURL = "../images/weapon_"+weaponID+".png";
 				weapon newWeapon = new weapon();
 				newWeapon.setPrice(price);
 				newWeapon.setImgURL(imgURL);

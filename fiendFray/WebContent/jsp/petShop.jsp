@@ -34,7 +34,7 @@
 	// notify other user's that weapon was bought
 	function buy(weapon) {
 		var name = "<%= username %>";
-		socket.send(name + " bought a " + weapon + "!");
+		socket.send("Buy~" + name + " bought a " + weapon + "!");
 		return false;
 	}
 </script>
@@ -45,12 +45,14 @@
 	<h1>Welcome to the Pet Shop!</h1>
 </div>
 
-<div id="shopTitle">
+<div id="info">
+	<div id="shopTitle">
 	<h2>Take a look around!</h2>
-</div>
-
-<div id="currentMoney">
-	<h3>Currently held gems: 50</h3>
+	</div>
+	
+	<div id="currentMoney">
+		<h3>Currently held gems: 50</h3>
+	</div>
 </div>
 
 <div class="iconbox">

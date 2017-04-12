@@ -14,7 +14,7 @@ import javax.websocket.server.ServerEndpoint;
 public class fiendFrayServer {
 	// only once instance through all instances of this class
 	private static Vector<Session> sessionVector = new Vector<Session>();
-	private static boolean exitGame = true;
+	//private static boolean exitGame = true;
 		
 	@OnOpen
 	public void open(Session session) {
@@ -34,20 +34,49 @@ public class fiendFrayServer {
 		switch(commands[0]) {
 		case "SwitchPage":
 			// false positive for game exit
-			exitGame = false;
+			//exitGame = false;
 			break;
-		default:
-			// send message to all other clients
+		case "Logout":
+			// notify other users (if any) of disconnect
 			try {
 				for(Session s : sessionVector) {
-					// send data back out to all other clients
+					// send data back out to all clients
 					if(s != session) {
-						s.getBasicRemote().sendText(message);
+						s.getBasicRemote().sendText(commands[1] + " has left the fray!");
 					}
 				}
 			} catch(IOException ioe) {
 				System.out.println("ioe: " + ioe.getMessage());
 			}
+			break;
+		case "UserEnter":
+			// send message to all other clients
+			try {
+				for(Session s : sessionVector) {
+					// send data back out to all other clients
+					if(s != session) {
+						s.getBasicRemote().sendText(commands[1]);
+					}
+				}
+			} catch(IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
+			}
+			break;
+		case "Buy":
+			// send message to all other clients
+			try {
+				for(Session s : sessionVector) {
+					// send data back out to all other clients
+					if(s != session) {
+						s.getBasicRemote().sendText(commands[1]);
+					}
+				}
+			} catch(IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
+			}
+			break;
+		default:
+			System.out.print("nothin' to see here!");
 			break;
 		}
 	}
@@ -57,20 +86,6 @@ public class fiendFrayServer {
 		System.out.println("user has disconnected from server!");
 		
 		sessionVector.remove(session);
-		
-		// notify other users (if any) of disconnect
-		try {
-			for(Session s : sessionVector) {
-				// send data back out to all clients
-				if(exitGame) {
-					s.getBasicRemote().sendText("Someone has left the fray!");
-				} else {
-					exitGame = true;
-				}
-			}
-		} catch(IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
-		}
 	}
 	
 	@OnError

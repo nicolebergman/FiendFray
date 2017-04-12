@@ -7,7 +7,7 @@
 <title>Leaderboard</title>
 <link rel = "stylesheet" type = "text/css" href = "../css/Leaderboard.css" />
 </head>
-<body style="background-color:#83c0ef;">
+<body style="background-color:#83c0ef;" background="../images/clean-pixel-landscape.jpg">
 <div id="title">
 	<h1>Leaderboards</h1>
 </div>

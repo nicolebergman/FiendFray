@@ -16,7 +16,7 @@
 	MySQLDriver msql = new MySQLDriver();
 	msql.connect();
 	parser newParser = msql.parseDB();
-	//ArrayList<user> userList = newParser.getAllUsers();
+	ArrayList<user> onlineUsers = newParser.getOnlineUsers();
 	
 	// get current user attributes
 	user currUser = (user) session.getAttribute(stringConstants.USER);
@@ -39,7 +39,7 @@
 			document.getElementById("feedtext").innerHTML += "Welcome to Fiend Fray!<br />";
 			
 			// notify other users of entry
-			socket.send("Someone has entered the fray!");
+			socket.send("UserEnter~" + "<%= username %>" + " has entered the fray!");
 		}
 		socket.onmessage = function(event) {
 			document.getElementById("feedtext").innerHTML += event.data + "<br />";
@@ -49,6 +49,12 @@
 	function switchPage(page) {
 		window.location = page + ".jsp";
 		socket.send("SwitchPage~");
+		return false;
+	}
+	
+	function Logout(page) {
+		window.location = page + ".jsp";
+		socket.send("Logout~" + "<%= username %>");
 		return false;
 	}
 </script>
@@ -71,7 +77,7 @@
 			
 			<button class="leaderboardButton" onclick="switchPage('Leaderboard')">Leaderboard</button>
 					
-			<button class="logoutButton" onclick="switchPage('loginPage')">Logout</button>
+			<button class="logoutButton" onclick="Logout('loginPage')">Logout</button>
 			
 			<br/><br/><br/><br/>
 			
@@ -91,7 +97,13 @@
 		
 		<div id="activeUsersContainer">
 			<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px;"> Active Users </h3>
-			<div id="usertext"></div>
+			<div id="usertext">
+				<%-- <% 
+					for(user x : onlineUsers) {
+						%> <%= x.getUsername() %> <br/> <%
+					}
+				%> --%>
+			</div>
 		</div>
 	</div>
 </body>

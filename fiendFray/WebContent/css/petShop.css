@@ -3,6 +3,15 @@
 #title {
 	text-align: center;
 	background-color: green;
+	border-radius:20px;
+}
+
+#info {
+	background-color: #9ba1ff;
+	width: 300px;
+	height: 100px;
+	border-radius:20px;
+	margin: 0 auto;
 }
 
 #shop {
@@ -39,15 +48,21 @@ img {
     height: 100px;
 }
 
-.button {
+button {
     background-color: #4CAF50;
     border: none;
     color: white;
-    padding: 10px 32px;
+    padding: 10px 50px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    transition: 0.25s ease-in-out;
+    cusor: pointer;
+}
+
+button:hover {
+	opacity: 0.5;
 }

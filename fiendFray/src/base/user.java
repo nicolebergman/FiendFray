@@ -19,7 +19,6 @@ public class user {
 		this.gems = 10;
 		this.isGuest = false;
 		this.currentHand = new ArrayList<card>();
-		this.isOnline=false;
 	}
 	
 	public user() {
@@ -30,9 +29,8 @@ public class user {
 		this.gems = 10;
 		this.isGuest = true;
 		this.currentHand = new ArrayList<card>();
-		this.isOnline=false;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}

@@ -32,7 +32,8 @@ public class loginGuestServlet extends HttpServlet {
 		newGuest.setGems(10);
 		newGuest.setGuest(true);
 		newGuest.setPassword("guest");
-		newGuest.setUsername("Guest "+newParser.getAllUsers().size()+1);
+		int guestNum=newParser.getAllUsers().size()+1;
+		newGuest.setUsername("Guest "+guestNum);
 		pet guestPet = new pet();
 		guestPet.setCurrentHP(30);
 		guestPet.setCurrentLevel(1);

@@ -36,11 +36,8 @@
 				 	<form action = "${pageContext.request.contextPath}/jsp/signUp.jsp">
 				 		<div class="inner"><input type="submit" value="Register" style="width:60px;height:100px;" class="register" ></div>
 				  	</form>
-				  	<form action = "${pageContext.request.contextPath}/jsp/homePage.jsp">
-				 		<div class="inner"><input type="submit" value="Log in as Guest" style="width:100px;height:100px;" class="guest" onclick = <%=stringConstants.GUEST_LOGIN_SERVLET %>></div>
-				  	<!-- we should make guest something in the table so the user is never null -->
-				  	</form>
-				  	
+				  	<div class="inner"><input type="submit" value="Log In As Guest" style="width:100px;height:100px;" class="entry" 
+				  		onclick = "return errorCheck('<%=stringConstants.GUEST_LOGIN_SERVLET %>', '<%=stringConstants.HOME_PAGE_JSP %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD %>'], 2, 'error_message')"></div>
 				</div>
 				<div class=error_message id = "error_message"> </div>
 			</div>

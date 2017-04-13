@@ -25,7 +25,7 @@
 	<div id = "outer_container">
 		<div id = "inner_container">
 			<div id = "login_container">
-				<form name="schoolform" method="GET" action="<%=stringConstants.SIGN_UP_SERVLET %>">
+				<form name="signupform" method="GET" action="<%=stringConstants.SIGN_UP_SERVLET %>">
 					Username
 					<br>
 					<input type="text" name="<%=stringConstants.USERNAME %>" id="<%=stringConstants.USERNAME %>" placeholder="Username">
@@ -46,17 +46,17 @@
 						 width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
 						 
 						 <div id="outer">
-					 		<div class="inner"><input type="radio" name="<%=stringConstants.PETIMAGEURL %>" value="pet1.png" checked="checked"> Pet 1</div>
+					 		<div class="inner"><input type="radio" name="<%=stringConstants.PETIMAGEURL %>" value="../images/pet1.png" checked="checked"> Pet 1</div>
 				        	&nbsp;
 				        	&nbsp;
 				        	&nbsp;
 				        	&nbsp;
-				        	<div class="inner"><input type="radio" name="<%=stringConstants.PETIMAGEURL %>" value="pet2.png"> Pet 2</div>
+				        	<div class="inner"><input type="radio" name="<%=stringConstants.PETIMAGEURL %>" value="../images/pet2.png"> Pet 2</div>
 				        	&nbsp;
 				        	&nbsp;
 				        	&nbsp;
 				        	&nbsp;
-				        	<div class="inner"><input type="radio" name="<%=stringConstants.PETIMAGEURL %>" value="pet1.png"> Pet 3</div>
+				        	<div class="inner"><input type="radio" name="<%=stringConstants.PETIMAGEURL %>" value="../images/pet3.png"> Pet 3</div>
 						</div>
 						<br>
 						<br>
@@ -65,7 +65,7 @@
     					<input type="text" name="<%=stringConstants.PETNAME %>" id="<%=stringConstants.PETNAME %>" placeholder="Pet's Name">
 						<br>
 						<div class = "submit_button">
-								<input type="submit" style="width:60px;height:100px;" onclick = "return getRadioValue(); return errorCheck('<%=stringConstants.SIGN_UP_SERVLET %>', '<%=stringConstants.HOME_PAGE_JSP %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD %>', '<%=stringConstants.PETIMAGEURL %>', '<%=stringConstants.PETNAME %>'], 4, 'errorDiv')" value="Sign Up">
+								<input type="submit" style="width:60px;height:100px;" onclick = "return errorCheck('<%=stringConstants.SIGN_UP_SERVLET %>', '<%=stringConstants.HOME_PAGE_JSP %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD %>', '<%=stringConstants.PETIMAGEURL %>', '<%=stringConstants.PETNAME %>'], 4, 'errorDiv')" value="Sign Up">
 						</div>
 					</div>
 				</form>

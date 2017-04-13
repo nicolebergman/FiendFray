@@ -37,7 +37,7 @@ public class loginGuestServlet extends HttpServlet {
 		guestPet.setCurrentHP(30);
 		guestPet.setCurrentLevel(1);
 		guestPet.setEquppedWeapon(newParser.getAllWeapons().get(0));
-		guestPet.setImageURL("/images/pet1.png");
+		guestPet.setImageURL("../images/pet1.png");
 		guestPet.setMaxHP(30);
 		guestPet.setName("Guest Pet");
 		newGuest.setUserPet(guestPet);

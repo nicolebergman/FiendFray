@@ -33,8 +33,10 @@ public class signUpServlet extends HttpServlet {
 		
 		String password = request.getParameter(stringConstants.PASSWORD);
 		String username = request.getParameter(stringConstants.USERNAME);
-		String petImageURL = request.getParameter(stringConstants.PETIMAGEURL);
+		String petImageURL = request.getParameter("tableValue");
+//		String petImageURL = "../images/pet1.png";
 		String petName = request.getParameter(stringConstants.PETNAME);
+		System.out.println(stringConstants.PETIMAGEURL + " - " + petImageURL);
 		
 		//check to make sure all the fields were filled out
 		if (password.isEmpty() || password == null){
@@ -43,9 +45,9 @@ public class signUpServlet extends HttpServlet {
 		else if (username.isEmpty() || username == null){
 			response.getWriter().write("no username provided");
 		}
-		else if (petImageURL.isEmpty() || petImageURL == null) {
-			response.getWriter().write("no pet selected");
-		}
+//		else if (petImageURL.isEmpty() || petImageURL == null) {
+//			response.getWriter().write("no pet selected");
+//		}
 		else if (petName.isEmpty() || petName == null) {
 			response.getWriter().write("no pet name provided");
 		}

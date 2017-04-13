@@ -32,14 +32,14 @@ public class loginGuestServlet extends HttpServlet {
 		newGuest.setGems(10);
 		newGuest.setGuest(true);
 		newGuest.setPassword("guest");
-		newGuest.setUsername("Guest "+newParser.getAllUsers().size()+1);
+		newGuest.setUsername("Guest"+newParser.getAllUsers().size());
 		pet guestPet = new pet();
 		guestPet.setCurrentHP(30);
 		guestPet.setCurrentLevel(1);
 		guestPet.setEquppedWeapon(newParser.getAllWeapons().get(0));
 		guestPet.setImageURL("../images/pet1.png");
 		guestPet.setMaxHP(30);
-		guestPet.setName("Guest");
+		guestPet.setName("Guest Pet");
 		newGuest.setUserPet(guestPet);
 		newParser.addUser(newGuest);
 		HttpSession session = request.getSession(true);

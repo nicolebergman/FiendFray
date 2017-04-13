@@ -48,7 +48,7 @@ img {
     height: 100px;
 }
 
-button {
+.button {
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -61,6 +61,24 @@ button {
     cursor: pointer;
     transition: 0.25s ease-in-out;
     cusor: pointer;
+}
+
+.homeButton {
+	background-color: #f49541;
+    border: none;
+    color: white;
+    padding: 10px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+    cusor: pointer;
+    position: absolute;
+  	top: 100px;
+  	left: 50px;
 }
 
 button:hover {

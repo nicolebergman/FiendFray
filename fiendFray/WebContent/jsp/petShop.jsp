@@ -38,9 +38,17 @@
 		socket.send("Buy~" + name + " bought a " + weapon + "!");
 		return false;
 	}
+	
+	function switchPage(page) {
+		window.location = page + ".jsp";
+		socket.send("SwitchPage~");
+		return false;
+	}
 </script>
 </head>
 <body onload="connectToServer();" background="../images/clean-pixel-landscape.jpg" style="background-color:#83c0ef;">
+
+<button class="homeButton" onclick="switchPage('homePage')">Go Home</button>
 
 <div id="title">
 	<h1>Welcome to the Pet Shop!</h1>

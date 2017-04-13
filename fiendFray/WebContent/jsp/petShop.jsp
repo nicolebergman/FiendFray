@@ -22,6 +22,7 @@
 	// get current user's name
 	user currUser = (user) session.getAttribute(stringConstants.USER);
 	String username = currUser.getUsername();
+	int currGems = currUser.getGems();
 %>
 <script>
 	// scope socket correctly
@@ -51,7 +52,7 @@
 	</div>
 	
 	<div id="currentMoney">
-		<h3>Currently held gems: 50</h3>
+		<h3>Currently held gems: <%= currGems %></h3>
 	</div>
 </div>
 

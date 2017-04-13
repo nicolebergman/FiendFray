@@ -26,6 +26,30 @@
 	String petLevel = Integer.toString(currUser.getUserPet().getCurrentLevel());
 	String maxHP = Integer.toString(currUser.getUserPet().getMaxHP());
 	String petExp = Integer.toString(currUser.getUserPet().getCurrentEXP());
+	String weaponImage = currUser.getUserPet().getEquippedWeapon().getImgURL();
+	String weaponName = "";
+	
+	// match weapon image with name
+	switch(weaponImage) {
+	case "../images/weapon_1.png":
+		weaponName = "Bow and Arrow";
+		break;
+	case "../images/weapon_2.png":
+		weaponName = "Club";
+		break;
+	case "../images/weapon_3.png":
+		weaponName = "Hammer";
+		break;
+	case "../images/weapon_4.png":
+		weaponName = "Dual Swords";
+		break;
+	case "../images/weapon_5.png":
+		weaponName = "Staff";
+		break;
+	case "../images/weapon_6.png":
+		weaponName = "Laser Gun";
+		break;
+	}
 %>
 <script>
 	// scope socket correctly
@@ -85,8 +109,8 @@
 				<h3>Level: <%= petLevel %></h3>
 				<h3>Current EXP: <%= petExp %></h3>
 				<h3>Max HP: <%= maxHP %></h3>
-				<h3>Weapon Card: </h3>
-				<h3>Weapon Card Damage:</h3>
+				<h3>Weapon Card: <%= weaponName %></h3>
+				<h3>Weapon Card Multiplier: TODO</h3>
 			</div>
 		</div>
 		

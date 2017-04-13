@@ -10,7 +10,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:700i" rel="stylesheet">
 	<script src="../main.js" type="text/javascript"></script>
 </head>
-<body>
+<body background="../images/clean-pixel-landscape.jpg">
 	<div id = "title_container">
 		Welcome to Fiend Fray!
 	</div>
@@ -31,12 +31,12 @@
 				<br><br>
 				
 				<div id="outer">
-					<div class="inner"><input type="submit" value="Log In" style="width:50px;height:100px;" class="entry" 
+					<div class="inner"><input class="button" type="submit" value="Log In" class="entry" 
 				  		onclick = "return errorCheck('<%=stringConstants.LOGIN_SERVLET %>', '<%=stringConstants.HOME_PAGE_JSP %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD %>'], 2, 'error_message')"></div>
 				 	<form action = "${pageContext.request.contextPath}/jsp/signUp.jsp">
-				 		<div class="inner"><input type="submit" value="Register" style="width:60px;height:100px;" class="register" ></div>
+				 		<div class="inner"><input class="button" type="submit" value="Register" class="register" ></div>
 				  	</form>
-				  	<div class="inner"><input type="submit" value="Log In As Guest" style="width:100px;height:100px;" class="entry" 
+				  	<div class="inner"><input class="button" type="submit" value="Log In As Guest" class="entry" 
 				  		onclick = "return errorCheck('<%=stringConstants.GUEST_LOGIN_SERVLET %>', '<%=stringConstants.HOME_PAGE_JSP %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD %>'], 2, 'error_message')"></div>
 				</div>
 				<div class=error_message id = "error_message"> </div>

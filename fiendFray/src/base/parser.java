@@ -17,6 +17,7 @@ public class parser {
 		allUsers = new ArrayList<user>();
 		allWeapons = new ArrayList<weapon>();
 		usersMap = new HashMap<String, user>();
+		onlineUsers = new ArrayList<user>();
 		currentShop = new shop();
 	}
 	

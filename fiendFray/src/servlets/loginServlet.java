@@ -38,6 +38,7 @@ public class loginServlet extends HttpServlet {
 			// correct password
 			if (newParser.correctPassword(username, password)){
 				loggedInUser = newParser.getUsersMap().get(username);
+				msql.updateUser(loggedInUser);
 				HttpSession session = request.getSession(true);
 				session.setAttribute(stringConstants.USER, loggedInUser);
 			}

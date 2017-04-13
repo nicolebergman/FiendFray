@@ -33,7 +33,7 @@ public class MySQLDriver {
 	
 	public void connect(){
 		try{
-			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=root&useSSL=false");
+			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=chrisnick&useSSL=false");
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -72,16 +72,16 @@ public class MySQLDriver {
 	}
 	
 	public void updateUser(user newUser){
-		//TO DO:
-//		String insert = "INSERT INTO pets (petName, currentLevel, currentXP, requiredXPToLevelUp, maxHP, currentHP, weaponID) VALUES (?, 1, 0, 100, 30, 30, 1);";
-//		try {
-//			ps = conn.prepareStatement(insert);
-//			ps.setString(1, newUser.getUserPet().getName());
-//			rs = ps.executeQuery();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
+		try {
+			ps = conn.prepareStatement("UPDATE users SET isOnline=? WHERE username=?");
+			ps.setBoolean(1, newUser.isOnline);
+			ps.setString(2, newUser.getUsername());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 	
 	public parser parseDB(){
 		parser newParser = new parser();

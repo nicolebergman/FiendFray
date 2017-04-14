@@ -65,20 +65,7 @@ public class battle extends Thread{
 		//new battle(user1, user2); 
 	}
 	
-	public void run()
-	{
-		while(true)
-		{
-			if(isBoardFull())
-			{
-				initialiseBoard();
-			}
-			//checks if the placed card creates any hands
-			//checkBoard(coord1, coord2); 
-			determineHand(); 
-			dealDamage();
-		}
-	}
+	
 	
 	void joinBattle(user user)
 	{
@@ -179,7 +166,14 @@ public class battle extends Thread{
 			{
 				initialiseBoard();
 			}
-			
+			if(isBoardFull())
+			{
+				initialiseBoard();
+			}
+			//checks if the placed card creates any hands
+			//checkBoard(coord1, coord2); 
+			determineHand(); 
+			dealDamage();
 			if(!hasGameEnded())
 			{
 				endTurn(); 

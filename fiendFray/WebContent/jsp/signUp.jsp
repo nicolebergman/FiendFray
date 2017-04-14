@@ -10,7 +10,18 @@
 	<link rel="stylesheet" href="../css/signUp.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato:700i" rel="stylesheet">
 	<script src="../main.js" type="text/javascript"></script>
-
+	<script type="text/javascript">
+  	function handleClick(clickedId) {
+  		console.log(clickedId);
+   		if(clickedId == "pet1") {
+   			document.getElementById('tableTextId').value = "../images/pet1.png";
+   		}
+     	else if (clickedId == "pet2") {
+     		document.getElementById('tableTextId').value = "../images/pet2.png";
+     	}	
+     	else document.getElementById('tableTextId').value = "../images/pet3.png";
+  	}
+	</script>
 </head>
 <body>
 
@@ -57,7 +68,7 @@
 								<div class="inner"><input type="radio" id="pet3" name="pet" 
 									value = "../images/pet3.png" onclick="handleClick(this.id);"></div> 
 							 </label> 
-							 <input type="hidden" name="tableValue" id="tableTextId" />
+							 <input type="hidden" name="<%=stringConstants.PETIMAGEURL %>" id="tableTextId" />
 						</div>
 						<br>
 						<br>
@@ -66,24 +77,13 @@
     					<input type="text" name="<%=stringConstants.PETNAME %>" id="<%=stringConstants.PETNAME %>" placeholder="Pet's Name">
 						<br>
 						<div class = "submit_button">
-							<input type="submit" style="width:60px;height:100px;" onclick = "return errorCheck('<%=stringConstants.SIGN_UP_SERVLET %>', '<%=stringConstants.HOME_PAGE_JSP %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD %>', <%-- '<%=stringConstants.PETIMAGEURL %>', --%> '<%=stringConstants.PETNAME %>'], 3, 'errorDiv')" value="Sign Up">
+							<input type="submit" style="width:60px;height:100px;" onclick = "return errorCheck('<%=stringConstants.SIGN_UP_SERVLET %>', '<%=stringConstants.HOME_PAGE_JSP %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD %>', '<%=stringConstants.PETNAME %>'], 3, 'errorDiv')" value="Sign Up">
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 		<div id = "errorDiv" class=error_message></div>
-	</div>
-	<script type="text/javascript">
-  	function handleClick(clickedId) {
-   		if(clickedId == "pet1") {
-   			document.getElementById('tableTextId').value = "../images/pet1.png";
-   		}
-     	else if (clickedId == "pet2") {
-     		document.getElementById('tableTextId').value = "../images/pet2.png";
-     	}	
-     	else document.getElementById('tableTextId').value = "../images/pet3.png";
-  	}
-	</script>	
+	</div>	
 </body>
 </html>

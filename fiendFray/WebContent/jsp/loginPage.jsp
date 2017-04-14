@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato:700i" rel="stylesheet">
-	<script src="../main.js" type="text/javascript"></script>
+	<script src="../main2.js" type="text/javascript"></script>
 </head>
 <body background="../images/clean-pixel-landscape.jpg">
 	<div id = "title_container">

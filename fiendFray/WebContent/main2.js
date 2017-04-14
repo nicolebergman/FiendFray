@@ -6,22 +6,15 @@
 //numArgs -- number of elements in paramArgs
 //errorDivName -- id of the error div
 function errorCheck (servletName, jspName, paramArgs, numArgs, errorDivName){
-	console.log(servletName);
-	console.log(paramArgs);
-	console.log(numArgs);
 	var xhttp = new XMLHttpRequest();
 	//gets the path
 	var path = "/"+window.location.pathname.split("/")[1];
 	//create url with first parameter from paramArgs
-	var url = path + servletName;
-	url = url +"?"+encodeURIComponent(paramArgs[0])+"="+encodeURIComponent(document.getElementById(paramArgs[0]).value);
-	url = url +"&"+encodeURIComponent(paramArgs[1])+"="+encodeURIComponent(document.getElementById(paramArgs[1]).value);
-	url = url +"&"+encodeURIComponent(paramArgs[2])+"="+encodeURIComponent(document.getElementById(paramArgs[2]).value);
-	url = url +"&"+encodeURIComponent('petImageURL')+"="+encodeURIComponent(document.getElementById('tableTextId').value);
+	var url = path + servletName+"?"+paramArgs[0]+"="+document.getElementById(paramArgs[0]).value;
 	//append the rest of the elements in paramArgs
-//	for (let i = 1; i<numArgs; i++){
-//		url += "&" + encodeURIComponent(paramArgs[i]) + "=" + encodeURIComponent(document.getElementById(paramArgs[i]).value);
-//	}
+	for (let i = 1; i<numArgs; i++){
+		url += "&"+paramArgs[i]+"="+document.getElementById(paramArgs[i]).value;
+	}
 	//send synchronous ajax call to servlet
 	xhttp.open("GET", url, false);
 	xhttp.send();
@@ -37,4 +30,15 @@ function errorCheck (servletName, jspName, paramArgs, numArgs, errorDivName){
 	
 	return false;
 	
+}
+
+
+function getRadioValue() {
+	var pet = document.getElementsByName('stringConstants.PETIMAGEURL');
+	var petValue;
+	for(var i = 0; i < pet.length; i++){
+	    if(pet[i].checked){
+	        petValue = pet[i].value;
+	    }
+	}
 }

@@ -1,0 +1,74 @@
+@CHARSET "UTF-8";
+html
+{
+	height: 100%;
+}
+
+body
+{
+	height: 100%; 
+}
+#container
+{
+	height: 100%
+}
+
+#opponentContainer
+{
+	height: 20%; 
+	background-color: red; 
+}
+		
+#cardContainer
+{
+	height: 60%; 
+	background-color: green; 
+}
+
+#cardArray
+{
+	 padding-top: 20px;
+	 width: 30%;
+	 position: absolute; 
+	 left: 40% 	
+}
+
+.card
+{
+	float: left;
+	padding: 10px; 
+	margin-top: 10px;
+	margin-bottom: 10px; 
+	margin-left: 20px; 
+	margin-right: 20px; 
+	height: 50px; 
+	width: 25px; 
+	background-color: black; 
+}
+
+.cardRow
+{
+	clear: both; 
+}											
+#currentPlayerContainer
+{
+	height: 20%; 
+	background-color: blue; 
+}
+.hpDisplay
+{
+	float: left; 
+	margin-left: 50px;
+	position: relative;
+	top: 40px; 
+	color: white;
+}
+.playerCards
+{
+	height: 50%;
+	width: 25%;
+	position: relative;
+	top: 40px; 
+	float: right; 
+	
+}

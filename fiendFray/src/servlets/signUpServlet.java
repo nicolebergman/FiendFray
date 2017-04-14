@@ -27,14 +27,19 @@ public class signUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MySQLDriver msql = new MySQLDriver();
-		msql.connect();
-		parser newParser = msql.parseDB();
-		
 		String password = request.getParameter(stringConstants.PASSWORD);
 		String username = request.getParameter(stringConstants.USERNAME);
 		String petImageURL = request.getParameter(stringConstants.PETIMAGEURL);
+//		String petImageURL = "../images/pet1.png";
 		String petName = request.getParameter(stringConstants.PETNAME);
+		System.out.println(stringConstants.PASSWORD + " ----- " + password);
+		System.out.println(stringConstants.USERNAME + " ----- " + username);
+		System.out.println(stringConstants.PETNAME + " ----- " + petName);
+		System.out.println(stringConstants.PETIMAGEURL + " ----- " + petImageURL);
+		
+		MySQLDriver msql = new MySQLDriver();
+		msql.connect();
+		parser newParser = msql.parseDB();
 		
 		//check to make sure all the fields were filled out
 		if (password.isEmpty() || password == null){
@@ -43,9 +48,9 @@ public class signUpServlet extends HttpServlet {
 		else if (username.isEmpty() || username == null){
 			response.getWriter().write("no username provided");
 		}
-		else if (petImageURL.isEmpty() || petImageURL == null) {
-			response.getWriter().write("no pet selected");
-		}
+//		else if (petImageURL.isEmpty() || petImageURL == null) {
+//			response.getWriter().write("no pet selected");
+//		}
 		else if (petName.isEmpty() || petName == null) {
 			response.getWriter().write("no pet name provided");
 		}

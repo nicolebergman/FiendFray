@@ -60,6 +60,7 @@ public class battle {
 		user user2 = new user(); 
 		new battle(user1, user2); 
 	}
+	
 	void initialiseBoard()
 	{
 		for(int i=0; i< 5; ++i)
@@ -79,11 +80,13 @@ public class battle {
 		}
 	}
 	
-	public card[][] getBoard(){
+	public card[][] getBoard()
+	{
 		return board;
 	}
-	//Draws 2 cards at the satrt of eqch round automatically 
-	public void drawCard(){
+	//Draws 2 cards at the start of eqch round automatically 
+	public void drawCard()
+	{
 		//TO DO
 		//Randomly Draw a card
 		//if bUser2Turn = true return 1, else return 0
@@ -93,7 +96,8 @@ public class battle {
 	}
 	
 	//returns true if a card is placed
-	public boolean placeCard(int cardIndex, coordinate coord){
+	public boolean placeCard(int cardIndex, coordinate coord)
+	{
 		//TO DO
 		//Add placing card log
 		user currentUser = allUsers.get(getCurrentPlayerIndex());
@@ -113,7 +117,8 @@ public class battle {
 		return user1.playHand(hand);
 	}
 	**/
-	public void gameLoop(){
+	public void gameLoop()
+	{
 		//TO DO
 		//as long as both pets have current HP > 0, keep looping
 		while(true)
@@ -370,6 +375,7 @@ public class battle {
 			allHandCombos.add(hand);
 		}
 	}
+	
 	//Check what the hand is. Pair, 2 pair, 3 of a kind etc
 	void determineHand()
 	{
@@ -390,6 +396,7 @@ public class battle {
 		}
 		
 	}
+	
 	boolean checkHandIsStraight(ArrayList<card> hand)
 	{
 		Collections.sort(hand);

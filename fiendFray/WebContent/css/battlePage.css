@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+body {
+	background-image: url("../images/day.png");
+	background-color:#83c0ef;
+}
+
+.board {
+	position: absolute;
+  	top: 10%;
+  	left: 50%;
+}
+
+.opponentCards {
+	
+}
+
+.yourCards {
+	position: absolute;
+	top: 80%;
+}
+
+.iconbox {
+   	margin: 0 auto;
+}
+.iconbox > div {
+    text-align: center;
+    display: inline-block;
+}
+.iconbox p {
+    margin: 0;
+}
+
+img {
+	width:  75px;
+    height: 100px;
+}
+
+#feedtext {
+	position: absolute;
+	top: 30%;
+	left: 1%;
+	overflow: auto;
+	width: 350px;
+	height: 300px;
+	padding: 10px; 
+	background-color: #ffaa7f;
+	border-radius: 20px 20px 20px 20px;"
+}

@@ -2,6 +2,10 @@
 	padding-left: 10px;
 }
 
+body {
+	background-image: url("../images/twilight.png");
+}
+
 #outer {
     width:100%;
     text-align: center;

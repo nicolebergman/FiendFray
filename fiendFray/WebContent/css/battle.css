@@ -1,13 +1,4 @@
 @CHARSET "UTF-8";
-html
-{
-	height: 100%;
-}
-
-body
-{
-	height: 100%; 
-}
 #container
 {
 	height: 100%
@@ -16,13 +7,11 @@ body
 #opponentContainer
 {
 	height: 20%; 
-	background-color: red; 
 }
 		
 #cardContainer
 {
 	height: 60%; 
-	background-color: green; 
 }
 
 #cardArray
@@ -43,7 +32,6 @@ body
 	margin-right: 20px; 
 	height: 50px; 
 	width: 25px; 
-	background-color: black; 
 }
 
 .cardRow
@@ -53,7 +41,6 @@ body
 #currentPlayerContainer
 {
 	height: 20%; 
-	background-color: blue; 
 }
 .hpDisplay
 {
@@ -61,7 +48,6 @@ body
 	margin-left: 50px;
 	position: relative;
 	top: 40px; 
-	color: white;
 }
 .playerCards
 {

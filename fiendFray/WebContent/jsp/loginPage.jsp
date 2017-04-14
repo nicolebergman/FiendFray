@@ -23,11 +23,11 @@
 			<div id = "login_container">
 				Username
 				<br>
-				<input type="text" name="<%= stringConstants.USERNAME%>" placeholder="Username" id = "<%=stringConstants.USERNAME%>">
+				<input type="text" class="box" name="<%= stringConstants.USERNAME%>" placeholder="Username" id = "<%=stringConstants.USERNAME%>">
 				<br>
 				Password
 				<br>
-				<input type="text" name="<%= stringConstants.PASSWORD%>" placeholder="Password" id = "<%=stringConstants.PASSWORD%>">
+				<input type="text" class="box" name="<%= stringConstants.PASSWORD%>" placeholder="Password" id = "<%=stringConstants.PASSWORD%>">
 				<br><br>
 				
 				<div id="outer">

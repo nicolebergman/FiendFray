@@ -79,10 +79,6 @@
 	function Logout(page) {
 		window.location = page + ".jsp";
 		socket.send("Logout~" + "<%= username %>");
-		<% 
-			currUser.isOnline = false;
-			msql.updateUser(currUser); 
-		%>
 		return false;
 	}
 </script>

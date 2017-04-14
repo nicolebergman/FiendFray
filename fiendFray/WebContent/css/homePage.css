@@ -73,6 +73,7 @@
 button {
     background-color: #4CAF50;
     border: none;
+    border-radius: 20px;
     color: white;
     padding: 10px 50px;
     text-align: center;

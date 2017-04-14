@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class battle {
+public class battle extends Thread{
 	private class coordinate
 	{
 		public int x; 
@@ -40,10 +40,9 @@ public class battle {
 	private int winnerIndex;
 	private ArrayList< ArrayList<card> > allHandCombos; 
 	private ArrayList<pokerHand> madePokerHands; 
-	public battle(user user1, user user2){
+	public battle(user user1){
 		allUsers = new ArrayList<user>();
 		allUsers.add(user1); 
-		allUsers.add(user2); 
 		onlineUsers = new ArrayList<user>();
 		board= new card[5][5];
 		initialiseBoard(); 
@@ -52,13 +51,39 @@ public class battle {
 		allHandCombos = new ArrayList< ArrayList<card> >();
 		madePokerHands = new ArrayList<pokerHand>(); 
 		initialiseBoard(); 
+		while(allUsers.size() < 2)
+		{
+			
+		}
+		start(); 
 		gameLoop(); 
 	}
+	
 	public static void main(String[] args)
 	{
-		user user1 = new user(); 
-		user user2 = new user(); 
-		new battle(user1, user2); 
+		//user user1 = new user(); 
+		//user user2 = new user(); 
+		//new battle(user1, user2); 
+	}
+	
+	public void run()
+	{
+		while(true)
+		{
+			if(isBoardFull())
+			{
+				initialiseBoard();
+			}
+			//checks if the placed card creates any hands
+			//checkBoard(coord1, coord2); 
+			determineHand(); 
+			dealDamage();
+		}
+	}
+	
+	void joinBattle(user user)
+	{
+		allUsers.add(user); 
 	}
 	
 	void initialiseBoard()
@@ -150,14 +175,7 @@ public class battle {
 			}
 			
 			user.removeCardAtIndex(cardIndex2);
-			if(isBoardFull())
-			{
-				initialiseBoard();
-			}
-			//checks if the placed card creates any hands
-			checkBoard(coord1, coord2); 
-			determineHand(); 
-			dealDamage();
+			
 			if(isBoardFull())
 			{
 				initialiseBoard();

@@ -250,6 +250,7 @@ public class battle extends Thread{
 			*/
 			while(!this.bProcessCardInputs)
 			{}
+			System.out.println("fuck me");
 			this.bProcessCardInputs = false; 
 			this.placeCard(this.removeCardIndices.get(0), this.placedCardCoordinates.get(0));
 			this.placeCard(this.removeCardIndices.get(1), this.placedCardCoordinates.get(1));
@@ -275,6 +276,7 @@ public class battle extends Thread{
 			drawCard();
 			// notify clients of interface updates
 			notifyServer(serverNotification());
+			clearInputs();
 			if(!hasGameEnded())
 			{
 				endTurn(); 
@@ -286,6 +288,61 @@ public class battle extends Thread{
 		}
 		endGame(); 
 		
+	}
+	
+	void runOneGameLoop() {
+		this.placeCard(this.removeCardIndices.get(0), this.placedCardCoordinates.get(0));
+		this.placeCard(this.removeCardIndices.get(1), this.placedCardCoordinates.get(1));
+		
+		printBoard();
+
+		user currentUser = allUsers.get(this.getCurrentPlayerIndex()); 
+		currentUser.removeCardAtIndex(this.removeCardIndices.get(0));
+		currentUser.removeCardAtIndex(this.removeCardIndices.get(1));
+
+		if(isBoardFull())
+		{
+			initialiseBoard();
+		}
+
+		//checks if the placed card creates any hands
+		//checkBoard(coord1, coord2); 
+		checkBoard(this.placedCardCoordinates.get(0), this.placedCardCoordinates.get(1));
+		determineHand(); 
+		dealDamage();
+		//System.out.println(serverNotification());
+		drawCard();
+		// notify clients of interface updates
+		notifyServer(serverNotification());
+		clearInputs();
+		if(!hasGameEnded())
+		{
+			endTurn(); 
+		}
+		else
+		{
+			endGame();
+		}
+	}
+	
+	public void receiveInputs(int card1Ind, int card1X, int card1Y, int card2Ind, int card2X, int card2Y) {
+		coordinate coord1 = new coordinate(card1X, card1Y);
+		coordinate coord2 = new coordinate(card2X, card2Y);
+		
+		this.placedCardCoordinates.add(coord1);
+		this.placedCardCoordinates.add(coord2);
+		
+		this.removeCardIndices.add(card1Ind);
+		this.removeCardIndices.add(card2Ind);
+		
+		//this.bProcessCardInputs = true;
+		
+		runOneGameLoop();
+	}
+	
+	void clearInputs() {
+		this.placedCardCoordinates.clear();
+		this.removeCardIndices.clear();
 	}
 	
 	coordinate promptToPlaceCard()
@@ -795,6 +852,11 @@ public class battle extends Thread{
 			s +="~"; 
 			s += card.getImgURL();
 		}
+		if(bUser2Turn) {
+			s += "~2";
+		} else {
+			s += "~1";
+		}
 		
 		return s;
 	}
@@ -866,7 +928,7 @@ public class battle extends Thread{
 		// detect whether to start game state machine
 		System.out.println("dicknipples");
 		while(true) {
-			System.out.println(recognitionCount);
+			System.out.println("recog count" + recognitionCount);
 			if(recognitionCount == 2) {
 				System.out.println("2 player starts received");
 				user user1 = allUsers.get(0); 
@@ -877,7 +939,7 @@ public class battle extends Thread{
 					user2.getCurrentHand().add(new card());
 				}
 				this.initialiseBoard();
-				this.gameLoop();
+				//this.gameLoop();
 			}
 		}
 	}

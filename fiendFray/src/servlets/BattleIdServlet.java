@@ -30,8 +30,11 @@ public class BattleIdServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String battleId = (String) request.getParameter("battleId");
+		String userId = (String) request.getParameter("userId");
 		HttpSession session = request.getSession(true);
 		session.setAttribute("battleId", battleId);
+		session.setAttribute("userId", userId);
+		System.out.print(userId);
 		System.out.println(battleId);
 	}
 

@@ -142,6 +142,105 @@ public class fiendFrayServer {
 //				System.out.println("ioe: " + ioe.getMessage());
 //			}
 			break;
+		case "ProcessInputs":
+			// send battle request to client
+			String bIdStr = commands[1];
+			int bId = Integer.parseInt(bIdStr);
+			
+			int card1Ind = -1;
+			int card1X;
+			int card1Y;
+			int card2Ind = -1;
+			int card2X;
+			int card2Y;
+			
+			if(commands[2].equals("yourCard1")) {
+				card1Ind = 0;
+			} else if (commands[2].equals("yourCard2")) {
+				card1Ind = 1;
+			} else if (commands[2].equals("yourCard3")) {
+				card1Ind = 2;
+			} else if (commands[2].equals("yourCard4")) {
+				card1Ind = 3;
+			}
+			
+			card1X = Integer.parseInt(Character.toString(commands[3].charAt(0)));
+			card1Y = Integer.parseInt(Character.toString(commands[3].charAt(1)));
+			
+			if(commands[4].equals("yourCard1")) {
+				card2Ind = 0;
+			} else if (commands[4].equals("yourCard2")) {
+				card2Ind = 1;
+			} else if (commands[4].equals("yourCard3")) {
+				card2Ind = 2;
+			} else if (commands[4].equals("yourCard4")) {
+				card2Ind = 3;
+			}
+			
+			card2X = Integer.parseInt(Character.toString(commands[5].charAt(0)));
+			card2Y = Integer.parseInt(Character.toString(commands[5].charAt(1)));
+			
+			System.out.println(card1Ind);
+			System.out.println(card1X);
+			System.out.println(card1Y);
+			System.out.println(card2Ind);
+			System.out.println(card2X);
+			System.out.println(card2Y);
+			
+			idToBattle.get(bId).receiveInputs(card1Ind, card1X, card1Y, card2Ind, card2X, card2Y);
+			
+			//try {
+//				for(int userKey : idToBattle.keySet()) {
+//					if(userKey == bId) {
+//						int card1Ind = -1;
+//						int card1X;
+//						int card1Y;
+//						int card2Ind = -1;
+//						int card2X;
+//						int card2Y;
+//						
+//						if(commands[2].equals("yourCard1")) {
+//							card1Ind = 0;
+//						} else if (commands[2].equals("yourCard2")) {
+//							card1Ind = 1;
+//						} else if (commands[2].equals("yourCard3")) {
+//							card1Ind = 2;
+//						} else if (commands[2].equals("yourCard4")) {
+//							card1Ind = 3;
+//						}
+//						
+//						card1X = Integer.parseInt(Character.toString(commands[3].charAt(0)));
+//						card1Y = Integer.parseInt(Character.toString(commands[3].charAt(1)));
+//						
+//						if(commands[4].equals("yourCard1")) {
+//							card2Ind = 0;
+//						} else if (commands[4].equals("yourCard2")) {
+//							card2Ind = 1;
+//						} else if (commands[4].equals("yourCard3")) {
+//							card2Ind = 2;
+//						} else if (commands[4].equals("yourCard4")) {
+//							card2Ind = 3;
+//						}
+//						
+//						card2X = Integer.parseInt(Character.toString(commands[5].charAt(0)));
+//						card2Y = Integer.parseInt(Character.toString(commands[5].charAt(1)));
+//						
+//						System.out.println(card1Ind);
+//						System.out.println(card1X);
+//						System.out.println(card1Y);
+//						System.out.println(card2Ind);
+//						System.out.println(card2X);
+//						System.out.println(card2Y);
+//						
+//						idToBattle.get(userKey).receiveInputs(card1Ind, card1X, card1Y, card2Ind, card2X, card2Y);
+////						Session s = usernameToSession.get(userKey);
+////						s.getBasicRemote().sendText("BattleRequest~" + wantsToBattle + " wants to battle!");
+//					}
+//				}
+//			} catch(IOException ioe) {
+//				System.out.println("ioe: " + ioe.getMessage());
+//			}
+			break;
 		case "AcceptBattle":
 			// identify players who battle
 			String firstPlayer = commands[1];
@@ -177,9 +276,14 @@ public class fiendFrayServer {
 			// tell clients to go to battle page
 			try {
 				for(String userKey : usernameToSession.keySet()) {
-					if(userKey.equals(firstPlayer) || userKey.equals(secondPlayer)) {
+					if(userKey.equals(firstPlayer)) {
 						Session s = usernameToSession.get(userKey);
-						s.getBasicRemote().sendText("GoBattle~" + Integer.toString(battleId));
+						s.getBasicRemote().sendText("GoBattle~" + Integer.toString(battleId) + "~1");
+					}
+					
+					if(userKey.equals(secondPlayer)) {
+						Session s = usernameToSession.get(userKey);
+						s.getBasicRemote().sendText("GoBattle~" + Integer.toString(battleId) + "~2");
 					}
 				}
 			} catch(IOException ioe) {

@@ -62,6 +62,7 @@
 		// overriding functions
 		socket.onopen = function(event) {
 			document.getElementById("feedtext").innerHTML += "Welcome to Fiend Fray!<br />";
+			document.getElementById("feedtext").innerHTML += "Click on another user's name to send a battle request!<br />";
 			
 			// notify other users of entry
 			socket.send("UserEnter~" + "<%= username %>" + " has entered the fray!");
@@ -74,8 +75,9 @@
 				document.getElementById('acceptBattleRequest').onclick = function () { acceptBattleRequest(commands[1]) }; 
 			} else if(commands[0] == "GoBattle") {
 				// url + params --> <SERVLETNAME>?<PARAMNAME>=<param>&<PARAMNAME>=<param>
-				var url = "../BattleIdServlet?battleId=" + commands[1];
-
+				var url = "../BattleIdServlet?battleId=" + commands[1] + "&userId=" + commands[2];
+				//alert(url);
+				
 				// create AJAX request
 				var req = new XMLHttpRequest();
 				req.open("GET", url, true);

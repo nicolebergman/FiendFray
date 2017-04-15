@@ -23,11 +23,20 @@
 	String username = currUser.getUsername();
 	String battleIdStr = (String) session.getAttribute("battleId");
 	int battleId = Integer.parseInt(battleIdStr);
+	String userIdStr = (String) session.getAttribute("userId");
+	int userId = Integer.parseInt(userIdStr);
 %>
 
 <script>
 //scope socket correctly
 var socket;
+var firstCardPlaced = false;
+var secondCardPlaced = false;
+var myTurn = false;
+var firstCardIndex = "";
+var secondCardIndex = "";
+var firstCardCoords = "";
+var secondCardCoords = "";
 
 function connectToServer() {
 	// create connection to server
@@ -68,26 +77,67 @@ function connectToServer() {
 			document.getElementById("42").src = commands[23];
 			document.getElementById("43").src = commands[24];
 			document.getElementById("44").src = commands[25];
+			
+			var userID = <%= userId %>;
+			var userIDStr = userID.toString();
+			if(userID == 1) {
+				// mark health
+				document.getElementById("yourHealth").innerHTML = commands[26];
+				document.getElementById("opponentHealth").innerHTML = commands[27];
+				
+				// fill hand with cards
+				document.getElementById("yourCard1").src = commands[28];
+				document.getElementById("yourCard2").src = commands[29];
+				document.getElementById("yourCard3").src = commands[30];
+				document.getElementById("yourCard4").src = commands[31];
+				
+				document.getElementById("opponentCard1").src = commands[32];
+				document.getElementById("opponentCard2").src = commands[33];
+				document.getElementById("opponentCard3").src = commands[34];
+				document.getElementById("opponentCard4").src = commands[35];
+			} else {
+				document.getElementById("yourHealth").innerHTML = commands[27];
+				document.getElementById("opponentHealth").innerHTML = commands[26];
+				
+				// fill hand with cards
+				document.getElementById("opponentCard1").src = commands[28];
+				document.getElementById("opponentCard2").src = commands[29];
+				document.getElementById("opponentCard3").src = commands[30];
+				document.getElementById("opponentCard4").src = commands[31];
+				
+				document.getElementById("yourCard1").src = commands[32];
+				document.getElementById("yourCard2").src = commands[33];
+				document.getElementById("yourCard3").src = commands[34];
+				document.getElementById("yourCard4").src = commands[35];
+			}
 		} else {
 			document.getElementById("chatText").innerHTML += event.data + "<br />";
 		}
+		
+		// tell user they can place
+		if(commands[36] == userIDStr) {
+			myTurn = true;
+			firstCardPlaced = false;
+			secondCardPlaced = false;
+		} else {
+			myTurn = false;
+			firstCardPlaced = false;
+			secondCardPlaced = false;
+		}
 	}
 }
-
-var firstCardPlaced = false;
-var secondCardPlaced = false;
-var firstCardCoords = "";
-var secondCardCoords = "";
 
 function _(id){
    return document.getElementById(id);	
 }
 
 function drag_start(event) {
-    _('app_status').innerHTML = "Dragging the "+event.target.getAttribute('id');
-    event.dataTransfer.dropEffect = "move";
-    event.dataTransfer.setData("text", event.target.getAttribute('id') );
-    event.dataTransfer.setData("imageURL", event.target.getAttribute('src') );
+	if(myTurn) {
+		_('app_status').innerHTML = "Dragging the "+event.target.getAttribute('id');
+	    event.dataTransfer.dropEffect = "move";
+	    event.dataTransfer.setData("text", event.target.getAttribute('id') );
+	    event.dataTransfer.setData("imageURL", event.target.getAttribute('src') );
+	}
 }
 
 function drag_enter(event) {
@@ -114,12 +164,17 @@ function drag_drop(event) {
 	    // record placement coordinates
 	    if(firstCardPlaced == false) {
 	    	firstCardPlaced = true;
+	    	firstCardIndex = elem_id;
 	    	firstCardCoords = event.target.getAttribute('id');
 	    } else {
 	    	secondCardPlaced = true;
+	    	secondCardIndex = elem_id;
 	    	secondCardCoords = event.target.getAttribute('id');
-	    	// send input message to socket
-	    	//FUCKING DO IT
+	    	
+	    	// send process input message to server
+	    	document.getElementById("chatText").innerHTML += "process inputs <br/>";
+	    	var processInputRequest = "ProcessInputs~" + "<%= battleIdStr %>" + "~" + firstCardIndex + "~" + firstCardCoords + "~" + secondCardIndex + "~" + secondCardCoords;
+	   		socket.send(processInputRequest);
 	    }
 	    
 	    _(elem_id).removeAttribute("draggable");
@@ -239,17 +294,18 @@ function sendMessage() {
 <div class="opponentCards">
 	<div class="iconbox">
 	    <div id="card">
-	        <img src="../images/card1.png" />
+	        <img id="opponentCard1" src="../images/card1.png" />
 	    </div>
 	    <div id="card">
-	        <img src="../images/card2.png" />
+	        <img id="opponentCard2"  src="../images/card2.png" />
 	    </div>
 	    <div id="card">
-	        <img src="../images/card3.png" />
+	        <img id="opponentCard3" src="../images/card3.png" />
 	    </div>
 	    <div id="card">
-	        <img src="../images/card3.png" />
+	        <img id="opponentCard4" src="../images/card3.png" />
 	    </div>
+	    <h3 id="opponentHealth"></h3>
 	</div>
 </div>
 
@@ -262,17 +318,18 @@ function sendMessage() {
 <div class="yourCards">
 	<div class="iconbox">
 	    <div id="card">
-	        <img id="card1" class="draggable" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)" src="../images/card1.png" />
+	        <img id="yourCard1" class="draggable" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)" src="../images/card1.png" />
 	    </div>
 	    <div id="card">
-	        <img id="card2" class="draggable" draggable="true" ondragstart="drag_start(event)" src="../images/card2.png" />
+	        <img id="yourCard2" class="draggable" draggable="true" ondragstart="drag_start(event)" src="../images/card2.png" />
 	    </div>
 	    <div id="card">
-	        <img id="card3" class="draggable" draggable="true" ondragstart="drag_start(event)" src="../images/card3.png" />
+	        <img id="yourCard3" class="draggable" draggable="true" ondragstart="drag_start(event)" src="../images/card3.png" />
 	    </div>
 	    <div id="card">
-	        <img id="card4" class="draggable" draggable="true" ondragstart="drag_start(event)" src="../images/card3.png" />
+	        <img id="yourCard4" class="draggable" draggable="true" ondragstart="drag_start(event)" src="../images/card3.png" />
 	    </div>
+	    <h3 id="yourHealth"></h3>
 	</div>
 </div>
 

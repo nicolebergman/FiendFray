@@ -130,8 +130,9 @@ button:hover {
     overflow: hidden;
     outline:none;
 	cursor: pointer;
+	font-size: 120%;
 }
 
 .sendBattleRequestButton:hover {
-	color: blue;
+	color: #87b5ff;
 }		

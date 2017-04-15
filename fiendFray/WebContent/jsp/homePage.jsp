@@ -21,6 +21,7 @@
 	// get current user attributes
 	user currUser = (user) session.getAttribute(stringConstants.USER);
 	String username = currUser.getUsername();
+	System.out.println(username);
 	String petName = currUser.getUserPet().getName();
 	String petImage = currUser.getUserPet().getImageURL();
 	String petLevel = Integer.toString(currUser.getUserPet().getCurrentLevel());
@@ -64,6 +65,7 @@
 			
 			// notify other users of entry
 			socket.send("UserEnter~" + "<%= username %>" + " has entered the fray!");
+			socket.send("AddToServer~" + "<%= username %>");
 		}
 		socket.onmessage = function(event) {
 			document.getElementById("feedtext").innerHTML += event.data + "<br />";
@@ -72,20 +74,17 @@
 	
 	function switchPage(page) {
 		window.location = page + ".jsp";
-		socket.send("SwitchPage~");
+		socket.send("SwitchPage~" + "<%= username %>");
 		return false;
 	}
 	
 	function Logout(page) {
 		window.location = page + ".jsp";
 		socket.send("Logout~" + "<%= username %>");
-<<<<<<< Updated upstream
-=======
 		<% 
 			/* currUser.isOnline = false;
 			msql.updateUser(currUser);  */
 		%>
->>>>>>> Stashed changes
 		return false;
 	}
 </script>

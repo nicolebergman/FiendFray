@@ -17,11 +17,11 @@
 	MySQLDriver msql = new MySQLDriver();
 	msql.connect();
 	parser newParser = msql.parseDB();
-	//ArrayList<user> userList = newParser.getAllUsers();
 	
 	// get current user's name
 	user currUser = (user) session.getAttribute(stringConstants.USER);
 	String username = currUser.getUsername();
+	System.out.println(username);
 	int currGems = currUser.getGems();
 %>
 <script>
@@ -30,6 +30,11 @@
 	function connectToServer() {
 		// create connection to server
 		socket = new WebSocket("ws://localhost:8080/fiendFray/fiendFrayServer");
+		
+		// overriding functions
+		socket.onopen = function(event) {
+			socket.send("AddToServer~" + "<%= username %>");
+		}
 	}
 	
 	// notify other user's that weapon was bought
@@ -41,7 +46,7 @@
 	
 	function switchPage(page) {
 		window.location = page + ".jsp";
-		socket.send("SwitchPage~");
+		socket.send("SwitchPage~" + "<%= username %>");
 		return false;
 	}
 </script>

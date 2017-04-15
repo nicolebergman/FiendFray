@@ -1,6 +1,8 @@
 package server;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.websocket.OnClose;
@@ -14,11 +16,11 @@ import javax.websocket.server.ServerEndpoint;
 public class fiendFrayServer {
 	// only once instance through all instances of this class
 	private static Vector<Session> sessionVector = new Vector<Session>();
-	//private static boolean exitGame = true;
+	private static Map<String, Session> usernameToSession = new HashMap<String, Session>();
 		
 	@OnOpen
 	public void open(Session session) {
-		System.out.println("user has connected to server!");
+		//System.out.println("user has connected to server!");
 		
 		// add user to sessions vector
 		sessionVector.add(session);
@@ -33,14 +35,16 @@ public class fiendFrayServer {
 		
 		switch(commands[0]) {
 		case "SwitchPage":
-			// false positive for game exit
-			//exitGame = false;
+			// remove session from internal server vector
+			String userName = commands[1];
+			usernameToSession.remove(userName);
 			break;
 		case "Logout":
 			// notify other users (if any) of disconnect
 			try {
-				for(Session s : sessionVector) {
+				for(String userKey : usernameToSession.keySet()) {
 					// send data back out to all clients
+					Session s = usernameToSession.get(userKey);
 					if(s != session) {
 						s.getBasicRemote().sendText(commands[1] + " has left the fray!");
 					}
@@ -48,12 +52,18 @@ public class fiendFrayServer {
 			} catch(IOException ioe) {
 				System.out.println("ioe: " + ioe.getMessage());
 			}
+			
+			// remove session from internal server vector
+			String username = commands[1];
+			usernameToSession.remove(username);
+			
 			break;
 		case "UserEnter":
 			// send message to all other clients
 			try {
-				for(Session s : sessionVector) {
-					// send data back out to all other clients
+				for(String userKey : usernameToSession.keySet()) {
+					// send data back out to all clients
+					Session s = usernameToSession.get(userKey);
 					if(s != session) {
 						s.getBasicRemote().sendText(commands[1]);
 					}
@@ -65,8 +75,9 @@ public class fiendFrayServer {
 		case "Buy":
 			// send message to all other clients
 			try {
-				for(Session s : sessionVector) {
-					// send data back out to all other clients
+				for(String userKey : usernameToSession.keySet()) {
+					// send data back out to all clients
+					Session s = usernameToSession.get(userKey);
 					if(s != session) {
 						s.getBasicRemote().sendText(commands[1]);
 					}
@@ -78,25 +89,33 @@ public class fiendFrayServer {
 		case "ChatMessage":
 			// send message to other client in game
 			try {
-				for(Session s : sessionVector) {
-					// send data back out to all other clients
+				for(String userKey : usernameToSession.keySet()) {
+					// send data back out to all clients
+					Session s = usernameToSession.get(userKey);
 					s.getBasicRemote().sendText(commands[1]);
 				}
 			} catch(IOException ioe) {
 				System.out.println("ioe: " + ioe.getMessage());
 			}
 			break;
+		case "AddToServer":
+			// add to server vector
+			String name = commands[1];
+			usernameToSession.put(name, session);
+			break;
 		default:
 			System.out.print("nothin' to see here!");
 			break;
 		}
+		
+		System.out.println(usernameToSession.toString());
 	}
 	
 	@OnClose
 	public void close(Session session) {
-		System.out.println("user has disconnected from server!");
+		//System.out.println("user has disconnected from server!");
 		
-		sessionVector.remove(session);
+		//sessionVector.remove(session);
 	}
 	
 	@OnError

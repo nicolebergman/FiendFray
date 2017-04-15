@@ -30,7 +30,10 @@ public class battle extends Thread{
 		FOUROFAKIND,
 		FIVEOFAKIND,
 		STRAIGHT, 
-		FULLHOUSE
+		FULLHOUSE, 
+		FLUSH, 
+		STRAIGHTFLUSH, 
+		ROYALFLUSH
 	};
 	
 	private ArrayList<user> allUsers;
@@ -40,9 +43,10 @@ public class battle extends Thread{
 	private int winnerIndex;
 	private ArrayList< ArrayList<card> > allHandCombos; 
 	private ArrayList<pokerHand> madePokerHands; 
-	public battle(user user1){
+	public battle(user user1, user user2){
 		allUsers = new ArrayList<user>();
 		allUsers.add(user1); 
+		allUsers.add(user2); 
 		onlineUsers = new ArrayList<user>();
 		board= new card[5][5];
 		initialiseBoard(); 
@@ -51,18 +55,14 @@ public class battle extends Thread{
 		allHandCombos = new ArrayList< ArrayList<card> >();
 		madePokerHands = new ArrayList<pokerHand>(); 
 		initialiseBoard(); 
-		while(allUsers.size() < 2)
-		{
-			
-		}
 		gameLoop(); 
 	}
 	
 	public static void main(String[] args)
 	{
-		//user user1 = new user(); 
-		//user user2 = new user(); 
-		//new battle(user1, user2); 
+		user user1 = new user(); 
+		user user2 = new user(); 
+		new battle(user1, user2); 
 	}
 	
 	
@@ -111,6 +111,11 @@ public class battle extends Thread{
 	{
 		//TO DO
 		//Add placing card log
+		if( coord.x < 0 || coord.x > 4 ||
+			coord.y < 0 || coord.y > 4)
+		{
+			return false; 
+		}
 		user currentUser = allUsers.get(getCurrentPlayerIndex());
 		System.out.println("X value: " + coord.x);
 		System.out.println("Y value: "+ coord.y);
@@ -137,29 +142,64 @@ public class battle extends Thread{
 			drawCard();
 			printBoard(); 
 			//whole chunk below is just asking player to place 2 cards somewhere
-			int cardIndex1= promptPlayerChooseCard();
-			user currentUser = allUsers.get(getCurrentPlayerIndex());
-			card cardToPlay1 = currentUser.getCardAtIndex(cardIndex1);	
-			coordinate coord1 = promptToPlaceCard();
-			if(!placeCard(cardIndex1, coord1))
+			int cardIndex1; 
+			card cardToPlay1; 
+			coordinate coord1;
+			user currentUser; 
+			while(true)
 			{
-				System.out.println("Incorrect info given. Try again");
-				continue;
+				currentUser = allUsers.get(getCurrentPlayerIndex());
+				cardIndex1= promptPlayerChooseCard();
+				if(cardIndex1 < 0 || cardIndex1 > currentUser.getSizeOfHand()-1)
+				{
+					System.out.println("Invalid card index");
+					printBoard(); 
+					continue; 
+				}
+				cardToPlay1 = currentUser.getCardAtIndex(cardIndex1);	
+				coord1 = promptToPlaceCard();
+				if(!placeCard(cardIndex1, coord1))
+				{
+					System.out.println("Incorrect info given. Try again");
+					printBoard(); 
+					continue;
+				}
+				else 
+				{
+					break; 
+				}
 			}
 			user user = allUsers.get(this.getCurrentPlayerIndex());
 			user.removeCardAtIndex(cardIndex1);
 			
 			printBoard(); 
 			
-			int cardIndex2= promptPlayerChooseCard();
-			card cardToPlay2 = currentUser.getCardAtIndex(cardIndex2);	
-			coordinate coord2 = promptToPlaceCard();
-			if(!placeCard(cardIndex2, coord2))
+			int cardIndex2; 
+			card cardToPlay2; 
+			coordinate coord2; 
+			while(true)
 			{
-				System.out.println("Incorrect info given. Try again");
-				continue;
+				cardIndex2= promptPlayerChooseCard();
+				if(cardIndex2 < 0 || cardIndex1 > currentUser.getSizeOfHand()-1)
+				{
+					System.out.println("Invalid card index");
+					printBoard(); 
+					continue; 
+				}
+				cardToPlay2 = currentUser.getCardAtIndex(cardIndex2);	
+				coord2 = promptToPlaceCard();
+				if(!placeCard(cardIndex2, coord2))
+				{
+					System.out.println("Incorrect info given. Try again");
+					printBoard(); 
+					continue;
+				}
+				else
+				{
+					break; 
+				}
+				
 			}
-			
 			user.removeCardAtIndex(cardIndex2);
 			
 			if(isBoardFull())
@@ -172,6 +212,7 @@ public class battle extends Thread{
 			}
 			//checks if the placed card creates any hands
 			//checkBoard(coord1, coord2); 
+			checkBoard(coord1, coord2);
 			determineHand(); 
 			dealDamage();
 			if(!hasGameEnded())
@@ -398,7 +439,12 @@ public class battle extends Thread{
 		{
 			
 			boolean b1 = checkHandIsStraight(hand); 
+			if(b1 == false)
+			{
+				//checkHandIsFlush(hand, false); 
+			}
 			boolean b2 = checkHandForSameValue(hand);
+			
 			//if both these are false. There is no valid hand. Add nothing to the madePokerHand array
 			if(!b1 && !b2)
 			{
@@ -426,7 +472,59 @@ public class battle extends Thread{
 			}
 			prevValue = hand.get(i).getValue(); 
 		}
+		//checks for striaght flush and royal flush in event of striaght\
+		/*
+		if(checkHandIsFlush(hand, true))
+		{
+			if(!checkHandIsRoyalFlush(hand))
+			{
+				madePokerHands.add(pokerHand.STRAIGHTFLUSH);
+			}
+		}
+		else
+		{
+			madePokerHands.add(pokerHand.STRAIGHT);
+		}
+		*/
 		madePokerHands.add(pokerHand.STRAIGHT);
+		return true;
+	}
+	
+	boolean checkHandIsFlush(ArrayList<card> hand, boolean bCheckFromStraight)
+	{
+		System.out.print("Sorted Hand: ");
+		for(int i=0; i<hand.size(); ++i)
+		{
+			System.out.print(hand.get(i).getValue() + " ");
+		}
+		System.out.println("");
+		for(int i=1; i<5; ++i)
+		{
+			//if the suit of the current card is not the same as the suit of the 
+			//first card 
+			if(hand.get(i).getSuit() != hand.get(0).getSuit())
+			{
+				return false; 
+			}
+		}
+		if(!bCheckFromStraight)
+		{
+			madePokerHands.add(pokerHand.FLUSH);
+		}
+		return true;
+	}
+	
+
+	boolean checkHandIsRoyalFlush(ArrayList<card> hand)
+	{
+		
+		//hand should already be sorted 
+		//so just check if the last card is 14, value of an Ace
+		if(hand.get(hand.size()-1).getValue() != 14)
+		{
+			return false; 
+		}
+		madePokerHands.add(pokerHand.ROYALFLUSH);
 		return true;
 	}
 	

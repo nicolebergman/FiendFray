@@ -5,13 +5,41 @@ import java.util.Random;
 public class card implements Comparable<card>{
 	
 	private String info;
-	private int value; 
+	private int value;
+	private int suit; 
 	private String imgURL; 
 	
 	card() {
 		Random rand = new Random(); 
-		value = rand.nextInt(2);	// max is 13 for right now
-		info=value+"";
+		value = rand.nextInt(13) + 1;	// max is 13 for right now
+		suit = rand.nextInt(4) + 1; // 1 Diamond, 2Club, 3 Hearts, 4 Spades
+		//appends the card's suite to the info 
+		String s = ""; 
+		//appends the correct string based on the suite 
+		switch(suit)
+		{
+		case 1: 
+		{
+			s += "d"; 
+			break; 
+		}
+		case 2: 
+		{
+			s += "c"; 
+			break; 
+		}
+		case 3: 
+		{
+			s += "h";
+			break; 
+		}
+		case 4: 
+		{
+			s += "s"; 
+			break; 
+		}
+		}
+		info = s + Integer.toString(value);  
 		imgURL = valueToImage(); 
 	}
 	
@@ -62,6 +90,10 @@ public class card implements Comparable<card>{
 		this.value = value; 
 	}
 	
+	public int getSuit()
+	{
+		return suit; 
+	}
 //	public int randomCardValue() { //RNG to get a random card 
 //		// to do
 //		Random rand = new Random(); 

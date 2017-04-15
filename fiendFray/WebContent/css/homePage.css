@@ -121,4 +121,17 @@ button:hover {
   	background-color: #8ae4f7;
   	padding: 10px;
   	border-radius: 20px 20px 20px 20px;
+}
+
+.sendBattleRequestButton {
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    overflow: hidden;
+    outline:none;
+	cursor: pointer;
+}
+
+.sendBattleRequestButton:hover {
+	color: blue;
 }		

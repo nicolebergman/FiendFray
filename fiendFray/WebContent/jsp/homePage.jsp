@@ -16,7 +16,7 @@
 	MySQLDriver msql = new MySQLDriver();
 	msql.connect();
 	parser newParser = msql.parseDB();
-	ArrayList<user> onlineUsers = newParser.getOnlineUsers();
+	List<user> allUsers = newParser.getAllUsers();
 	
 	// get current user attributes
 	user currUser = (user) session.getAttribute(stringConstants.USER);
@@ -94,9 +94,7 @@
 			<img class="petIcon" src="<%= petImage %>">
 			
 			<p class="petName"><%= petName %></p>
-			
-			<button class="battleButton" onclick="switchPage('battlePage')">Battle!</button>
-			
+						
 			<button class="petShopButton" onclick="switchPage('petShop')">Pet Shop</button>
 			
 			<button class="leaderboardButton" onclick="switchPage('Leaderboard')">Leaderboard</button>
@@ -122,11 +120,15 @@
 		<div id="activeUsersContainer">
 			<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px;"> Active Users </h3>
 			<div id="usertext">
-				<%-- <% 
-					for(user x : onlineUsers) {
-						%> <%= x.getUsername() %> <br/> <%
+				<% 
+					for(user x : allUsers) {
+						if(x.isOnline && !x.getUsername().equals(currUser.getUsername())) {
+							%> 
+							<input type="submit" class="sendBattleRequestButton" onclick="sendBattleRequest('<%= x.getUsername() %>')" value="<%= x.getUsername() %>"/> <br/> 
+							<%
+						}
 					}
-				%> --%>
+				%>
 			</div>
 		</div>
 	</div>

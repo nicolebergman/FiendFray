@@ -558,6 +558,11 @@ public class battle extends Thread{
 		return true;
 	}
 	
+	public void removeCardFromPlayerHand(int cardInd) {
+		user currentUser = allUsers.get(this.getCurrentPlayerIndex());
+		currentUser.removeCardAtIndex(cardInd);
+	}
+	
 	//checks for pair 3 of a kind etc 
 	boolean checkHandForSameValue(ArrayList<card> hand)
 	{

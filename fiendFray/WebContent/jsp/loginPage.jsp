@@ -27,7 +27,7 @@
 				<br>
 				Password
 				<br>
-				<input type="text" class="box" name="<%= stringConstants.PASSWORD%>" placeholder="Password" id = "<%=stringConstants.PASSWORD%>">
+				<input type="password" class="box" name="<%= stringConstants.PASSWORD%>" placeholder="Password" id = "<%=stringConstants.PASSWORD%>">
 				<br><br>
 				
 				<div id="outer">

@@ -40,9 +40,11 @@ public class loginGuestServlet extends HttpServlet {
 		guestPet.setEquppedWeapon(newParser.getAllWeapons().get(0));
 		guestPet.setImageURL("../images/pet1.png");
 		guestPet.setMaxHP(30);
-		guestPet.setName("Guest");
+		guestPet.setName("Guest Pet");
+		guestPet.setPetID(1);
 		newGuest.setUserPet(guestPet);
 		newParser.addUser(newGuest);
+		msql.addUser(newGuest);
 		HttpSession session = request.getSession(true);
 		session.setAttribute(stringConstants.USER, newGuest);
 	}

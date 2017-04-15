@@ -79,6 +79,13 @@
 	function Logout(page) {
 		window.location = page + ".jsp";
 		socket.send("Logout~" + "<%= username %>");
+<<<<<<< Updated upstream
+=======
+		<% 
+			/* currUser.isOnline = false;
+			msql.updateUser(currUser);  */
+		%>
+>>>>>>> Stashed changes
 		return false;
 	}
 </script>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class pet {
 	private String name; 
 	private String imageURL; 
+	private int petID;
 	private int currentLevel; 
 	private int currentEXP; 
 	private int requiredEXPToLevelUp; 
@@ -21,6 +22,9 @@ public class pet {
 		this.equippedWeapon = new weapon(); 
 	}
 	//GETTERS
+	public int getPetID(){
+		return petID;
+	}
 	public String getName()
 	{
 		return name; 
@@ -62,6 +66,9 @@ public class pet {
 	}
 
 	//SETTERS
+	public void setPetID(int petID){
+		this.petID=petID;
+	}
 	public void setName(String name)
 	{
 		this.name = name; 

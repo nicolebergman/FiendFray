@@ -13,7 +13,7 @@ public class card implements Comparable<card>{
 		Random rand = new Random(); 
 		value = rand.nextInt(13) + 1;	// max is 13 for right now
 		suit = rand.nextInt(4) + 1; // 1 Diamond, 2Club, 3 Hearts, 4 Spades
-		//appends the card's suite to the info 
+		//appends the card's suit to the info 
 		String s = ""; 
 		//appends the correct string based on the suite 
 		switch(suit)
@@ -39,8 +39,15 @@ public class card implements Comparable<card>{
 			break; 
 		}
 		}
-		info = s + Integer.toString(value);  
-		imgURL = valueToImage(); 
+		if(value > 9)
+		{
+			info = s + Integer.toString(value);  
+		}
+		else
+		{
+			info = s + "0" + Integer.toString(value);
+		}
+		imgURL = valueToImage();
 	}
 	
 	public String getCardInfo() {
@@ -55,19 +62,19 @@ public class card implements Comparable<card>{
 	public String valueToImage() {
 		switch (value)
 		{
-		case 1: return ""; 
-		case 2: return "";
-		case 3: return ""; 
-		case 4: return ""; 
-		case 5: return ""; 
-		case 6: return "";
-		case 7: return ""; 
-		case 8: return ""; 
-		case 9: return ""; 
-		case 10: return ""; 
-		case 11: return "";
-		case 12: return ""; 
-		case 13: return "";
+		case 1: return "../images/card2.png"; 
+		case 2: return "../images/card3.png";
+		case 3: return "../images/card4.png"; 
+		case 4: return "../images/card5.png"; 
+		case 5: return "../images/card6.png"; 
+		case 6: return "../images/card7.png";
+		case 7: return "../images/card8.png"; 
+		case 8: return "../images/card9.png"; 
+		case 9: return "../images/card10.png"; 
+		case 10: return "../images/card11.png"; 
+		case 11: return "../images/card12.png";
+		case 12: return "../images/card13.png"; 
+		case 13: return "../images/card1.png";
 		default: return "";
 		}
 	}

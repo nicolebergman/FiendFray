@@ -215,6 +215,7 @@ public class battle extends Thread{
 			checkBoard(coord1, coord2);
 			determineHand(); 
 			dealDamage();
+			System.out.println(serverNotification());
 			if(!hasGameEnded())
 			{
 				endTurn(); 
@@ -531,7 +532,7 @@ public class battle extends Thread{
 	//checks for pair 3 of a kind etc 
 	boolean checkHandForSameValue(ArrayList<card> hand)
 	{
-		int[] valueArray = new int[13];
+		int[] valueArray = new int[15];
 		//initialise the count of each value to 0 
 		for(int i=0; i<13; ++i)
 		{
@@ -640,6 +641,12 @@ public class battle extends Thread{
 			return "fiveKind";
 		case FULLHOUSE:
 			return "fullHouse";
+		case FLUSH:
+			return "flush"; 
+		case STRAIGHTFLUSH:
+			return "straightFlush";
+		case ROYALFLUSH: 
+			return "royalFlush"; 
 		default:
 			return "";
 		}
@@ -690,6 +697,30 @@ public class battle extends Thread{
 		
 	}
 	
+	String serverNotification()
+	{
+		String s = "";  
+		for(int i=0; i<5; ++i)
+		{
+			for(int j=0; j<5; ++j)
+			{
+				s += "~";
+				if(board[i][j] == null)
+				{
+					s+="../images/nocard.png";
+				}
+				else
+				{
+					s+=board[i][j].getImgURL();
+				}
+			}
+		}
+		s += "~"; 
+		s+=allUsers.get(0).getUserPet().getCurrentHP(); 
+		s+="~"; 
+		s+=allUsers.get(1).getUserPet().getCurrentHP();
+		return s;
+	}
 	//DEBUG
 	void printBoard()
 	{
@@ -711,11 +742,12 @@ public class battle extends Thread{
 					{
 						toPrint = Integer.toString(print);
 					}
+					toPrint = cardValue.getCardInfo(); 
 					System.out.print(toPrint + " ");
 				}
 				else
 				{
-					System.out.print("xx ");
+					System.out.print("xxx ");
 				}
 			}
 			System.out.println("");
@@ -737,6 +769,7 @@ public class battle extends Thread{
 			{
 				toPrint = Integer.toString(print);
 			}
+			toPrint = card.getCardInfo(); 
 			System.out.print(toPrint + " ");
 		}
 		System.out.println("");

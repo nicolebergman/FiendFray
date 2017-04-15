@@ -24,9 +24,13 @@ public class weapon {
 		handToDamage.put("twoPair", 3);
 		handToDamage.put("threeKind", 4);
 		handToDamage.put("straight", 5);
-		handToDamage.put("fullHouse", 6);
-		handToDamage.put("fourKind", 7);
-		handToDamage.put("fiveKind", 10);
+		handToDamage.put("flush", 6);
+		handToDamage.put("fullHouse", 7);
+		handToDamage.put("fourKind", 8);
+		handToDamage.put("fiveKind", 30);
+		handToDamage.put("straightFlush", 40);
+		handToDamage.put("royalFlush", 50);
+
 
 
 

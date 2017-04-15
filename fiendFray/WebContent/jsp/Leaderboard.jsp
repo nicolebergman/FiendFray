@@ -11,35 +11,66 @@
 <div id="title">
 	<h1>Leaderboards</h1>
 </div>
+<%@ page import="base.stringConstants" %>
+<%@ page import="base.user" %>
+<%@ page import="base.parser" %>
+<%@ page import="server.MySQLDriver" %>
+<%@ page import="java.util.*" %>
+<% 
+	// connect to database
+	MySQLDriver msql = new MySQLDriver();
+	msql.connect();
+	parser newParser = msql.parseDB();
+	ArrayList<user> hpList = new ArrayList<user>();
+	ArrayList<user> gemsList = new ArrayList<user>();
+	for(int i=0; i<newParser.getAllUsers().size(); i++){
+		if(i==0){
+			hpList.add(newParser.getAllUsers().get(i));
+			gemsList.add(newParser.getAllUsers().get(i));
+		}
+		else{
+			for(int j=0; j<hpList.size(); j++){
+				if(newParser.getAllUsers().get(i).getUserPet().getMaxHP()>=hpList.get(j).getUserPet().getMaxHP()){
+					hpList.add(j, newParser.getAllUsers().get(i));
+					break;
+				}
+				if(j+1==hpList.size()){
+					hpList.add(newParser.getAllUsers().get(i));
+					break;
+				}
+			}
+			for(int j=0; j<gemsList.size(); j++){
+				if(newParser.getAllUsers().get(i).getGems()>=gemsList.get(j).getGems()){
+					gemsList.add(j, newParser.getAllUsers().get(i));
+					break;
+				}
+				if(j+1==gemsList.size()){
+					gemsList.add(newParser.getAllUsers().get(i));
+					break;
+				}
+			}
+		}
+	}
+%>
 <table>
   <tr>
     <th>Most HP</th>
     <th>Most Gems</th>
   </tr>
-  <tr>
-    <td>CoolDude</td>
-    <td>NotCoolDude</td>
-  </tr>
-  <tr>
-    <td>Woahahhh</td>
-    <td>Feosijfeosi</td>
-  </tr>
-  <tr>
-    <td>Boss</td>
-    <td>Ross</td>
-  </tr>
-  <tr>
-    <td>NiceKid</td>
-    <td>TotallyNotNiceKid</td>
-  </tr>
-  <tr>
-    <td>leon</td>
-    <td>noel</td>
-  </tr>
-  <tr>
-    <td>nick</td>
-    <td>kcin</td>
-  </tr>
+<%
+  	for(int i=0; i<gemsList.size(); i++){
+%>
+	<tr>
+    <td>
+    <%=gemsList.get(i).getUsername()%>
+    </td>
+    <td>
+    <%=hpList.get(i).getUsername()%>
+    </td>
+    </tr>
+<%
+  	}
+%>
 </table>
 
 <div class="iconbox">

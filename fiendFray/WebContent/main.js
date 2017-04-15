@@ -17,11 +17,7 @@ function errorCheck (servletName, jspName, paramArgs, numArgs, errorDivName){
 	url = url +"?"+encodeURIComponent(paramArgs[0])+"="+encodeURIComponent(document.getElementById(paramArgs[0]).value);
 	url = url +"&"+encodeURIComponent(paramArgs[1])+"="+encodeURIComponent(document.getElementById(paramArgs[1]).value);
 	url = url +"&"+encodeURIComponent(paramArgs[2])+"="+encodeURIComponent(document.getElementById(paramArgs[2]).value);
-	url = url +"&"+encodeURIComponent('petImageURL')+"="+encodeURIComponent(document.getElementById('tableTextId').value);
-	//append the rest of the elements in paramArgs
-//	for (let i = 1; i<numArgs; i++){
-//		url += "&" + encodeURIComponent(paramArgs[i]) + "=" + encodeURIComponent(document.getElementById(paramArgs[i]).value);
-//	}
+	url = url +"&"+encodeURIComponent(paramArgs[3])+"="+encodeURIComponent(document.getElementById('tableTextId').value);
 	//send synchronous ajax call to servlet
 	xhttp.open("GET", url, false);
 	xhttp.send();

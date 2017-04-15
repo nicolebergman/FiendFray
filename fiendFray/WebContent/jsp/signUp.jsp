@@ -10,16 +10,24 @@
 	<link rel="stylesheet" href="../css/signUp.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato:700i" rel="stylesheet">
 	<script src="../main.js" type="text/javascript"></script>
-	<script type="text/javascript">
-  	function handleClick(clickedId) {
-  		console.log(clickedId);
-   		if(clickedId == "pet1") {
-   			document.getElementById('tableTextId').value = "../images/pet1.png";
-   		}
-     	else if (clickedId == "pet2") {
-     		document.getElementById('tableTextId').value = "../images/pet2.png";
-     	}	
-     	else document.getElementById('tableTextId').value = "../images/pet3.png";
+	<script>
+  	function handleClick() {
+   		document.getElementById('petImage1').src="../images/pet1H.png";
+   		document.getElementById('petImage2').src="../images/pet2.png";
+   		document.getElementById('petImage3').src="../images/pet3.png";
+   		document.getElementById('tableTextId').value = "../images/pet1.png";
+  	}
+  	function handleClick1() {
+   		document.getElementById('petImage1').src="../images/pet1.png";
+   		document.getElementById('petImage2').src="../images/pet2H.png";
+   		document.getElementById('petImage3').src="../images/pet3.png";
+   		document.getElementById('tableTextId').value = "../images/pet2.png";
+  	}
+  	function handleClick2() {
+   		document.getElementById('petImage1').src="../images/pet1.png";
+   		document.getElementById('petImage2').src="../images/pet2.png";
+   		document.getElementById('petImage3').src="../images/pet3H.png";
+   		document.getElementById('tableTextId').value = "../images/pet3.png";
   	}
 	</script>
 </head>
@@ -36,54 +44,45 @@
 	<div id = "outer_container">
 		<div id = "inner_container">
 			<div id = "login_container">
-				<form name="signupform" method="GET" action="<%=stringConstants.SIGN_UP_SERVLET %>">
-					Username
-					<br>
-					<input type="text" name="<%=stringConstants.USERNAME %>" id="<%=stringConstants.USERNAME %>" placeholder="Username">
-					<br>
-					Password
-					<br>
-					<input type="text" name="<%=stringConstants.PASSWORD %>" id="<%=stringConstants.PASSWORD %>" placeholder="Password">
-					<br>
-					<br>
-					<div id="pets">
-						<div id="outer">
-							<label>
-								<img src="../images/pet1.png" style="float: left; 
-									width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
-								<div class="inner"><input type="radio" id="pet1" name="pet" 
-									value = "../images/pet1.png" checked = "checked" onclick="handleClick(this.id);"></div>
-							</label>
-							
-							<label>
-								<img src="../images/pet2.png" style="float: left;
-									width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
-								<div class="inner"><input type="radio" id="pet2" name="pet" 
-									value = "../images/pet2.png" onclick="handleClick(this.id);" ></div>
-							</label>
-							
-							 <label>
-								 <img src="../images/pet3.png" style="float: left;
-									width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
-								<div class="inner"><input type="radio" id="pet3" name="pet" 
-									value = "../images/pet3.png" onclick="handleClick(this.id);"></div> 
-							 </label> 
-							 <input type="hidden" name="<%=stringConstants.PETIMAGEURL %>" id="tableTextId" />
-						</div>
-						<br>
-						<br>
-    					Pet's Name
-    					<br>
-    					<input type="text" name="<%=stringConstants.PETNAME %>" id="<%=stringConstants.PETNAME %>" placeholder="Pet's Name">
-						<br>
-						<div class = "submit_button">
-							<input type="submit" style="width:60px;height:100px;" onclick = "return errorCheck('<%=stringConstants.SIGN_UP_SERVLET %>', '<%=stringConstants.HOME_PAGE_JSP %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD %>', '<%=stringConstants.PETNAME %>'], 3, 'errorDiv')" value="Sign Up">
-						</div>
-					</div>
-				</form>
+				Username
+				<br>
+					<input type="text" class="box" name="<%= stringConstants.USERNAME%>" placeholder="Username" id = "<%=stringConstants.USERNAME%>">
+				<br>
+				Password
+				<br>
+					<input type="password" class="box" name="<%= stringConstants.PASSWORD%>" placeholder="Password" id = "<%=stringConstants.PASSWORD%>">
+				<br><br>
+				Select A Pet
+				<div id="outer">
+					<img id="petImage1" src="../images/pet1.png" style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
+					<img id="petImage2" src="../images/pet2.png" style="float: left;width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
+					<img id="petImage3" src="../images/pet3.png" style="float: left;width: 30%; margin-right: 1%; margin-bottom: 0.5em;"/>
+					<input type="hidden" name="<%=stringConstants.PETIMAGEURL %>" id="tableTextId" />
+				</div>
+				<br>
+				<br>
+    			Pet's Name
+    			<br>
+    			<input type="text" name="<%=stringConstants.PETNAME %>" id="<%=stringConstants.PETNAME %>" placeholder="Pet's Name">
+				<br>
+				<input class="button" type="submit" value="Sign Up" class="entry" onclick = "return errorCheck('<%=stringConstants.SIGN_UP_SERVLET %>', '<%=stringConstants.HOME_PAGE_JSP %>', ['<%=stringConstants.USERNAME %>', '<%=stringConstants.PASSWORD%>', '<%=stringConstants.PETNAME%>', '<%=stringConstants.PETIMAGEURL %>'], 4, 'error_message')">
 			</div>
+			<div id = "error_message" class=error_message></div>
 		</div>
-		<div id = "errorDiv" class=error_message></div>
 	</div>	
 </body>
+<script>
+	var tempElement = document.getElementById("petImage1");
+	if(tempElement){
+		tempElement.addEventListener("click", handleClick);
+	}
+	var tempElement1 = document.getElementById("petImage2");
+	if(tempElement1){
+		tempElement1.addEventListener("click", handleClick1);
+	}
+	var tempElement2 = document.getElementById("petImage3");
+	if(tempElement2){
+		tempElement2.addEventListener("click", handleClick2);
+	}
+</script>
 </html>

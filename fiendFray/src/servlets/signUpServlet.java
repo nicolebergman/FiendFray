@@ -30,27 +30,20 @@ public class signUpServlet extends HttpServlet {
 		String password = request.getParameter(stringConstants.PASSWORD);
 		String username = request.getParameter(stringConstants.USERNAME);
 		String petImageURL = request.getParameter(stringConstants.PETIMAGEURL);
-//		String petImageURL = "../images/pet1.png";
 		String petName = request.getParameter(stringConstants.PETNAME);
-		System.out.println(stringConstants.PASSWORD + " ----- " + password);
-		System.out.println(stringConstants.USERNAME + " ----- " + username);
-		System.out.println(stringConstants.PETNAME + " ----- " + petName);
-		System.out.println(stringConstants.PETIMAGEURL + " ----- " + petImageURL);
-		
 		MySQLDriver msql = new MySQLDriver();
 		msql.connect();
 		parser newParser = msql.parseDB();
-		
 		//check to make sure all the fields were filled out
-		if (password.isEmpty() || password == null){
-			response.getWriter().write("no password provided");
-		}
-		else if (username.isEmpty() || username == null){
+		if (username.isEmpty() || username == null){
 			response.getWriter().write("no username provided");
 		}
-//		else if (petImageURL.isEmpty() || petImageURL == null) {
-//			response.getWriter().write("no pet selected");
-//		}
+		else if (password.isEmpty() || password == null){
+			response.getWriter().write("no password provided");
+		}
+		else if (petImageURL.isEmpty() || petImageURL == null) {
+			response.getWriter().write("no pet selected");
+		}
 		else if (petName.isEmpty() || petName == null) {
 			response.getWriter().write("no pet name provided");
 		}
@@ -58,22 +51,31 @@ public class signUpServlet extends HttpServlet {
 			response.getWriter().write("username has already been chosen");
 		}
 		else{
-				//create a user object
-				user user = new user();
-				user.setPassword(password);
-				user.setUsername(username);
-				user.setGuest(false);
-				user.setGems(10);
-				pet newPet = new pet();
-				newPet.setImageURL(petImageURL);
-				newPet.setName(petName);
-				newPet.setMaxHP(30);
-				newPet.setCurrentHP(30);
-				newPet.setEquppedWeapon(newParser.getAllWeapons().get(0));
-				user.setUserPet(newPet);
-				msql.addUser(user);
-				HttpSession session = request.getSession(true);
-				session.setAttribute(stringConstants.USER, user);
+			//create a user object
+			user user = new user();
+			user.setPassword(password);
+			user.setUsername(username);
+			user.setGuest(false);
+			user.setGems(10);
+			pet newPet = new pet();
+			newPet.setImageURL(petImageURL);
+			newPet.setName(petName);
+			newPet.setMaxHP(30);
+			newPet.setCurrentHP(30);
+			newPet.setEquppedWeapon(newParser.getAllWeapons().get(0));
+			if(petImageURL.contains("1")){
+				newPet.setPetID(1);
+			}
+			else if(petImageURL.contains("2")){
+				newPet.setPetID(2);
+			}
+			else{
+				newPet.setPetID(3);
+			}
+			user.setUserPet(newPet);
+			msql.addUser(user);
+			HttpSession session = request.getSession(true);
+			session.setAttribute(stringConstants.USER, user);
 		}
 	}
 }

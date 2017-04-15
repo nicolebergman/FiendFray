@@ -2,6 +2,7 @@ package server;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -12,11 +13,18 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import base.battle;
+import base.parser;
+import base.user;
+import server.MySQLDriver;
+
 @ServerEndpoint(value="/fiendFrayServer")
 public class fiendFrayServer {
 	// only once instance through all instances of this class
 	private static Vector<Session> sessionVector = new Vector<Session>();
 	private static Map<String, Session> usernameToSession = new HashMap<String, Session>();
+	private static Map<Integer, battle> idToBattle = new HashMap<Integer, battle>();
+	private static int battleIdCounter = 0;
 		
 	@OnOpen
 	public void open(Session session) {
@@ -118,12 +126,65 @@ public class fiendFrayServer {
 				System.out.println("ioe: " + ioe.getMessage());
 			}
 			break;
+		case "StartGame":
+			// send battle request to client
+			String battleIdStr = commands[1];
+			int battleIdInt = Integer.parseInt(battleIdStr);
+			//try {
+				for(int userKey : idToBattle.keySet()) {
+					if(userKey == battleIdInt) {
+						idToBattle.get(userKey).incrementRecognitionCount();
+//						Session s = usernameToSession.get(userKey);
+//						s.getBasicRemote().sendText("BattleRequest~" + wantsToBattle + " wants to battle!");
+					}
+				}
+//			} catch(IOException ioe) {
+//				System.out.println("ioe: " + ioe.getMessage());
+//			}
+			break;
 		case "AcceptBattle":
 			// identify players who battle
 			String firstPlayer = commands[1];
 			String secondPlayer = commands[2];
 			
-			// 
+			//connect to database
+			MySQLDriver msql = new MySQLDriver();
+			msql.connect();
+			parser newParser = msql.parseDB();
+			List<user> allUsers = newParser.getAllUsers();
+			
+			// find users to add
+			user firstUser = new user();
+			user secondUser = new user();
+			for(user x : allUsers) {
+				if(x.getUsername().equals(firstPlayer)) {
+					firstUser = x;
+				}
+				
+				if(x.getUsername().equals(secondPlayer)) {
+					secondUser = x;
+				}
+			}
+			
+			// create battle
+			int battleId = battleIdCounter;
+			battleIdCounter++;
+			firstUser.battleId = battleId;
+			secondUser.battleId = battleId;
+			battle newBattle = new battle(firstUser, secondUser, this);
+			idToBattle.put(battleId, newBattle);
+			
+			// tell clients to go to battle page
+			try {
+				for(String userKey : usernameToSession.keySet()) {
+					if(userKey.equals(firstPlayer) || userKey.equals(secondPlayer)) {
+						Session s = usernameToSession.get(userKey);
+						s.getBasicRemote().sendText("GoBattle~" + Integer.toString(battleId));
+					}
+				}
+			} catch(IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
+			}
 			
 			break;
 		default:
@@ -132,6 +193,21 @@ public class fiendFrayServer {
 		}
 		
 		System.out.println(usernameToSession.toString());
+	}
+	
+	public void sendMessage(String message, String firstPlayer, String secondPlayer) {
+		// tell clients to go to battle page
+		try {
+			for(String userKey : usernameToSession.keySet()) {
+				if(userKey.equals(firstPlayer) || userKey.equals(secondPlayer)) {
+					Session s = usernameToSession.get(userKey);
+					s.getBasicRemote().sendText("UpdateBoard" + message);
+					System.out.println(message);
+				}
+			}
+		} catch(IOException ioe) {
+			System.out.println("ioe: " + ioe.getMessage());
+		}
 	}
 	
 	@OnClose

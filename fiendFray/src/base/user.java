@@ -10,6 +10,7 @@ public class user {
 	private int gems;
 	private boolean isGuest;
 	public boolean isOnline;
+	public int battleId;
 	//debug
 	
 	public user(String username, String password, pet userPet){
@@ -20,6 +21,7 @@ public class user {
 		this.isGuest = false;
 		this.currentHand = new ArrayList<card>();
 		this.isOnline=false;
+		this.battleId = -1;
 	}
 	
 	public user() {

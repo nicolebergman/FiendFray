@@ -20,6 +20,9 @@
 	
 	// get current user attributes
 	user currUser = (user) session.getAttribute(stringConstants.USER);
+	String username = currUser.getUsername();
+	String battleIdStr = (String) session.getAttribute("battleId");
+	int battleId = Integer.parseInt(battleIdStr);
 %>
 
 <script>
@@ -34,10 +37,40 @@ function connectToServer() {
 		document.getElementById("chatText").innerHTML += "Moderator: Let the battle begin! <br/>";
 		
 		// notify other users of entry
-		//socket.send("UserEnter~" + " has entered the fray!");
+		socket.send("AddToServer~" + "<%= username %>");
+		socket.send("StartGame~" + <%= battleIdStr %>);
 	}
 	socket.onmessage = function(event) {
-		document.getElementById("chatText").innerHTML += event.data + "<br />";
+		var commands = event.data.split("~");
+		if(commands[0] == "UpdateBoard") {
+			document.getElementById("00").src = commands[1];
+			document.getElementById("01").src = commands[2];
+			document.getElementById("02").src = commands[3];
+			document.getElementById("03").src = commands[4];
+			document.getElementById("04").src = commands[5];
+			document.getElementById("10").src = commands[6];
+			document.getElementById("11").src = commands[7];
+			document.getElementById("12").src = commands[8];
+			document.getElementById("13").src = commands[9];
+			document.getElementById("14").src = commands[10];
+			document.getElementById("20").src = commands[11];
+			document.getElementById("21").src = commands[12];
+			document.getElementById("22").src = commands[13];
+			document.getElementById("23").src = commands[14];
+			document.getElementById("24").src = commands[15];
+			document.getElementById("30").src = commands[16];
+			document.getElementById("31").src = commands[17];
+			document.getElementById("32").src = commands[18];
+			document.getElementById("33").src = commands[19];
+			document.getElementById("34").src = commands[20];
+			document.getElementById("40").src = commands[21];
+			document.getElementById("41").src = commands[22];
+			document.getElementById("42").src = commands[23];
+			document.getElementById("43").src = commands[24];
+			document.getElementById("44").src = commands[25];
+		} else {
+			document.getElementById("chatText").innerHTML += event.data + "<br />";
+		}
 	}
 }
 

@@ -3,6 +3,10 @@ package base;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import server.fiendFrayServer;
 
 public class battle extends Thread{
 	private class coordinate
@@ -43,36 +47,59 @@ public class battle extends Thread{
 	private int winnerIndex;
 	private ArrayList< ArrayList<card> > allHandCombos; 
 	private ArrayList<pokerHand> madePokerHands; 
-	public battle(user user1, user user2){
+	private Lock mLock;
+	// count how many times players have sent 'StartGame' message
+	private int recognitionCount;
+	private fiendFrayServer server;
+	
+	public battle(user user1, user user2, fiendFrayServer ffs){
 		allUsers = new ArrayList<user>();
 		allUsers.add(user1); 
 		allUsers.add(user2); 
 		onlineUsers = new ArrayList<user>();
 		board= new card[5][5];
-		initialiseBoard(); 
 		//the player who initiates the battle starts first
 		bUser2Turn = false;
 		allHandCombos = new ArrayList< ArrayList<card> >();
 		madePokerHands = new ArrayList<pokerHand>(); 
-		initialiseBoard(); 
-		gameLoop(); 
+		mLock = new ReentrantLock();
+		recognitionCount = 0;
+		server = ffs;
+		this.start();
+		//initialiseBoard(); 
+		//gameLoop(); 
 	}
 	
-	public static void main(String[] args)
-	{
-		user user1 = new user(); 
-		user user2 = new user(); 
-		new battle(user1, user2); 
+//	public static void main(String[] args)
+//	{
+//		user user1 = new user(); 
+//		user user2 = new user(); 
+//		new battle(user1, user2); 
+//	}
+	
+	public void notifyServer(String message) {
+		// notify server to send message
+		server.sendMessage(message, allUsers.get(0).getUsername(), allUsers.get(1).getUsername());
 	}
-	
-	
 	
 	void joinBattle(user user)
 	{
 		allUsers.add(user); 
 	}
 	
-	void initialiseBoard()
+	public void incrementRecognitionCount() {
+		mLock.lock();
+		try {
+			recognitionCount++;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println(recognitionCount);
+			mLock.unlock();
+		}
+	}
+	
+	public void initialiseBoard()
 	{
 		for(int i=0; i< 5; ++i)
 		{
@@ -89,6 +116,8 @@ public class battle extends Thread{
 				board[i][j] = new card(); 
 			}
 		}
+		
+		notifyServer(serverNotification());
 	}
 	
 	public card[][] getBoard()
@@ -783,5 +812,18 @@ public class battle extends Thread{
 		System.out.println("Current User HP: " + currentHP + "/" + maxHP);
 		System.out.println("Opponent User HP: " + currentHPOpponent + "/" + maxHPOpponent);
 
+	}
+	
+	public void run() {
+		// detect whether to start game state machine
+		System.out.println("dicknipples");
+		while(true) {
+			System.out.println(recognitionCount);
+			if(recognitionCount == 2) {
+				System.out.println("2 player starts received");
+				this.initialiseBoard();
+				this.gameLoop();
+			}
+		}
 	}
 }

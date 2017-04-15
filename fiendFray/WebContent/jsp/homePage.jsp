@@ -72,6 +72,21 @@
 			if(commands[0] == "BattleRequest") {
 				document.getElementById("feedtext").innerHTML += "<input type='submit' id='acceptBattleRequest' value='" + commands[1] + "'/> <br/>";
 				document.getElementById('acceptBattleRequest').onclick = function () { acceptBattleRequest(commands[1]) }; 
+			} else if(commands[0] == "GoBattle") {
+				// url + params --> <SERVLETNAME>?<PARAMNAME>=<param>&<PARAMNAME>=<param>
+				var url = "../BattleIdServlet?battleId=" + commands[1];
+
+				// create AJAX request
+				var req = new XMLHttpRequest();
+				req.open("GET", url, true);
+				req.onreadystatechange = function () {
+					if(req.readyState == 4 && req.status == 200) {
+						// once response returned from servlet
+						socket.send("SwitchPage~" + "<%= username %>");
+						window.location = "battlePage.jsp";
+					}
+				}
+				req.send(null);
 			} else {
 				document.getElementById("feedtext").innerHTML += event.data + "<br />";
 			}

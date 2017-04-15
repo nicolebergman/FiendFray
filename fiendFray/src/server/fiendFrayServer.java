@@ -75,6 +75,17 @@ public class fiendFrayServer {
 				System.out.println("ioe: " + ioe.getMessage());
 			}
 			break;
+		case "ChatMessage":
+			// send message to other client in game
+			try {
+				for(Session s : sessionVector) {
+					// send data back out to all other clients
+					s.getBasicRemote().sendText(commands[1]);
+				}
+			} catch(IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
+			}
+			break;
 		default:
 			System.out.print("nothin' to see here!");
 			break;

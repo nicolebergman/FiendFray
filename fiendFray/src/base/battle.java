@@ -2,6 +2,7 @@ package base;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -51,6 +52,10 @@ public class battle extends Thread{
 	// count how many times players have sent 'StartGame' message
 	private int recognitionCount;
 	private fiendFrayServer server;
+	private boolean bProcessCardInputs; 
+	private List<coordinate> placedCardCoordinates; 
+	private List<card> placedCards; 
+	private List<Integer> removeCardIndices; 
 	
 	public battle(user user1, user user2, fiendFrayServer ffs){
 		allUsers = new ArrayList<user>();
@@ -67,7 +72,12 @@ public class battle extends Thread{
 		server = ffs;
 		this.start();
 		//initialiseBoard(); 
-		//gameLoop(); 
+		//gameLoop();
+		bProcessCardInputs = false; 
+		placedCardCoordinates = new ArrayList<coordinate>(); 
+		placedCards = new ArrayList<card>(); 
+		removeCardIndices = new ArrayList<Integer>(); 
+		
 	}
 	
 //	public static void main(String[] args)
@@ -162,13 +172,19 @@ public class battle extends Thread{
 		return user1.playHand(hand);
 	}
 	**/
+	
+	public void allowProcessInput()
+	{
+		this.bProcessCardInputs = true; 
+	}
 	public void gameLoop()
 	{
 		//TO DO
 		//as long as both pets have current HP > 0, keep looping
 		while(true)
 		{
-			drawCard();
+			//drawCard();
+			/* All for console puposes
 			printBoard(); 
 			//whole chunk below is just asking player to place 2 cards somewhere
 			int cardIndex1; 
@@ -203,6 +219,7 @@ public class battle extends Thread{
 			
 			printBoard(); 
 			
+			
 			int cardIndex2; 
 			card cardToPlay2; 
 			coordinate coord2; 
@@ -230,7 +247,17 @@ public class battle extends Thread{
 				
 			}
 			user.removeCardAtIndex(cardIndex2);
-			
+			*/
+			while(!this.bProcessCardInputs)
+			{}
+			this.bProcessCardInputs = false; 
+			this.placeCard(this.removeCardIndices.get(0), this.placedCardCoordinates.get(0));
+			this.placeCard(this.removeCardIndices.get(1), this.placedCardCoordinates.get(1));
+
+			user currentUser = allUsers.get(this.getCurrentPlayerIndex()); 
+			currentUser.removeCardAtIndex(this.removeCardIndices.get(0));
+			currentUser.removeCardAtIndex(this.removeCardIndices.get(1));
+
 			if(isBoardFull())
 			{
 				initialiseBoard();
@@ -241,10 +268,13 @@ public class battle extends Thread{
 			}
 			//checks if the placed card creates any hands
 			//checkBoard(coord1, coord2); 
-			checkBoard(coord1, coord2);
+			checkBoard(this.placedCardCoordinates.get(0), this.placedCardCoordinates.get(1));
 			determineHand(); 
 			dealDamage();
 			System.out.println(serverNotification());
+			drawCard();
+			// notify clients of interface updates
+			notifyServer(serverNotification());
 			if(!hasGameEnded())
 			{
 				endTurn(); 
@@ -753,6 +783,19 @@ public class battle extends Thread{
 		s+=allUsers.get(0).getUserPet().getCurrentHP(); 
 		s+="~"; 
 		s+=allUsers.get(1).getUserPet().getCurrentHP();
+		user user1 = allUsers.get(0); 
+		for(card card : user1.getCurrentHand())
+		{
+			s +="~"; 
+			s += card.getImgURL();
+		}
+		user user2 = allUsers.get(1); 
+		for(card card : user2.getCurrentHand())
+		{
+			s +="~"; 
+			s += card.getImgURL();
+		}
+		
 		return s;
 	}
 	//DEBUG
@@ -826,6 +869,13 @@ public class battle extends Thread{
 			System.out.println(recognitionCount);
 			if(recognitionCount == 2) {
 				System.out.println("2 player starts received");
+				user user1 = allUsers.get(0); 
+				user user2 = allUsers.get(1); 
+				for(int i=0; i<4; ++i)
+				{
+					user1.getCurrentHand().add(new card()); 
+					user2.getCurrentHand().add(new card());
+				}
 				this.initialiseBoard();
 				this.gameLoop();
 			}

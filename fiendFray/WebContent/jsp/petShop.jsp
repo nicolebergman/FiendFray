@@ -21,7 +21,7 @@
 	// get current user's name
 	user currUser = (user) session.getAttribute(stringConstants.USER);
 	String username = currUser.getUsername();
-	System.out.println(username);
+	System.out.println("current user: " + username);
 	int currGems = currUser.getGems();
 %>
 <script>

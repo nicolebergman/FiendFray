@@ -131,7 +131,23 @@ button:hover {
     outline:none;
 	cursor: pointer;
 	font-size: 120%;
+	font-weight: bold;
 }
+
+#acceptBattleRequest {
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    overflow: hidden;
+    outline:none;
+	cursor: pointer;
+	font-size: 120%;
+	font-weight: bold;
+}
+
+#acceptBattleRequest:hover {
+	color: red;
+}	
 
 .sendBattleRequestButton:hover {
 	color: #87b5ff;

@@ -21,7 +21,7 @@
 	// get current user attributes
 	user currUser = (user) session.getAttribute(stringConstants.USER);
 	String username = currUser.getUsername();
-	System.out.println(username);
+	System.out.println("current user: " + username);
 	String petName = currUser.getUserPet().getName();
 	String petImage = currUser.getUserPet().getImageURL();
 	String petLevel = Integer.toString(currUser.getUserPet().getCurrentLevel());
@@ -68,7 +68,13 @@
 			socket.send("AddToServer~" + "<%= username %>");
 		}
 		socket.onmessage = function(event) {
-			document.getElementById("feedtext").innerHTML += event.data + "<br />";
+			var commands = event.data.split("~");
+			if(commands[0] == "BattleRequest") {
+				document.getElementById("feedtext").innerHTML += "<input type='submit' id='acceptBattleRequest' value='" + commands[1] + "'/> <br/>";
+				document.getElementById('acceptBattleRequest').onclick = function () { acceptBattleRequest(commands[1]) }; 
+			} else {
+				document.getElementById("feedtext").innerHTML += event.data + "<br />";
+			}
 		}
 	}
 	
@@ -86,6 +92,16 @@
 			msql.updateUser(currUser);  */
 		%>
 		return false;
+	}
+	
+	function sendBattleRequest(username) {
+		socket.send("BattleRequest~" + username + "~" + "<%= username %>");
+	}
+	
+	function acceptBattleRequest(battleRequest) {
+		var commands = battleRequest.split(" ");
+		var battler = commands[0];
+		socket.send("AcceptBattle~" + battler + "~" + "<%= username %>");
 	}
 </script>
  <link rel = "stylesheet" type = "text/css" href = "../css/homePage.css" />

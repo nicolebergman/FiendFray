@@ -102,9 +102,32 @@ public class fiendFrayServer {
 			// add to server vector
 			String name = commands[1];
 			usernameToSession.put(name, session);
+			break;	
+		case "BattleRequest":
+			// send battle request to client
+			String toBattle = commands[1];
+			String wantsToBattle = commands[2];
+			try {
+				for(String userKey : usernameToSession.keySet()) {
+					if(userKey.equals(toBattle)) {
+						Session s = usernameToSession.get(userKey);
+						s.getBasicRemote().sendText("BattleRequest~" + wantsToBattle + " wants to battle!");
+					}
+				}
+			} catch(IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
+			}
+			break;
+		case "AcceptBattle":
+			// identify players who battle
+			String firstPlayer = commands[1];
+			String secondPlayer = commands[2];
+			
+			// 
+			
 			break;
 		default:
-			System.out.print("nothin' to see here!");
+			System.out.print("fuck me");
 			break;
 		}
 		

@@ -10,7 +10,7 @@
 <%@ page import="base.parser" %>
 <%@ page import="server.MySQLDriver" %>
 <%@ page import="java.util.*" %>
-
+<script src="../main2.js" type="text/javascript"></script>
 <% 
 	//connect to database
 	MySQLDriver msql = new MySQLDriver();
@@ -92,20 +92,9 @@
 			}
 		}
 	}
-	
 	function switchPage(page) {
 		window.location = page + ".jsp";
 		socket.send("SwitchPage~" + "<%= username %>");
-		return false;
-	}
-	
-	function Logout(page) {
-		window.location = page + ".jsp";
-		socket.send("Logout~" + "<%= username %>");
-		<% 
-			/* currUser.isOnline = false;
-			msql.updateUser(currUser);  */
-		%>
 		return false;
 	}
 	
@@ -135,9 +124,9 @@
 			<button class="petShopButton" onclick="switchPage('petShop')">Pet Shop</button>
 			
 			<button class="leaderboardButton" onclick="switchPage('Leaderboard')">Leaderboard</button>
-					
-			<button class="logoutButton" onclick="Logout('loginPage')">Logout</button>
 			
+			<button class="logoutButton" id="hey" value="Logout" type="submit" onclick = "return errorCheck('/logoutServlet', 'loginPage.jsp', ['hey'], 1, 'error_message')">Logout</button>
+			<div id = "error_message" class=error_message></div>
 			<br/><br/><br/><br/>
 			
 			<div class="stats">

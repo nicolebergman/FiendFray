@@ -39,7 +39,14 @@ public class card implements Comparable<card>{
 			break; 
 		}
 		}
-		info = s + Integer.toString(value);  
+		if(value > 9)
+		{
+			info = s + Integer.toString(value);  
+		}
+		else
+		{
+			info = s + "0" + Integer.toString(value);
+		}
 		imgURL = valueToImage();
 	}
 	

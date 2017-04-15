@@ -742,11 +742,12 @@ public class battle extends Thread{
 					{
 						toPrint = Integer.toString(print);
 					}
+					toPrint = cardValue.getCardInfo(); 
 					System.out.print(toPrint + " ");
 				}
 				else
 				{
-					System.out.print("xx ");
+					System.out.print("xxx ");
 				}
 			}
 			System.out.println("");
@@ -768,6 +769,7 @@ public class battle extends Thread{
 			{
 				toPrint = Integer.toString(print);
 			}
+			toPrint = card.getCardInfo(); 
 			System.out.print(toPrint + " ");
 		}
 		System.out.println("");

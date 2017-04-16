@@ -63,20 +63,11 @@ public class card implements Comparable<card>{
 	{
 		switch(suit)
 		{
-		case 1: 
-			valueToDiamondImage(); 
-			break; 
-		case 2: 
-			valueToClubImage(); 
-			break; 
-		case 3: 
-			valueToHeartImage(); 
-			break; 
-		case 4: 
-			valueToSpadeImage(); 
-			break; 
-			default: 
-				break; 
+		case 1: return valueToDiamondImage(); 
+		case 2: return valueToClubImage(); 
+		case 3: return valueToHeartImage(); 
+		case 4: return valueToSpadeImage(); 
+		default: return "Shit don't exist";
 		}
 	}
 	public String valueToSpadeImage() {

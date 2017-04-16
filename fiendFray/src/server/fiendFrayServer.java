@@ -106,6 +106,20 @@ public class fiendFrayServer {
 				System.out.println("ioe: " + ioe.getMessage());
 			}
 			break;
+		case "UpdateActiveUsers":
+			// tell clients on home page to update their active user's list
+			try {
+				for(String userKey : usernameToSession.keySet()) {
+					// send data back out to all clients
+					Session s = usernameToSession.get(userKey);
+					if(s != session) {
+						s.getBasicRemote().sendText(commands[1]);
+					}
+				}
+			} catch(IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
+			}
+			break;
 		case "AddToServer":
 			// add to server vector
 			String name = commands[1];

@@ -66,7 +66,7 @@
 			
 			// notify other users of entry
 			socket.send("UserEnter~" + "<%= username %>" + " has entered the fray!");
-			socket.send("AddToServer~" + "<%= username %>");
+		socket.send("AddToServer~" + "<%= username %>");	
 		}
 		socket.onmessage = function(event) {
 			var commands = event.data.split("~");

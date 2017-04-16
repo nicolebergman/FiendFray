@@ -6,6 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Leaderboard</title>
 <link rel = "stylesheet" type = "text/css" href = "../css/Leaderboard.css" />
+
+<script>
+	function switchPage() {
+		window.location = "homePage.jsp";
+		return false;
+	}
+</script>
+
 </head>
 <body style="background-color:#83c0ef;" background="../images/clean-pixel-landscape.jpg">
 
@@ -48,6 +56,8 @@
 		mostGems += gemsList.get(i).getUsername() + "<br/>";
 	}
 %>
+
+<button class="homeButton" onclick="switchPage()">Go Home</button>
 <%-- <table>
   <tr>
     <th>Most HP</th>

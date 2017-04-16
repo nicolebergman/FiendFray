@@ -31,28 +31,3 @@ function errorCheck (servletName, jspName, paramArgs, numArgs, errorDivName){
 	return false;
 	
 }
-
-
-function errorCheck1 (servletName, errorDivName, value, name){
-	var xhttp = new XMLHttpRequest();
-	//gets the path
-	var path = "/"+window.location.pathname.split("/")[1];
-	//create url with first parameter from paramArgs
-	var url = path + servletName+"?value="+value+"&name="+name;
-	//send synchronous ajax call to servlet
-	xhttp.open("GET", url, false);
-	xhttp.send();
-	//if we got a response text, there must have been an error
-	if (xhttp.responseText.trim().length > 0) {
-		//set the repsonse text as the innerHTML of the error div
-		var response = xhttp.responseText;
-		var first = response.split("~")[0];
-		var second = response.split("~")[1];
-		document.getElementById('shim').style.display=document.getElementById('msgbx').style.display ="block";
-		document.getElementById("messageText").innerHTML = "<br>"+"<br>"+"<br>"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+second;
-		document.getElementById("currentGems").innerHTML = first;
-	}
-	
-	return false;
-	
-}

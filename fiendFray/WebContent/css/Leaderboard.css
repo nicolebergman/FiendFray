@@ -101,3 +101,30 @@ tr:nth-child(odd) {
 	top: 500px;
 	left: 270px;
 }
+
+.homeButton {
+	background-color: #f49541;
+    border: none;
+    color: white;
+    padding: 10px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+    cusor: pointer;
+    position: absolute;
+  	top: 75px;
+  	left: 50px;
+}
+
+button {
+    transition: 0.25s ease-in-out;
+    cusor: pointer;
+}
+
+button:hover {
+	opacity: 0.5;
+}

@@ -222,6 +222,8 @@ public class MySQLDriver {
 				newPet.setWeaponID(weaponID);
 				newPet.setCurrentHP(currentHP);
 				newPet.setCurrentLevel(currentLevel);
+				newPet.setRequiredEXPToLevelUp(requiredXPToLevelUp);
+				newPet.setCurrentEXP(currentXP);
 				newPet.setMaxHP(maxHP);
 				newPet.setName(petName);
 				newPet.setImageURL(imgURL);

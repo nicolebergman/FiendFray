@@ -12,6 +12,7 @@
 <%@ page import="server.MySQLDriver" %>
 <%@ page import="java.util.*" %>
 <script src="../main2.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <% 
 	// connect to database
 	MySQLDriver msql = new MySQLDriver();
@@ -49,30 +50,40 @@
 		socket.send("SwitchPage~" + "<%= username %>");
 		return false;
 	}
+	
+	function hidePopup(){
+		document.getElementById('shim').style.display=document.getElementById('msgbx').style.display ="none";
+	}
+	function showPopup(){
+		document.getElementById('shim').style.display=document.getElementById('msgbx').style.display ="block";
+	}
 </script>
 </head>
-<body onload="connectToServer();" background="../images/shop.jpg" style="background-color:#83c0ef;">
+<body onload="connectToServer();" background="../images/night.png" style="background-color:#83c0ef;">
 
 <button class="homeButton" onclick="switchPage('homePage')">Go Home</button>
 
 <div id="title">
 	<h1>Welcome to the Pet Shop!</h1>
 </div>
-
+<div id="shim"></div>
+<div id="msgbx">
+	<p id="messageText"></p>
+	<div id="closer" class="popup-closer">X</div>
+</div>
 <div id="info">
 	<div id="shopTitle">
 	<h2>Take a look around!</h2>
+	<h3>You have: 
 	</div>
 	
 	<div id="currentMoney">
-		<h3>Currently held gems: 
+		<h3>
 		<div id="currentGems"><%= currGems %></div>
+		<img src="../images/gem.png" style="width:40px; height:40px; margin-top: -34px; margin-right: -64px;">
 		</h3>
 	</div>
-	<div id = "error_message" style="color:white; text-align:center;">
-	</div>
 </div>
-
 <div class="iconbox">
     <div id="bow">
         <img src="../images/weapon_1.png" />
@@ -118,4 +129,10 @@
 </div>
 	<input type="hidden" id="weapon" value="null"/>
 </body>
+<script>
+var tempElement = document.getElementById("closer");
+if(tempElement){
+	tempElement.addEventListener("click", hidePopup);
+}
+</script>
 </html>

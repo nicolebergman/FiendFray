@@ -110,6 +110,14 @@ function connectToServer() {
 				document.getElementById("yourCard3").src = commands[34];
 				document.getElementById("yourCard4").src = commands[35];
 			}
+		} else if(commands[0] == "GameOver") {
+			var userID = <%= userId %>;
+			var userIDStr = userID.toString();
+			if(userIDStr == commands[1]) {
+				document.getElementById("chatText").innerHTML += "You win! <br />";
+			} else {
+				document.getElementById("chatText").innerHTML += "You lose! <br />";
+			}
 		} else {
 			document.getElementById("chatText").innerHTML += event.data + "<br />";
 		}

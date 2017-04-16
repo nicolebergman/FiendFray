@@ -305,8 +305,8 @@ public class fiendFrayServer {
 			for(String userKey : usernameToSession.keySet()) {
 				if(userKey.equals(firstPlayer) || userKey.equals(secondPlayer)) {
 					Session s = usernameToSession.get(userKey);
-					s.getBasicRemote().sendText("UpdateBoard" + message);
 					System.out.println(message);
+					s.getBasicRemote().sendText("UpdateBoard" + message);
 				}
 			}
 		} catch(IOException ioe) {
@@ -323,6 +323,7 @@ public class fiendFrayServer {
 	
 	@OnError
 	public void onError(Throwable error) {
-		System.out.println("error");
+		error.printStackTrace();
+		System.out.println("fucking errorrrrrr");
 	}
 }

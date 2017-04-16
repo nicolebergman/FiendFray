@@ -111,6 +111,8 @@ public class card implements Comparable<card>{
 	public int compareTo(card otherCard)
 	{
 		int otherCardValue = otherCard.getValue(); 
+		System.out.println("this card value: " + this.value);
+		System.out.println("other card value: " + otherCardValue);
 		return this.value - otherCardValue; 
 	}
 

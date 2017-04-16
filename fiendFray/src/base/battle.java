@@ -89,6 +89,7 @@ public class battle extends Thread{
 	
 	public void notifyServer(String message) {
 		// notify server to send message
+		System.out.println(message);
 		server.sendMessage(message, allUsers.get(0).getUsername(), allUsers.get(1).getUsername());
 	}
 	
@@ -298,7 +299,7 @@ public class battle extends Thread{
 
 		user currentUser = allUsers.get(this.getCurrentPlayerIndex()); 
 		currentUser.removeCardAtIndex(this.removeCardIndices.get(0));
-		currentUser.removeCardAtIndex(this.removeCardIndices.get(1));
+		currentUser.removeCardAtIndex(this.removeCardIndices.get(1) - 1);
 
 		if(isBoardFull())
 		{
@@ -312,12 +313,13 @@ public class battle extends Thread{
 		dealDamage();
 		//System.out.println(serverNotification());
 		drawCard();
-		// notify clients of interface updates
-		notifyServer(serverNotification());
 		clearInputs();
 		if(!hasGameEnded())
 		{
 			endTurn(); 
+			
+			// notify clients of interface updates
+			notifyServer(serverNotification());
 		}
 		else
 		{
@@ -939,6 +941,7 @@ public class battle extends Thread{
 					user2.getCurrentHand().add(new card());
 				}
 				this.initialiseBoard();
+				break;
 				//this.gameLoop();
 			}
 		}

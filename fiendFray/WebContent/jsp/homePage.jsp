@@ -136,7 +136,8 @@
 				<h3>Current EXP: <%= petExp %></h3>
 				<h3>Max HP: <%= maxHP %></h3>
 				<h3>Weapon Card: <%= weaponName %></h3>
-				<h3>Weapon Card Multiplier: TODO</h3>
+				<img src=<%="../images/weapon_"+currUser.getUserPet().getWeaponID()+".png" %> style="width:100px; height: 100px;">
+				<h3>Weapon Card Multiplier: <%=currUser.getUserPet().getWeaponID()%>x</h3>
 			</div>
 		</div>
 		

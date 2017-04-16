@@ -37,7 +37,7 @@
 		Sign up
 	</div>
 
-	<div id = "welcome_text">
+	<div id = "welcome_text" style="top: 120px; left: 520px;">
 		Enter your information.
 	</div>
 

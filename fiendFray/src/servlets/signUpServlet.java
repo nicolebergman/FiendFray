@@ -61,8 +61,12 @@ public class signUpServlet extends HttpServlet {
 			newPet.setImageURL(petImageURL);
 			newPet.setName(petName);
 			newPet.setMaxHP(30);
+			newPet.setCurrentEXP(0);
+			newPet.setCurrentLevel(1);
+			newPet.setRequiredEXPToLevelUp(100);
 			newPet.setCurrentHP(30);
 			newPet.setEquppedWeapon(newParser.getAllWeapons().get(0));
+			newPet.setWeaponID(1);
 			if(petImageURL.contains("1")){
 				newPet.setPetID(1);
 			}

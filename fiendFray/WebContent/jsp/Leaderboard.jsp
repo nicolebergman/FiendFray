@@ -44,8 +44,12 @@
 	String mostHP = "";
 	String mostGems = "";
 	for(int i=gemsList.size()-1; i>=0; i--){
-		mostHP += hpList.get(i).getUsername() + "<br/>";
-		mostGems += gemsList.get(i).getUsername() + "<br/>";
+		if(!hpList.get(i).isGuest()){
+			mostHP += hpList.get(i).getUsername() + "<br/>";
+		}
+		if(!gemsList.get(i).isGuest()){
+			mostGems += gemsList.get(i).getUsername() + "<br/>";
+		}
 	}
 %>
 <%-- <table>

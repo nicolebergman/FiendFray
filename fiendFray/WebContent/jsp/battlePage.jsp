@@ -118,8 +118,12 @@ function connectToServer() {
 			var userIDStr = userID.toString();
 			if(userIDStr == commands[1]) {
 				document.getElementById("chatText").innerHTML += "You win! <br />";
+				document.getElementById("winnerText").style.display="block";
+				document.getElementById("winnerButton").style.display="block";
 			} else {
 				document.getElementById("chatText").innerHTML += "You lose! <br />";
+				document.getElementById("loserText").style.display="block";
+				document.getElementById("loserButton").style.display="block";
 			}
 		} else {
 			document.getElementById("chatText").innerHTML += event.data + "<br />";
@@ -239,7 +243,20 @@ function winGame() {
 }
 
 function loseGame() {
+	// url + params --> <SERVLETNAME>?<PARAMNAME>=<param>&<PARAMNAME>=<param>
+	var url = "../WinnerServlet?username=" + "<%= username %>" + "&winner=" + "false";
 	
+	// create AJAX request
+	var req = new XMLHttpRequest();
+	req.open("GET", url, true);
+	req.onreadystatechange = function () {
+		if(req.readyState == 4 && req.status == 200) {
+			// once response returned from servlet
+			socket.send("SwitchPage~" + "<%= username %>");
+			window.location = "homePage.jsp";
+		}
+	}
+	req.send(null);
 }
 </script>
 
@@ -376,14 +393,10 @@ function loseGame() {
 </div>
 
 <div id="gameOverScreen">
-	<div id="winners">
-		<h3 id="youWin">You win!</h3>
-		<button class="returnHomeButton" onclick="winGame()">Finish</button>
-	</div>
-	<div id="losers">
-		<h3 id="youLose">You Lose!</h3>
-		<button class="returnHomeButton" onclick="loseGame()">Finish</button>
-	</div>
+	<h3 id="winnerText" style="display:none;">You win!</h3>
+	<button id="winnerButton" style="display:none;" class="returnHomeButton" onclick="winGame()">Finish</button>
+	<h3 id="loserText" style="display:none;">You Lose!</h3>
+	<button id="loserButton" style="display:none;" class="returnHomeButton" onclick="loseGame()">Finish</button>
 </div>
 
 <h2 id="app_status">App status...</h2>

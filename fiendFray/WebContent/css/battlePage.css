@@ -71,3 +71,11 @@ img {
 .draggable {
 	cursor: pointer;
 }
+
+#winners{
+	style: none;
+}
+
+#losers{
+	style: none;
+}

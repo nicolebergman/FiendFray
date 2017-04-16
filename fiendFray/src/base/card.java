@@ -11,8 +11,8 @@ public class card implements Comparable<card>{
 	
 	card() {
 		Random rand = new Random(); 
-		value = rand.nextInt(3) + 1;	// max is 13 for right now
-		suit = rand.nextInt(1) + 1; // 1 Diamond, 2Club, 3 Hearts, 4 Spades
+		value = rand.nextInt(13) + 1;	// max is 13 for right now
+		suit = rand.nextInt(4) + 1; // 1 Diamond, 2Club, 3 Hearts, 4 Spades
 		//appends the card's suit to the info 
 		String s = ""; 
 		//appends the correct string based on the suite 

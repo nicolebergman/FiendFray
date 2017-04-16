@@ -48,7 +48,8 @@ function errorCheck1 (servletName, errorDivName, value, name){
 		var response = xhttp.responseText;
 		var first = response.split("~")[0];
 		var second = response.split("~")[1];
-		document.getElementById(errorDivName).innerHTML = second;
+		document.getElementById('shim').style.display=document.getElementById('msgbx').style.display ="block";
+		document.getElementById("messageText").innerHTML = "<br>"+"<br>"+"<br>"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+second;
 		document.getElementById("currentGems").innerHTML = first;
 	}
 	

@@ -52,9 +52,16 @@ public class pet {
 		return currentEXP; 
 	}
 	
+	public void setRequiredEXPToLevelUp(int expToLevelUp){
+		this.requiredEXPToLevelUp=expToLevelUp;
+	}
 	public int getRequiredEXPToLevelUp()
 	{
 		return requiredEXPToLevelUp;
+	}
+	
+	public void setCurrentEXP(int exp){
+		this.currentEXP=exp;
 	}
 	
 	public int getMaxHP()

@@ -265,12 +265,25 @@ public class fiendFrayServer {
 	
 	public void sendGameOver(String message, String firstPlayer, String secondPlayer) {
 		// tell clients to go to battle page
+		String winnerStr = message.split("~")[1];
+		int winner = Integer.parseInt(winnerStr);
+		String winMsg = "";
+		
+		if(winner == 1) {
+			winMsg = firstPlayer + " won a battle against " + secondPlayer + "!";
+		} else {
+			winMsg = secondPlayer + " won a battle against " + firstPlayer + "!";
+		}
+		
 		try {
 			for(String userKey : usernameToSession.keySet()) {
+				Session s = usernameToSession.get(userKey);
+				
 				if(userKey.equals(firstPlayer) || userKey.equals(secondPlayer)) {
-					Session s = usernameToSession.get(userKey);
 					System.out.println(message);
 					s.getBasicRemote().sendText(message);
+				} else {
+					s.getBasicRemote().sendText(winMsg);
 				}
 			}
 		} catch(IOException ioe) {
@@ -279,8 +292,21 @@ public class fiendFrayServer {
 	}
 	
 	@OnClose
-	public void close(Session session) {
+	public void close(Session session) throws IOException {
 		//System.out.println("user has disconnected from server!");
+		
+		// handle client close
+		for(String userKey : usernameToSession.keySet()) {
+			if(usernameToSession.get(userKey) == session) {
+				usernameToSession.remove(userKey);
+				
+				for(String key : usernameToSession.keySet()) {
+					// send data back out to all clients
+					Session s = usernameToSession.get(key);
+					s.getBasicRemote().sendText(userKey + " has left the fray!");
+				}
+			}
+		}
 		
 		//sessionVector.remove(session);
 	}
@@ -288,6 +314,6 @@ public class fiendFrayServer {
 	@OnError
 	public void onError(Throwable error) {
 		error.printStackTrace();
-		System.out.println("fucking errorrrrrr");
+		System.out.println("error");
 	}
 }

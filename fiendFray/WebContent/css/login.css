@@ -11,6 +11,9 @@
 }
 
 #welcome_text {
+	position: absolute;
+	top: 220px;
+	left: 400px;
 	color: black;
 	font-style: bold;
 	font-size: 14pt;
@@ -20,8 +23,8 @@
 
 #outer_container {
 	position: absolute;
-	top: 50%;
-	left: 50%;
+	top: 150px;
+	left: 635px;
 	transform: translate(-50%, 30%);
 	height: 400px;
 	width: 100%;
@@ -75,4 +78,18 @@ input {
 
 .button:hover {
 	opacity: 0.5;
+}
+
+#welcome {
+	position: absolute;
+	width: 300px;
+	height: 100px;
+	top: 40px;
+	left: 37%;
+}
+
+#fiendfray {
+	position: absolute;
+	top: 75px;
+	left: 29%;
 }

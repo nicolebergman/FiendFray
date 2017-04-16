@@ -207,6 +207,27 @@ function sendMessage() {
 	// do not submit the form
 	return false;
 }
+
+function winGame() {
+	// url + params --> <SERVLETNAME>?<PARAMNAME>=<param>&<PARAMNAME>=<param>
+	var url = "../WinnerServlet?username=" + "<%= username %>" + "&winner=" + "true";
+	
+	// create AJAX request
+	var req = new XMLHttpRequest();
+	req.open("GET", url, true);
+	req.onreadystatechange = function () {
+		if(req.readyState == 4 && req.status == 200) {
+			// once response returned from servlet
+			socket.send("SwitchPage~" + "<%= username %>");
+			window.location = "homePage.jsp";
+		}
+	}
+	req.send(null);
+}
+
+function loseGame() {
+	
+}
 </script>
 
 </head>
@@ -338,6 +359,17 @@ function sendMessage() {
 	        <img id="yourCard4" class="draggable" draggable="true" ondragstart="drag_start(event)" src="../images/card3.png" />
 	    </div>
 	    <h3 id="yourHealth"></h3>
+	</div>
+</div>
+
+<div id="gameOverScreen">
+	<div id="winners">
+		<h3 id="youWin">You win!</h3>
+		<button class="returnHomeButton" onclick="winGame()">Finish</button>
+	</div>
+	<div id="losers">
+		<h3 id="youLose">You Lose!</h3>
+		<button class="returnHomeButton" onclick="loseGame()">Finish</button>
 	</div>
 </div>
 

@@ -288,6 +288,6 @@ public class fiendFrayServer {
 	@OnError
 	public void onError(Throwable error) {
 		error.printStackTrace();
-		System.out.println("fucking errorrrrrr");
+		System.out.println("error");
 	}
 }

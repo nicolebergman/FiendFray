@@ -11,9 +11,10 @@
 	<script src="../main2.js" type="text/javascript"></script>
 </head>
 <body background="../images/clean-pixel-landscape.jpg">
-	<div id = "title_container">
-		Welcome to Fiend Fray!
-	</div>
+	<img id="welcome" src="../images/welcometo.png"></img>
+	<img id="fiendfray" src="../images/fiendfray.png"></img>
+	
+	
 	<div id = "welcome_text">
 		Please log in, register, or sign in as a guest:
 	</div>

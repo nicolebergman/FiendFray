@@ -48,6 +48,12 @@ img {
 	border-radius: 20px 20px 20px 20px;"
 }
 
+#gameOverScreen {
+	position: absolute;
+	top: 30%;
+	left: 40%;
+}
+
 .objects {
     display:inline-block;
     background-color: #FFF3CC;

@@ -683,6 +683,10 @@ public class battle extends Thread{
 	//checks for pair 3 of a kind etc 
 	boolean checkHandForSameValue(ArrayList<card> hand)
 	{
+		//if it alrady contains a flush, ignore 
+		boolean bContainsFlush = madePokerHands.contains(pokerHand.FLUSH);
+		boolean bContainsStraightFlush = madePokerHands.contains(pokerHand.STRAIGHTFLUSH);
+		boolean bContainsRoyalFlush = madePokerHands.contains(pokerHand.ROYALFLUSH);
 		int[] valueArray = new int[15];
 		//initialise the count of each value to 0 
 		for(int i=0; i<13; ++i)
@@ -712,12 +716,19 @@ public class battle extends Thread{
 			}
 			case 4:
 			{
-				madePokerHands.add(pokerHand.FOUROFAKIND);
+				if(!bContainsStraightFlush && !bContainsRoyalFlush)
+				{
+					madePokerHands.add(pokerHand.FOUROFAKIND);
+				}
 				break; 
 			}
 				case 5: 
 			{
-				madePokerHands.add(pokerHand.FIVEOFAKIND);
+				if(!bContainsStraightFlush && !bContainsRoyalFlush)
+				{
+					madePokerHands.add(pokerHand.FIVEOFAKIND);
+				}
+				break; 
 			}
 			default:
 			{
@@ -729,17 +740,31 @@ public class battle extends Thread{
 		System.out.println("threeOfAKindCount: " + threeOfAKindCount);
 		if(pairCount == 1 && threeOfAKindCount == 0)
 		{
-			madePokerHands.add(pokerHand.PAIR);
+			if(!bContainsFlush)
+			{
+				madePokerHands.add(pokerHand.PAIR);
+			}
 		}
 		else if(pairCount == 1 && threeOfAKindCount ==1)
 		{
-			madePokerHands.add(pokerHand.FULLHOUSE);
+			if(bContainsFlush)
+			{
+				madePokerHands.add(pokerHand.FULLHOUSE);
+				madePokerHands.remove(pokerHand.FLUSH);
+			}
 		}
 		else if(pairCount==2)
 		{
-			madePokerHands.add(pokerHand.TWOPAIR);
-		} else if(threeOfAKindCount == 1 && pairCount == 0) {
-			madePokerHands.add(pokerHand.THREEOFAKIND);
+			if(!bContainsFlush)
+			{
+				madePokerHands.add(pokerHand.TWOPAIR);
+			}
+		} 
+		else if(threeOfAKindCount == 1 && pairCount == 0) {
+			if(!bContainsFlush)
+			{
+				madePokerHands.add(pokerHand.THREEOFAKIND);
+			}
 		}
 		if(madePokerHands.size() == 0)
 		{
@@ -891,7 +916,17 @@ public class battle extends Thread{
 		} else {
 			s += "~1";
 		}
-		
+		//Send current number of hearts to be parsed 
+		for(int i=0; i<allUsers.size(); ++i)
+		{
+			user user = allUsers.get(i); 
+			int currentHP = user.getUserPet().getCurrentHP(); 
+			int maxHP = user.getUserPet().getMaxHP(); 
+			double fractionHP = (double) currentHP / (double) maxHP;
+			fractionHP *= 10; 
+			int heartsToReturn = (int) fractionHP;
+			s = s + "~" + Integer.toString(heartsToReturn); 
+		}
 		return s;
 	}
 	//DEBUG

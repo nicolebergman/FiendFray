@@ -860,7 +860,7 @@ public class battle extends Thread{
 	{
 		for(int i=0; i<allUsers.size(); ++i)
 		{
-			if(allUsers.get(i).getUserPet().getCurrentHP() < 0)
+			if(allUsers.get(i).getUserPet().getCurrentHP() <= 0)
 			{
 				//if i = 0, allUsers[1] is the winner, else allUsers[0] is the winner
 				winnerIndex = (i==0) ? 1 : 0; 

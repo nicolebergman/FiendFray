@@ -116,6 +116,7 @@ function connectToServer() {
 		} else if(commands[0] == "GameOver") {
 			var userID = <%= userId %>;
 			var userIDStr = userID.toString();
+			document.getElementById('shim').style.display=document.getElementById('msgbx').style.display ="block";
 			if(userIDStr == commands[1]) {
 				document.getElementById("chatText").innerHTML += "You win! <br />";
 				document.getElementById("winnerText").style.display="block";
@@ -392,14 +393,13 @@ function loseGame() {
 	</div>
 </div>
 
-<div id="gameOverScreen">
-	<h3 id="winnerText" style="display:none;">You win!</h3>
-	<button id="winnerButton" style="display:none;" class="returnHomeButton" onclick="winGame()">Finish</button>
-	<h3 id="loserText" style="display:none;">You Lose!</h3>
-	<button id="loserButton" style="display:none;" class="returnHomeButton" onclick="loseGame()">Finish</button>
-</div>
-
 <h2 id="app_status">App status...</h2>
-
+<div id="shim"></div>
+<div id="msgbx">
+	<h3 id="winnerText" style="display:none; text-align: center;">You win!</h3>
+	<button id="winnerButton" style="display:none; margin-left: 103px;" class="returnHomeButton" onclick="winGame()">Finish</button>
+	<h3 id="loserText" style="display:none; text-align: center;">You Lose!</h3>
+	<button id="loserButton" style="display:none; margin-left: 103px;" class="returnHomeButton" onclick="loseGame()">Finish</button>
+</div>
 </body >
 </html>

@@ -59,26 +59,105 @@ public class card implements Comparable<card>{
 		this.info = info; 
 	}
 	
-	public String valueToImage() {
+	public String valueToImage()
+	{
+		switch(suit)
+		{
+		case 1: 
+			valueToDiamondImage(); 
+			break; 
+		case 2: 
+			valueToClubImage(); 
+			break; 
+		case 3: 
+			valueToHeartImage(); 
+			break; 
+		case 4: 
+			valueToSpadeImage(); 
+			break; 
+			default: 
+				break; 
+		}
+	}
+	public String valueToSpadeImage() {
 		switch (value)
 		{
-		case 1: return "../images/card2.png"; 
-		case 2: return "../images/card3.png";
-		case 3: return "../images/card4.png"; 
-		case 4: return "../images/card5.png"; 
-		case 5: return "../images/card6.png"; 
-		case 6: return "../images/card7.png";
-		case 7: return "../images/card8.png"; 
-		case 8: return "../images/card9.png"; 
-		case 9: return "../images/card10.png"; 
-		case 10: return "../images/card11.png"; 
-		case 11: return "../images/card12.png";
-		case 12: return "../images/card13.png"; 
-		case 13: return "../images/card1.png";
+		case 1: return "../images/spades/card2.png"; 
+		case 2: return "../images/spades/card3.png";
+		case 3: return "../images/spades/card4.png"; 
+		case 4: return "../images/spades/card5.png"; 
+		case 5: return "../images/spades/card6.png"; 
+		case 6: return "../images/spades/card7.png";
+		case 7: return "../images/spades/card8.png"; 
+		case 8: return "../images/spades/card9.png"; 
+		case 9: return "../images/spades/card10.png"; 
+		case 10: return "../images/spades/card11.png"; 
+		case 11: return "../images/spades/card12.png";
+		case 12: return "../images/spades/card13.png"; 
+		case 13: return "../images/spades/card1.png";
 		default: return "";
 		}
 	}
 	
+	public String valueToHeartImage() {
+		switch (value)
+		{
+		case 1: return "../images/hearts/card2.png"; 
+		case 2: return "../images/hearts/card3.png";
+		case 3: return "../images/hearts/card4.png"; 
+		case 4: return "../images/hearts/card5.png"; 
+		case 5: return "../images/hearts/card6.png"; 
+		case 6: return "../images/hearts/card7.png";
+		case 7: return "../images/hearts/card8.png"; 
+		case 8: return "../images/hearts/card9.png"; 
+		case 9: return "../images/hearts/card10.png"; 
+		case 10: return "../images/hearts/card11.png"; 
+		case 11: return "../images/hearts/card12.png";
+		case 12: return "../images/hearts/card13.png"; 
+		case 13: return "../images/hearts/card1.png";
+		default: return "";
+		}
+	}
+	
+	public String valueToClubImage() {
+		switch (value)
+		{
+		case 1: return "../images/clubs/card2.png"; 
+		case 2: return "../images/clubs/card3.png";
+		case 3: return "../images/clubs/card4.png"; 
+		case 4: return "../images/clubs/card5.png"; 
+		case 5: return "../images/clubs/card6.png"; 
+		case 6: return "../images/clubs/card7.png";
+		case 7: return "../images/clubs/card8.png"; 
+		case 8: return "../images/clubs/card9.png"; 
+		case 9: return "../images/clubs/card10.png"; 
+		case 10: return "../images/clubs/card11.png"; 
+		case 11: return "../images/clubs/card12.png";
+		case 12: return "../images/clubs/card13.png"; 
+		case 13: return "../images/clubs/card1.png";
+		default: return "";
+		}
+	}
+	
+	public String valueToDiamondImage() {
+		switch (value)
+		{
+		case 1: return "../images/diamonds/card2.png"; 
+		case 2: return "../images/diamonds/card3.png";
+		case 3: return "../images/diamonds/card4.png"; 
+		case 4: return "../images/diamonds/card5.png"; 
+		case 5: return "../images/diamonds/card6.png"; 
+		case 6: return "../images/diamonds/card7.png";
+		case 7: return "../images/diamonds/card8.png"; 
+		case 8: return "../images/diamonds/card9.png"; 
+		case 9: return "../images/diamonds/card10.png"; 
+		case 10: return "../images/diamonds/card11.png"; 
+		case 11: return "../images/diamonds/card12.png";
+		case 12: return "../images/diamonds/card13.png"; 
+		case 13: return "../images/diamonds/card1.png";
+		default: return "";
+		}
+	}
 	public String getImgURL() {
 		return imgURL;
 	}

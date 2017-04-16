@@ -89,13 +89,7 @@ public class battle extends Thread{
 	
 	public void notifyServer(String message) {
 		// notify server to send message
-		System.out.println(message);
 		server.sendMessage(message, allUsers.get(0).getUsername(), allUsers.get(1).getUsername());
-	}
-	
-	public void notifyGameOver(String message) {
-		System.out.println(message);
-		server.sendGameOver(message, allUsers.get(0).getUsername(), allUsers.get(1).getUsername());
 	}
 	
 	void joinBattle(user user)
@@ -302,19 +296,9 @@ public class battle extends Thread{
 		
 		printBoard();
 
-		user currentUser = allUsers.get(this.getCurrentPlayerIndex());
-		
-		// remove bigger index first
-		if(this.removeCardIndices.get(0) > this.removeCardIndices.get(1)) {
-			currentUser.removeCardAtIndex(this.removeCardIndices.get(0));
-			currentUser.removeCardAtIndex(this.removeCardIndices.get(1));
-		} else {
-			currentUser.removeCardAtIndex(this.removeCardIndices.get(1));
-			currentUser.removeCardAtIndex(this.removeCardIndices.get(0));
-		}
-		
-//		currentUser.removeCardAtIndex(this.removeCardIndices.get(0));
-//		currentUser.removeCardAtIndex(this.removeCardIndices.get(1) - 1);
+		user currentUser = allUsers.get(this.getCurrentPlayerIndex()); 
+		currentUser.removeCardAtIndex(this.removeCardIndices.get(0));
+		currentUser.removeCardAtIndex(this.removeCardIndices.get(1));
 
 		if(isBoardFull())
 		{
@@ -328,26 +312,15 @@ public class battle extends Thread{
 		dealDamage();
 		//System.out.println(serverNotification());
 		drawCard();
+		// notify clients of interface updates
+		notifyServer(serverNotification());
 		clearInputs();
 		if(!hasGameEnded())
 		{
 			endTurn(); 
-			
-			// notify clients of interface updates
-			notifyServer(serverNotification());
 		}
 		else
 		{
-			// notify clients of interface updates
-			notifyServer(serverNotification());
-			
-			// notify game over
-			if(bUser2Turn) {
-				notifyGameOver("GameOver~2");
-			} else {
-				notifyGameOver("GameOver~1");
-			}
-			
 			endGame();
 		}
 	}
@@ -585,7 +558,7 @@ public class battle extends Thread{
 			boolean b1 = checkHandIsStraight(hand); 
 			if(b1 == false)
 			{
-				//checkHandIsFlush(hand, false); 
+				checkHandIsFlush(hand, false); 
 			}
 			boolean b2 = checkHandForSameValue(hand);
 			
@@ -617,7 +590,7 @@ public class battle extends Thread{
 			prevValue = hand.get(i).getValue(); 
 		}
 		//checks for striaght flush and royal flush in event of striaght\
-		/*
+		
 		if(checkHandIsFlush(hand, true))
 		{
 			if(!checkHandIsRoyalFlush(hand))
@@ -629,8 +602,8 @@ public class battle extends Thread{
 		{
 			madePokerHands.add(pokerHand.STRAIGHT);
 		}
-		*/
-		madePokerHands.add(pokerHand.STRAIGHT);
+		
+		//madePokerHands.add(pokerHand.STRAIGHT);
 		return true;
 	}
 	
@@ -642,7 +615,8 @@ public class battle extends Thread{
 			System.out.print(hand.get(i).getValue() + " ");
 		}
 		System.out.println("");
-		for(int i=1; i<5; ++i)
+		for(
+				int i=1; i<5; ++i)
 		{
 			//if the suit of the current card is not the same as the suit of the 
 			//first card 
@@ -664,7 +638,7 @@ public class battle extends Thread{
 		
 		//hand should already be sorted 
 		//so just check if the last card is 14, value of an Ace
-		if(hand.get(hand.size()-1).getValue() != 14)
+		if(hand.get(hand.size()-1).getValue() != 13)
 		{
 			return false; 
 		}
@@ -680,7 +654,6 @@ public class battle extends Thread{
 	//checks for pair 3 of a kind etc 
 	boolean checkHandForSameValue(ArrayList<card> hand)
 	{
-		System.out.println("got em");
 		int[] valueArray = new int[15];
 		//initialise the count of each value to 0 
 		for(int i=0; i<13; ++i)
@@ -713,7 +686,7 @@ public class battle extends Thread{
 				madePokerHands.add(pokerHand.FOUROFAKIND);
 				break; 
 			}
-			case 5: 
+				case 5: 
 			{
 				madePokerHands.add(pokerHand.FIVEOFAKIND);
 			}
@@ -723,8 +696,6 @@ public class battle extends Thread{
 			}
 			}
 		}
-		System.out.println("pairCount: " + pairCount);
-		System.out.println("threeOfAKindCount: " + threeOfAKindCount);
 		if(pairCount == 1 && threeOfAKindCount == 0)
 		{
 			madePokerHands.add(pokerHand.PAIR);
@@ -736,8 +707,6 @@ public class battle extends Thread{
 		else if(pairCount==2)
 		{
 			madePokerHands.add(pokerHand.TWOPAIR);
-		} else if(threeOfAKindCount == 1 && pairCount == 0) {
-			madePokerHands.add(pokerHand.THREEOFAKIND);
 		}
 		if(madePokerHands.size() == 0)
 		{
@@ -848,7 +817,6 @@ public class battle extends Thread{
 		//Add EndGame stuff
 		System.out.println("Game Ended.");
 		
-		//notifyServer("GameOver~" + bUser);
 	}
 	
 	String serverNotification()
@@ -972,7 +940,6 @@ public class battle extends Thread{
 					user2.getCurrentHand().add(new card());
 				}
 				this.initialiseBoard();
-				break;
 				//this.gameLoop();
 			}
 		}

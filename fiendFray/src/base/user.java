@@ -1,6 +1,7 @@
 package base;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class user {
 	private String username;
@@ -11,6 +12,7 @@ public class user {
 	private boolean isGuest;
 	public boolean isOnline;
 	public int battleId;
+	private int id;
 	//debug
 	
 	public user(String username, String password, pet userPet){
@@ -35,7 +37,12 @@ public class user {
 		this.isOnline=false;
 	}
 	
-	
+	public int getID(){
+		return id;
+	}
+	public void setID(int id){
+		this.id=id;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -123,4 +130,24 @@ public class user {
 	{
 		userPet.takeDamage(damage);
 	}
+}
+
+class GemComparator implements Comparator<user> {
+	@Override
+    public int compare(user a, user b) {
+    	if(a.getGems()>b.getGems()){
+    		return a.getGems();
+    	}
+        return b.getGems();
+    }
+}
+
+class HPComparator implements Comparator<user> {
+    @Override
+    public int compare(user a, user b) {
+    	if(a.getUserPet().getMaxHP()>b.getUserPet().getMaxHP()){
+    		return a.getUserPet().getMaxHP();
+    	}
+        return b.getUserPet().getMaxHP();
+    }
 }

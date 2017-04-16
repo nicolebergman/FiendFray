@@ -8,6 +8,7 @@ public class weapon {
 	private int damage;
 	private int price;
 	private HashMap<String, Integer> handToDamage;
+	private int weaponID;
 	//String for HashMap are
 	//nothing
 	//onePair
@@ -37,6 +38,12 @@ public class weapon {
 
 	}
 	
+	public void setWeaponID(int weaponID){
+		this.weaponID=weaponID;
+	}
+	public int getWeaponID(){
+		return this.weaponID;
+	}
 	public void setImgURL(String imgURL) {
 		this.imgURL = imgURL;
 	}

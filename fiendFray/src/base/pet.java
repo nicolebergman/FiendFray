@@ -12,6 +12,7 @@ public class pet {
 	private int maxHP; 
 	private int currentHP; 
 	private weapon equippedWeapon; 
+	private int weaponID;
 	
 	public pet()
 	{
@@ -24,6 +25,12 @@ public class pet {
 	//GETTERS
 	public int getPetID(){
 		return petID;
+	}
+	public int getWeaponID(){
+		return weaponID;
+	}
+	public void setWeaponID(int weaponID){
+		this.weaponID=weaponID;
 	}
 	public String getName()
 	{

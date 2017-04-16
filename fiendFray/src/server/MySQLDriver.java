@@ -33,7 +33,7 @@ public class MySQLDriver {
 	
 	public void connect(){
 		try{
-			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=root&useSSL=false");
+			conn = DriverManager.getConnection("Jdbc:mysql://localhost:3306/fiendFrayDB?user=root&password=chrisnick&useSSL=false");
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -85,6 +85,22 @@ public class MySQLDriver {
 		}
 	}
 	
+	public void userBought(user newUser, int userID){
+		try {
+			ps = conn.prepareStatement("UPDATE users SET gems=? WHERE username=?");
+			ps.setInt(1, newUser.getGems());
+			ps.setString(2, newUser.getUsername());
+			ps.executeUpdate();
+			ps = conn.prepareStatement("UPDATE pets SET weaponID=? WHERE id=?");
+			ps.setInt(1, newUser.getUserPet().getEquippedWeapon().getWeaponID());
+			ps.setInt(2, newUser.getID());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public parser parseDB(){
 		parser newParser = new parser();
 		try {
@@ -98,6 +114,7 @@ public class MySQLDriver {
 				boolean isGuest = rs.getBoolean("isGuest");
 				boolean isOnline = rs.getBoolean("isOnline");
 				user newUser = new user();
+				newUser.setID(id);
 				newUser.setUsername(username);
 				newUser.setPassword(pass);
 				newUser.setGuest(isGuest);
@@ -113,6 +130,7 @@ public class MySQLDriver {
 				int price = rs.getInt("price");
 				String imgURL = "../images/weapon_"+weaponID+".png";
 				weapon newWeapon = new weapon();
+				newWeapon.setWeaponID(weaponID);
 				newWeapon.setPrice(price);
 				newWeapon.setImgURL(imgURL);
 				newParser.addWeapon(newWeapon);
@@ -161,6 +179,7 @@ public class MySQLDriver {
 				String imgURL = "../images/pet"+petID+".png";
 				pet newPet = new pet();
 				newPet.setPetID(petID);
+				newPet.setWeaponID(weaponID);
 				newPet.setCurrentHP(currentHP);
 				newPet.setCurrentLevel(currentLevel);
 				newPet.setMaxHP(maxHP);

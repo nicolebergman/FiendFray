@@ -1,4 +1,4 @@
-//called in loginPage.jsp and signUo.jsp
+//called in loginPage.jsp and signUp.jsp
 //parameters:
 //servletName -- servlet that the ajax call will go to
 //jspName -- window location to navigate to if there was no error
@@ -33,12 +33,25 @@ function errorCheck (servletName, jspName, paramArgs, numArgs, errorDivName){
 }
 
 
-function getRadioValue() {
-	var pet = document.getElementsByName('stringConstants.PETIMAGEURL');
-	var petValue;
-	for(var i = 0; i < pet.length; i++){
-	    if(pet[i].checked){
-	        petValue = pet[i].value;
-	    }
+function errorCheck1 (servletName, errorDivName, value, name){
+	var xhttp = new XMLHttpRequest();
+	//gets the path
+	var path = "/"+window.location.pathname.split("/")[1];
+	//create url with first parameter from paramArgs
+	var url = path + servletName+"?value="+value+"&name="+name;
+	//send synchronous ajax call to servlet
+	xhttp.open("GET", url, false);
+	xhttp.send();
+	//if we got a response text, there must have been an error
+	if (xhttp.responseText.trim().length > 0) {
+		//set the repsonse text as the innerHTML of the error div
+		var response = xhttp.responseText;
+		var first = response.split("~")[0];
+		var second = response.split("~")[1];
+		document.getElementById(errorDivName).innerHTML = second;
+		document.getElementById("currentGems").innerHTML = first;
 	}
+	
+	return false;
+	
 }

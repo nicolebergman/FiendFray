@@ -9,11 +9,10 @@
 #info {
 	background-color: #9ba1ff;
 	width: 300px;
-	height: 100px;
+	height: 150px;
 	border-radius:20px;
 	margin: 0 auto;
 }
-
 #shop {
 	background-color: #1978c1;
 }
@@ -31,6 +30,7 @@
     padding: 20px;
    	width: 60%;
    	margin: 0 auto;
+   	color: white;
 }
 .iconbox > div {
     text-align: center;

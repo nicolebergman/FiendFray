@@ -23,34 +23,22 @@
 	parser newParser = msql.parseDB();
 	ArrayList<user> hpList = new ArrayList<user>();
 	ArrayList<user> gemsList = new ArrayList<user>();
-	for(int i=0; i<newParser.getAllUsers().size(); i++){
-		if(i==0){
-			hpList.add(newParser.getAllUsers().get(i));
-			gemsList.add(newParser.getAllUsers().get(i));
-		}
-		else{
-			for(int j=0; j<hpList.size(); j++){
-				if(newParser.getAllUsers().get(i).getUserPet().getMaxHP()>=hpList.get(j).getUserPet().getMaxHP()){
-					hpList.add(j, newParser.getAllUsers().get(i));
-					break;
-				}
-				if(j+1==hpList.size()){
-					hpList.add(newParser.getAllUsers().get(i));
-					break;
-				}
-			}
-			for(int j=0; j<gemsList.size(); j++){
-				if(newParser.getAllUsers().get(i).getGems()>=gemsList.get(j).getGems()){
-					gemsList.add(j, newParser.getAllUsers().get(i));
-					break;
-				}
-				if(j+1==gemsList.size()){
-					gemsList.add(newParser.getAllUsers().get(i));
-					break;
-				}
-			}
-		}
+	hpList=(ArrayList<user>)newParser.getAllUsers().clone();
+	gemsList=(ArrayList<user>)newParser.getAllUsers().clone();
+	class HPComparator implements Comparator<user> {
+	    @Override
+	    public int compare(user a, user b) {
+	        return a.getUserPet().getMaxHP() < b.getUserPet().getMaxHP() ? -1 : a.getUserPet().getMaxHP() == b.getUserPet().getMaxHP() ? 0 : 1;
+	    }
 	}
+	class GemComparator implements Comparator<user> {
+		@Override
+	    public int compare(user a, user b) {
+	        return a.getGems() < b.getGems() ? -1 : a.getGems() == b.getGems() ? 0 : 1;
+	    }
+	}
+	Collections.sort(hpList, new HPComparator());
+	Collections.sort(gemsList, new GemComparator());
 %>
 <table>
   <tr>
@@ -58,14 +46,14 @@
     <th>Most Gems</th>
   </tr>
 <%
-  	for(int i=0; i<gemsList.size(); i++){
+  	for(int i=gemsList.size()-1; i>=0; i--){
 %>
 	<tr>
     <td>
-    <%=gemsList.get(i).getUsername()%>
+    <%=hpList.get(i).getUsername()%>
     </td>
     <td>
-    <%=hpList.get(i).getUsername()%>
+    <%=gemsList.get(i).getUsername()%>
     </td>
     </tr>
 <%

@@ -73,6 +73,46 @@ public class MySQLDriver {
 		}
 	}
 	
+	public void updateGems(user newUser){
+		try {
+			ps = conn.prepareStatement("UPDATE users SET gems=? WHERE username=?");
+			ps.setInt(1, newUser.getGems());
+			ps.setString(2, newUser.getUsername());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateEXP(user newUser){
+		try {
+			ps = conn.prepareStatement("UPDATE pets SET currentLevel=? WHERE petID=?");
+			ps.setInt(1, newUser.getUserPet().getCurrentLevel());
+			ps.setInt(2, newUser.getUserPet().getPetID());
+			ps.executeUpdate();
+			ps = conn.prepareStatement("UPDATE pets SET currentXP=? WHERE petID=?");
+			ps.setInt(1, newUser.getUserPet().getCurrentEXP());
+			ps.setInt(2, newUser.getUserPet().getPetID());
+			ps.executeUpdate();
+			ps = conn.prepareStatement("UPDATE pets SET requiredXPToLevelUp=? WHERE petID=?");
+			ps.setInt(1, newUser.getUserPet().getRequiredEXPToLevelUp());
+			ps.setInt(2, newUser.getUserPet().getPetID());
+			ps.executeUpdate();
+			ps = conn.prepareStatement("UPDATE pets SET maxHP=? WHERE petID=?");
+			ps.setInt(1, newUser.getUserPet().getMaxHP());
+			ps.setInt(2, newUser.getUserPet().getPetID());
+			ps.executeUpdate();
+			ps = conn.prepareStatement("UPDATE pets SET currentHP=? WHERE petID=?");
+			ps.setInt(1, newUser.getUserPet().getMaxHP());
+			ps.setInt(2, newUser.getUserPet().getPetID());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void updateUser(user newUser){
 		try {
 			ps = conn.prepareStatement("UPDATE users SET isOnline=? WHERE username=?");

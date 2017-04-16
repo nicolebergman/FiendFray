@@ -49,10 +49,13 @@ public class WinnerServlet extends HttpServlet {
 		System.out.println(requiredExp);
 		
 		int expReward = 0;
+		int gemReward = 0;
 		if(winner.equals("true")) {
 			expReward = 50;
+			gemReward = 20;
 		} else {
 			expReward = 20;
+			gemReward = 5;
 		}
 		
 		if(currExp + expReward >= requiredExp) {
@@ -63,7 +66,7 @@ public class WinnerServlet extends HttpServlet {
 			currUser.getUserPet().setCurrentEXP(currExp + expReward);
 		}
 		
-		currUser.setGems(currUser.getGems() + 20);
+		currUser.setGems(currUser.getGems() + gemReward);
 		
 		// update in server
 		msql.updateEXP(currUser);

@@ -736,6 +736,8 @@ public class battle extends Thread{
 		else if(pairCount==2)
 		{
 			madePokerHands.add(pokerHand.TWOPAIR);
+		} else if(threeOfAKindCount == 1 && pairCount == 0) {
+			madePokerHands.add(pokerHand.THREEOFAKIND);
 		}
 		if(madePokerHands.size() == 0)
 		{

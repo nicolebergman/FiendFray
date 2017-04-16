@@ -8,9 +8,9 @@
 <link rel = "stylesheet" type = "text/css" href = "../css/Leaderboard.css" />
 </head>
 <body style="background-color:#83c0ef;" background="../images/clean-pixel-landscape.jpg">
-<div id="title">
-	<h1>Leaderboards</h1>
-</div>
+
+<img id="leaderboard" src="../images/leaderboard.png" />
+
 <%@ page import="base.stringConstants" %>
 <%@ page import="base.user" %>
 <%@ page import="base.parser" %>
@@ -39,8 +39,16 @@
 	}
 	Collections.sort(hpList, new HPComparator());
 	Collections.sort(gemsList, new GemComparator());
+	
+	// make leaderboard list html
+	String mostHP = "";
+	String mostGems = "";
+	for(int i=gemsList.size()-1; i>=0; i--){
+		mostHP += hpList.get(i).getUsername() + "<br/>";
+		mostGems += gemsList.get(i).getUsername() + "<br/>";
+	}
 %>
-<table>
+<%-- <table>
   <tr>
     <th>Most HP</th>
     <th>Most Gems</th>
@@ -59,17 +67,30 @@
 <%
   	}
 %>
-</table>
+</table> --%>
+
 
 <div class="iconbox">
+ 	<div id="mostHP">
+ 		<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px; margin-left: 22px;"> Most HP </h3>
+		<div id="feedtext"> <%= mostHP %> </div>
+ 	</div>
+	
+	<div id="mostGems">
+ 		<h3 style="width: 200px; padding: 10px; background-color: #ffedad;  border-radius: 20px 20px 20px 20px; margin-left: 22px;"> Most Gems </h3>
+		<div id="usertext"> <%= mostGems %> </div>
+ 	</div>
+</div>
+
+<div class="iconbox" id="petImages">
     <div id="swords">
-        <img src="../images/pet1.png" />
+        <img class="img" src="../images/pet1.png" />
     </div>
     <div id="staff">
-        <img src="../images/pet2.png" />
+        <img class="img" src="../images/pet2.png" />
     </div>
     <div id="lasergun">
-        <img src="../images/pet3.png" />
+        <img class="img" src="../images/pet3.png" />
     </div>
 </div>
 

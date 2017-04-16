@@ -63,8 +63,8 @@ public class battle extends Thread{
 		allUsers.add(user2); 
 		onlineUsers = new ArrayList<user>();
 		board= new card[5][5];
-		//the player who initiates the battle starts first
-		bUser2Turn = false;
+		//the player accepts the battle starts first
+		bUser2Turn = true;
 		allHandCombos = new ArrayList< ArrayList<card> >();
 		madePokerHands = new ArrayList<pokerHand>(); 
 		mLock = new ReentrantLock();

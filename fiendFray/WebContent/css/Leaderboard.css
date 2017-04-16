@@ -35,7 +35,7 @@
     margin: 0;
 }
 
-img {
+.img {
 	width:  100px;
     height: 100px;
 }
@@ -58,4 +58,46 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
     background-color: #ffaa7f;
+}
+
+#leaderboard {
+	position: absolute;
+	top: 10px;
+	left: 310px;
+}
+
+#feedtext {
+	overflow: auto;
+	width: 250px;
+	height: 200px;
+	padding: 10px; 
+	background-color: #9ba1ff;
+	border-radius: 20px 20px 20px 20px;"
+}
+
+#usertext {
+	overflow: auto;
+	width: 250px;
+	height: 200px;
+	padding: 10px; 
+	background-color: #ffaa7f;
+	border-radius: 20px 20px 20px 20px;"
+}
+
+#mostHP {
+	position: absolute;
+	top: 175px;
+	left: 270px;
+}
+
+#mostGems {
+	position: absolute;
+	top: 175px;
+	left: 600px;
+}
+
+#petImages {
+	position: absolute;
+	top: 500px;
+	left: 270px;
 }

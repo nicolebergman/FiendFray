@@ -33,6 +33,7 @@ var socket;
 var firstCardPlaced = false;
 var secondCardPlaced = false;
 var myTurn = false;
+var updated = false;
 var firstCardIndex = "";
 var secondCardIndex = "";
 var firstCardCoords = "";
@@ -110,6 +111,8 @@ function connectToServer() {
 				document.getElementById("yourCard3").src = commands[34];
 				document.getElementById("yourCard4").src = commands[35];
 			}
+			
+			updated = true;
 		} else if(commands[0] == "GameOver") {
 			var userID = <%= userId %>;
 			var userIDStr = userID.toString();
@@ -127,10 +130,20 @@ function connectToServer() {
 			myTurn = true;
 			firstCardPlaced = false;
 			secondCardPlaced = false;
+			
+			if(updated) {
+				document.getElementById("chatText").innerHTML += "Moderator: It's your turn! <br />";
+				updated = false;
+			}
 		} else {
 			myTurn = false;
 			firstCardPlaced = false;
 			secondCardPlaced = false;
+			
+			if(updated) {
+				document.getElementById("chatText").innerHTML += "Moderator: Your opponent is making their move... <br />";
+				updated = false;
+			}
 		}
 	}
 }
@@ -167,7 +180,7 @@ function drag_drop(event) {
 	    document.getElementById(elem_id).src = "../images/nocard.png";
 	   
 	    // debug
-	    document.getElementById("chatText").innerHTML += "Dropped " + elem_id + " into " + event.target.getAttribute('id') + "<br/>";
+	    //document.getElementById("chatText").innerHTML += "Dropped " + elem_id + " into " + event.target.getAttribute('id') + "<br/>";
 	    
 	    // record placement coordinates
 	    if(firstCardPlaced == false) {
@@ -180,7 +193,7 @@ function drag_drop(event) {
 	    	secondCardCoords = event.target.getAttribute('id');
 	    	
 	    	// send process input message to server
-	    	document.getElementById("chatText").innerHTML += "process inputs <br/>";
+	    	//document.getElementById("chatText").innerHTML += "process inputs <br/>";
 	    	var processInputRequest = "ProcessInputs~" + "<%= battleIdStr %>" + "~" + firstCardIndex + "~" + firstCardCoords + "~" + secondCardIndex + "~" + secondCardCoords;
 	   		socket.send(processInputRequest);
 	    }

@@ -159,19 +159,10 @@ function _(id){
 
 function drag_start(event) {
 	if(myTurn) {
-		_('app_status').innerHTML = "Dragging the "+event.target.getAttribute('id');
 	    event.dataTransfer.dropEffect = "move";
 	    event.dataTransfer.setData("text", event.target.getAttribute('id') );
 	    event.dataTransfer.setData("imageURL", event.target.getAttribute('src') );
 	}
-}
-
-function drag_enter(event) {
-    _('app_status').innerHTML = "You are dragging over the "+event.target.getAttribute('id');
-}
-
-function drag_leave(event) {
-    _('app_status').innerHTML = "You left the "+event.target.getAttribute('id');
 }
 
 function drag_drop(event) {	
@@ -392,8 +383,7 @@ function loseGame() {
 	    <h3 id="yourHealth"></h3>
 	</div>
 </div>
-
-<h2 id="app_status">App status...</h2>
+<img src=<%=currUser.getUserPet().getImageURL()%> style="margin-left: 1093px; margin-top: 320px;">
 <div id="shim"></div>
 <div id="msgbx">
 	<h3 id="winnerText" style="display:none; text-align: center;">You win!</h3>

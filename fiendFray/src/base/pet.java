@@ -14,12 +14,6 @@ public class pet {
 	private weapon equippedWeapon; 
 	private int weaponID;
 	
-	public void setCurrentEXP(int currentEXP) {
-		this.currentEXP = currentEXP;
-	}
-	public void setRequiredEXPToLevelUp(int requiredEXPToLevelUp) {
-		this.requiredEXPToLevelUp = requiredEXPToLevelUp;
-	}
 	public void setEquippedWeapon(weapon equippedWeapon) {
 		this.equippedWeapon = equippedWeapon;
 	}

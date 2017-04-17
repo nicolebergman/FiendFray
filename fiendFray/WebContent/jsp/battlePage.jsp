@@ -42,6 +42,8 @@ var secondCardCoords = "";
 var maxHealthDetected = false;
 var yourMaxHealth = 0;
 var opponentMaxHealth = 0;
+var yourPrevHealth = 0;
+var opponentPrevHealth = 0;
 
 function connectToServer() {
 	// create connection to server
@@ -85,7 +87,7 @@ function connectToServer() {
 			
 			var userID = <%= userId %>;
 			var userIDStr = userID.toString();
-			if(userID == 1) {
+			if(userID == 1) {				
 				// mark health
 				document.getElementById("yourHealth").innerHTML = "Your Health: " + commands[26];
 				document.getElementById("opponentHealth").innerHTML = "Opponent Health: " + commands[27];
@@ -96,8 +98,23 @@ function connectToServer() {
 				
 				if(!maxHealthDetected) {
 					yourMaxHealth = yourCurrHealth;
+					yourPrevHealth = yourCurrHealth;
 					opponentMaxHealth = opponentCurrHealth;
+					opponentPrevHealth = opponentCurrHealth;
 					maxHealthDetected = true;
+				}
+				
+				// announce damage
+				if(yourCurrHealth != yourPrevHealth) {
+					var damage = yourPrevHealth - yourCurrHealth;
+					document.getElementById("chatText").innerHTML += "Moderator: You received " + damage + " damage! <br/>";
+					yourPrevHealth -= damage;
+				}
+				
+				if(opponentCurrHealth != opponentPrevHealth) {
+					var damage = opponentPrevHealth - opponentCurrHealth;
+					document.getElementById("chatText").innerHTML += "Moderator: You dealt " + damage + " damage! <br/>";
+					opponentPrevHealth -= damage;
 				}
 				
 				var yourNumHearts = Math.floor( (yourCurrHealth * 10) / yourMaxHealth );
@@ -140,8 +157,23 @@ function connectToServer() {
 				
 				if(!maxHealthDetected) {
 					yourMaxHealth = yourCurrHealth;
+					yourPrevHealth = yourCurrHealth;
 					opponentMaxHealth = opponentCurrHealth;
+					opponentPrevHealth = opponentCurrHealth;
 					maxHealthDetected = true;
+				}
+				
+				// announce damage
+				if(yourCurrHealth != yourPrevHealth) {
+					var damage = yourPrevHealth - yourCurrHealth;
+					document.getElementById("chatText").innerHTML += "Moderator: You received " + damage + "damage! <br/>";
+					yourPrevHealth -= damage;
+				}
+				
+				if(opponentCurrHealth != opponentPrevHealth) {
+					var damage = opponentPrevHealth - opponentCurrHealth;
+					document.getElementById("chatText").innerHTML += "Moderator: You dealt " + damage + " damage! <br/>";
+					opponentPrevHealth -= damage;
 				}
 								
 				var yourNumHearts = Math.floor( (yourCurrHealth * 10) / yourMaxHealth );
@@ -484,7 +516,7 @@ function loseGame() {
 	<img class="heart" id="yourHeart10" src="../images/beatingheart.GIF" style="display: visible;" />
 </div>
 
-
+<img src=<%=currUser.getUserPet().getImageURL()%> style="margin-left: 1093px; margin-top: 320px;">
 <div id="shim"></div>
 <div id="msgbx">
 	<h3 id="winnerText" style="display:none; text-align: center;">You win!</h3>

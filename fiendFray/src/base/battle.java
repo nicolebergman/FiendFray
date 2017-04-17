@@ -317,10 +317,7 @@ public class battle extends Thread{
 //		currentUser.removeCardAtIndex(this.removeCardIndices.get(1) - 1);
 
 
-		if(isBoardFull())
-		{
-			initialiseBoard();
-		}
+		
 
 		//checks if the placed card creates any hands
 		//checkBoard(coord1, coord2); 
@@ -329,6 +326,10 @@ public class battle extends Thread{
 		dealDamage();
 		//System.out.println(serverNotification());
 		drawCard();
+		if(isBoardFull())
+		{
+			initialiseBoard();
+		}
 		clearInputs();
 		if(!hasGameEnded())
 		{
@@ -688,8 +689,9 @@ public class battle extends Thread{
 		boolean bContainsStraightFlush = madePokerHands.contains(pokerHand.STRAIGHTFLUSH);
 		boolean bContainsRoyalFlush = madePokerHands.contains(pokerHand.ROYALFLUSH);
 		int[] valueArray = new int[15];
+		boolean bHandMade = false; 
 		//initialise the count of each value to 0 
-		for(int i=0; i<13; ++i)
+		for(int i=0; i<15; ++i)
 		{
 			valueArray[i] = 0; 
 		}
@@ -719,6 +721,7 @@ public class battle extends Thread{
 				if(!bContainsStraightFlush && !bContainsRoyalFlush)
 				{
 					madePokerHands.add(pokerHand.FOUROFAKIND);
+					bHandMade = true; 
 				}
 				break; 
 			}
@@ -727,6 +730,7 @@ public class battle extends Thread{
 				if(!bContainsStraightFlush && !bContainsRoyalFlush)
 				{
 					madePokerHands.add(pokerHand.FIVEOFAKIND);
+					bHandMade = true; 
 				}
 				break; 
 			}
@@ -743,6 +747,7 @@ public class battle extends Thread{
 			if(!bContainsFlush)
 			{
 				madePokerHands.add(pokerHand.PAIR);
+				bHandMade = true; 
 			}
 		}
 		else if(pairCount == 1 && threeOfAKindCount ==1)
@@ -751,6 +756,7 @@ public class battle extends Thread{
 			{
 				madePokerHands.add(pokerHand.FULLHOUSE);
 				madePokerHands.remove(pokerHand.FLUSH);
+				bHandMade = true; 
 			}
 		}
 		else if(pairCount==2)
@@ -758,15 +764,17 @@ public class battle extends Thread{
 			if(!bContainsFlush)
 			{
 				madePokerHands.add(pokerHand.TWOPAIR);
+				bHandMade = true; 
 			}
 		} 
 		else if(threeOfAKindCount == 1 && pairCount == 0) {
 			if(!bContainsFlush)
 			{
 				madePokerHands.add(pokerHand.THREEOFAKIND);
+				bHandMade = true; 
 			}
 		}
-		if(madePokerHands.size() == 0)
+		if(!bHandMade)
 		{
 			return false; 
 		}

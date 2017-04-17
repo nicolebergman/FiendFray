@@ -25,6 +25,7 @@
 	int battleId = Integer.parseInt(battleIdStr);
 	String userIdStr = (String) session.getAttribute("userId");
 	int userId = Integer.parseInt(userIdStr);
+	int currUserMaxHP = currUser.getUserPet().getMaxHP();
 %>
 
 <script>
@@ -38,6 +39,9 @@ var firstCardIndex = "";
 var secondCardIndex = "";
 var firstCardCoords = "";
 var secondCardCoords = "";
+var maxHealthDetected = false;
+var yourMaxHealth = 0;
+var opponentMaxHealth = 0;
 
 function connectToServer() {
 	// create connection to server
@@ -83,8 +87,38 @@ function connectToServer() {
 			var userIDStr = userID.toString();
 			if(userID == 1) {
 				// mark health
-				document.getElementById("yourHealth").innerHTML = commands[26];
-				document.getElementById("opponentHealth").innerHTML = commands[27];
+				document.getElementById("yourHealth").innerHTML = "Your Health: " + commands[26];
+				document.getElementById("opponentHealth").innerHTML = "Opponent Health: " + commands[27];
+				
+				// show correct number of hearts
+				var yourCurrHealth = parseInt(commands[26]);
+				var opponentCurrHealth = parseInt(commands[27]);
+				
+				if(!maxHealthDetected) {
+					yourMaxHealth = yourCurrHealth;
+					opponentMaxHealth = opponentCurrHealth;
+					maxHealthDetected = true;
+				}
+				
+				var yourNumHearts = Math.floor( (yourCurrHealth * 10) / yourMaxHealth );
+				for(i = 1; i <= yourNumHearts; i++) {
+					var heartId = "yourHeart" + i.toString();
+					document.getElementById(heartId).style.visibility = 'visible';
+				}
+				for(i = yourNumHearts + 1; i <= 10; i++) {
+					var heartId = "yourHeart" + i.toString();
+					document.getElementById(heartId).style.visibility = 'hidden';
+				}
+				
+				var opponentNumHearts = Math.floor( (opponentCurrHealth * 10) / opponentMaxHealth );
+				for(i = 1; i <= opponentNumHearts; i++) {
+					var heartId = "opponentHeart" + i.toString();
+					document.getElementById(heartId).style.visibility = 'visible';
+				}
+				for(i = opponentNumHearts + 1; i <= 10; i++) {
+					var heartId = "opponentHeart" + i.toString();
+					document.getElementById(heartId).style.visibility = 'hidden';
+				}
 				
 				// fill hand with cards
 				document.getElementById("yourCard1").src = commands[28];
@@ -97,8 +131,38 @@ function connectToServer() {
 				document.getElementById("opponentCard3").src = commands[34];
 				document.getElementById("opponentCard4").src = commands[35];
 			} else {
-				document.getElementById("yourHealth").innerHTML = commands[27];
-				document.getElementById("opponentHealth").innerHTML = commands[26];
+				document.getElementById("yourHealth").innerHTML = "Your Health: " + commands[27];
+				document.getElementById("opponentHealth").innerHTML = "Opponent Health: " + commands[26];
+				
+				// show correct number of hearts
+				var yourCurrHealth = parseInt(commands[27]);
+				var opponentCurrHealth = parseInt(commands[26]);
+				
+				if(!maxHealthDetected) {
+					yourMaxHealth = yourCurrHealth;
+					opponentMaxHealth = opponentCurrHealth;
+					maxHealthDetected = true;
+				}
+								
+				var yourNumHearts = Math.floor( (yourCurrHealth * 10) / yourMaxHealth );
+				for(i = 1; i <= yourNumHearts; i++) {
+					var heartId = "yourHeart" + i.toString();
+					document.getElementById(heartId).style.visibility = 'visible';
+				}
+				for(i = yourNumHearts + 1; i <= 10; i++) {
+					var heartId = "yourHeart" + i.toString();
+					document.getElementById(heartId).style.visibility = 'hidden';
+				}
+				
+				var opponentNumHearts = Math.floor( (opponentCurrHealth * 10) / opponentMaxHealth );
+				for(i = 1; i <= opponentNumHearts; i++) {
+					var heartId = "opponentHeart" + i.toString();
+					document.getElementById(heartId).style.visibility = 'visible';
+				}
+				for(i = opponentNumHearts + 1; i <= 10; i++) {
+					var heartId = "opponentHeart" + i.toString();
+					document.getElementById(heartId).style.visibility = 'hidden';
+				}
 				
 				// fill hand with cards
 				document.getElementById("opponentCard1").src = commands[28];
@@ -159,7 +223,6 @@ function _(id){
 
 function drag_start(event) {
 	if(myTurn) {
-		_('app_status').innerHTML = "Dragging the "+event.target.getAttribute('id');
 	    event.dataTransfer.dropEffect = "move";
 	    event.dataTransfer.setData("text", event.target.getAttribute('id') );
 	    event.dataTransfer.setData("imageURL", event.target.getAttribute('src') );
@@ -167,11 +230,11 @@ function drag_start(event) {
 }
 
 function drag_enter(event) {
-    _('app_status').innerHTML = "You are dragging over the "+event.target.getAttribute('id');
+
 }
 
 function drag_leave(event) {
-    _('app_status').innerHTML = "You left the "+event.target.getAttribute('id');
+
 }
 
 function drag_drop(event) {	
@@ -211,7 +274,7 @@ function drag_drop(event) {
 }
 
 function drag_end(event) {
-    //_('app_status').innerHTML = "You let the "+event.target.getAttribute('id')+" go.";
+
 }
 
 function readDropZone(){
@@ -365,13 +428,14 @@ function loseGame() {
 	    <div id="card">
 	        <img id="opponentCard4" src="../images/card3.png" />
 	    </div>
-	    <h3 id="opponentHealth"></h3>
 	</div>
 </div>
 
 <form name="chatform" onsubmit="return sendMessage();">
-	<input type="text" name="message" />
-	<input type="submit" name="submit" value="Chat!" /> <br/>
+	<div id="chatbox">
+		<input id="typeHere" type="text" name="message" />
+		<input type="submit" name="submit" value="Chat!" /> <br/>
+	</div>
 	<div id="chatText"></div>
 </form>
 
@@ -389,11 +453,38 @@ function loseGame() {
 	    <div id="card">
 	        <img id="yourCard4" class="draggable" draggable="true" ondragstart="drag_start(event)" src="../images/card3.png" />
 	    </div>
-	    <h3 id="yourHealth"></h3>
 	</div>
 </div>
 
-<h2 id="app_status">App status...</h2>
+<div class="iconbox" id="opponentHearts">
+	<p id="opponentHealth"></p>
+	<img class="heart" id="opponentHeart1" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="opponentHeart2" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="opponentHeart3" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="opponentHeart4" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="opponentHeart5" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="opponentHeart6" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="opponentHeart7" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="opponentHeart8" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="opponentHeart9" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="opponentHeart10" src="../images/beatingheart.GIF" style="display: visible;" />
+</div>
+
+<div class="iconbox" id="yourHearts">
+	<p id="yourHealth"></p>
+	<img class="heart" id="yourHeart1" src="../images/beatingheart.GIF" style="visibility: visible;" />
+	<img class="heart" id="yourHeart2" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="yourHeart3" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="yourHeart4" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="yourHeart5" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="yourHeart6" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="yourHeart7" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="yourHeart8" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="yourHeart9" src="../images/beatingheart.GIF" style="display: visible;" />
+	<img class="heart" id="yourHeart10" src="../images/beatingheart.GIF" style="display: visible;" />
+</div>
+
+
 <div id="shim"></div>
 <div id="msgbx">
 	<h3 id="winnerText" style="display:none; text-align: center;">You win!</h3>

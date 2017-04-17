@@ -42,7 +42,7 @@ img {
 	left: 1%;
 	overflow: auto;
 	width: 350px;
-	height: 300px;
+	height: 250px;
 	padding: 10px; 
 	background-color: #ffaa7f;
 	border-radius: 20px 20px 20px 20px;"
@@ -131,4 +131,32 @@ button {
 
 button:hover {
 	opacity: 0.5;
+}
+
+.heart {
+	width: 20px;
+	height: 20px;
+}
+
+#yourHearts {
+	position: absolute;
+	top: 500px;
+	left: 10px;
+}
+
+#chatbox {
+	position: absolute;
+	top: 440px;
+	left: 25px;
+	z-index: 2;
+}
+
+#typeHere {
+	border-radius: 20px;
+}
+
+#opponentHearts {
+	position: absolute;
+	top: 125px;
+	left: 10px;
 }

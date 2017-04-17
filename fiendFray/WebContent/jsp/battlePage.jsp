@@ -166,7 +166,7 @@ function connectToServer() {
 				// announce damage
 				if(yourCurrHealth != yourPrevHealth) {
 					var damage = yourPrevHealth - yourCurrHealth;
-					document.getElementById("chatText").innerHTML += "Moderator: You received " + damage + "damage! <br/>";
+					document.getElementById("chatText").innerHTML += "Moderator: You received " + damage + " damage! <br/>";
 					yourPrevHealth -= damage;
 				}
 				

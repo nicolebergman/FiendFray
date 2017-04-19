@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>CineMate Start Page</title>
+<title>Start Page</title>
 <link rel="stylesheet" type="text/css" href="css1.css" />
 <script>
 	function validate() {
@@ -22,7 +22,7 @@
 <body>
 	<div class="wrapper">
       <div id="title">
-      	<h1>Cinemate</h1>
+      	<h1>Fiend Fray</h1>
       </div>
       <div id="extra">
       	<p>Enter your information.</p>

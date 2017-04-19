@@ -586,14 +586,15 @@ public class battle extends Thread{
 		{
 			
 			boolean b1 = checkHandIsStraight(hand); 
+			boolean b3 = false;
 			if(b1 == false)
 			{
-				checkHandIsFlush(hand, false); 
+				b3 = checkHandIsFlush(hand, false); 
 			}
 			boolean b2 = checkHandForSameValue(hand);
 			
 			//if both these are false. There is no valid hand. Add nothing to the madePokerHand array
-			if(!b1 && !b2)
+			if(!b1 && !b2 && !b3)
 			{
 				madePokerHands.add(pokerHand.NOTHING);
 			}
@@ -702,7 +703,7 @@ public class battle extends Thread{
 		}
 		int pairCount =0; 
 		int threeOfAKindCount = 0; 
-		for(int i=0; i<13; ++i)
+		for(int i=0; i<15; ++i)
 		{
 			switch(valueArray[i])
 			{
@@ -754,10 +755,10 @@ public class battle extends Thread{
 		{
 			if(bContainsFlush)
 			{
-				madePokerHands.add(pokerHand.FULLHOUSE);
 				madePokerHands.remove(pokerHand.FLUSH);
 				bHandMade = true; 
 			}
+			madePokerHands.add(pokerHand.FULLHOUSE);
 		}
 		else if(pairCount==2)
 		{
@@ -1003,7 +1004,6 @@ public class battle extends Thread{
 	
 	public void run() {
 		// detect whether to start game state machine
-		System.out.println("dicknipples");
 		while(true) {
 			System.out.println("recog count" + recognitionCount);
 			if(recognitionCount == 2) {

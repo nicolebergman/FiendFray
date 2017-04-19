@@ -88,10 +88,6 @@ function connectToServer() {
 			var userID = <%= userId %>;
 			var userIDStr = userID.toString();
 			if(userID == 1) {				
-				// mark health
-				document.getElementById("yourHealth").innerHTML = "Your Health: " + commands[26];
-				document.getElementById("opponentHealth").innerHTML = "Opponent Health: " + commands[27];
-				
 				// show correct number of hearts
 				var yourCurrHealth = parseInt(commands[26]);
 				var opponentCurrHealth = parseInt(commands[27]);
@@ -103,6 +99,10 @@ function connectToServer() {
 					opponentPrevHealth = opponentCurrHealth;
 					maxHealthDetected = true;
 				}
+				
+				// mark health
+				document.getElementById("yourHealth").innerHTML = "Your Health: " + commands[26] + "/" + yourMaxHealth;
+				document.getElementById("opponentHealth").innerHTML = "Opponent Health: " + commands[27] + "/" + opponentMaxHealth;
 				
 				// announce damage
 				if(yourCurrHealth != yourPrevHealth) {
@@ -148,9 +148,6 @@ function connectToServer() {
 				document.getElementById("opponentCard3").src = commands[34];
 				document.getElementById("opponentCard4").src = commands[35];
 			} else {
-				document.getElementById("yourHealth").innerHTML = "Your Health: " + commands[27];
-				document.getElementById("opponentHealth").innerHTML = "Opponent Health: " + commands[26];
-				
 				// show correct number of hearts
 				var yourCurrHealth = parseInt(commands[27]);
 				var opponentCurrHealth = parseInt(commands[26]);
@@ -162,6 +159,9 @@ function connectToServer() {
 					opponentPrevHealth = opponentCurrHealth;
 					maxHealthDetected = true;
 				}
+				
+				document.getElementById("yourHealth").innerHTML = "Your Health: " + commands[27] + "/" + yourMaxHealth;
+				document.getElementById("opponentHealth").innerHTML = "Opponent Health: " + commands[26] + "/" + opponentMaxHealth;
 				
 				// announce damage
 				if(yourCurrHealth != yourPrevHealth) {

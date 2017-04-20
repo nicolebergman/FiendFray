@@ -89,7 +89,11 @@
 				}
 				req.send(null);
 			} else {
-				document.getElementById("feedtext").innerHTML += event.data + "<br />";
+				var eventMsg = event.data;
+				var collon = ":";
+				if(!eventMsg.includes(collon)) {
+					document.getElementById("feedtext").innerHTML += event.data + "<br />";
+				}
 			}
 		}
 	}

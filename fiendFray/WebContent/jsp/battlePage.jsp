@@ -55,7 +55,7 @@ function connectToServer() {
 	socket = new WebSocket("ws://localhost:8080/fiendFray/fiendFrayServer");
 	// overriding functions
 	socket.onopen = function(event) {
-		document.getElementById("chatText").innerHTML += "Moderator: Let the battle begin! <br/>";
+		document.getElementById("chatText").innerHTML += "Moderator: Let the battle begin! Drag and drop two cards from your hand horizontally, vertically, or diagonally to make the best poker hand possible! The better the hand, the more damage you do to your opponent! <br/>";
 		
 		// notify other users of entry
 		socket.send("AddToServer~" + "<%= username %>");

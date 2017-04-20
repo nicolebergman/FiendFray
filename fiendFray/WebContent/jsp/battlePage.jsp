@@ -26,6 +26,7 @@
 	String userIdStr = (String) session.getAttribute("userId");
 	int userId = Integer.parseInt(userIdStr);
 	int currUserMaxHP = currUser.getUserPet().getMaxHP();
+	boolean firstEnemyPet=true;
 %>
 
 <script>
@@ -231,8 +232,11 @@ function connectToServer() {
 			
 			// show opponent pet image and weapon
 			if(!petInfoSet) {
-				document.getElementById("opponentPetImage").src = petImage;
-				document.getElementById("opponentPetWeapon").src = petWeapon;
+				if(typeof petImage !== "undefined") {
+					console.log("petImage="+petImage);
+					document.getElementById("opponentPetImage").src = petImage;
+					document.getElementById("opponentPetWeapon").src = petWeapon;
+				}
 			}
 			
 			updated = true;
@@ -489,7 +493,8 @@ function loseGame() {
 	    </div>
 	</div>
 </div>
-
+<img id="opponentPetImage" style="margin-left: 395px; margin-top: -56px;">
+<img id="opponentPetWeapon" style="margin-left: 0px;margin-top: -104px;">
 <form name="chatform" onsubmit="return sendMessage();">
 	<div id="chatbox">
 		<input id="typeHere" type="text" name="message" />
@@ -543,11 +548,10 @@ function loseGame() {
 	<img class="heart" id="yourHeart10" src="../images/beatingheart.GIF" style="display: visible;" />
 </div>
 
-<img src=<%=currUser.getUserPet().getImageURL()%> style="margin-left: 1093px; margin-top: 320px;">
-<img src=<%=currUser.getUserPet().getEquippedWeapon().getImgURL()%> style="margin-left: 1154px; margin-top: -104px;">
+<img src=<%=currUser.getUserPet().getImageURL()%> style="margin-left: 404px; margin-top: 320px;">
+<img src=<%=currUser.getUserPet().getEquippedWeapon().getImgURL()%> style="margin-left: 0; margin-top: -104px">
+<%System.out.println("test"); %>
 
-<img id="opponentPetImage" style="margin-left: 100px; margin-top: 100px;">
-<img id="opponentPetWeapon" style="margin-left: 1154px; margin-top: 100px;">
 
 <div id="shim"></div>
 <div id="msgbx">

@@ -517,6 +517,7 @@ function loseGame() {
 </div>
 
 <img src=<%=currUser.getUserPet().getImageURL()%> style="margin-left: 1093px; margin-top: 320px;">
+<img src=<%=currUser.getUserPet().getEquippedWeapon().getImgURL()%> style="margin-left: 1154px; margin-top: -104px;">
 <div id="shim"></div>
 <div id="msgbx">
 	<h3 id="winnerText" style="display:none; text-align: center;">You win!</h3>

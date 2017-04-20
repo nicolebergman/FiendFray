@@ -49,17 +49,17 @@ public class fiendFrayServer {
 			break;
 		case "Logout":
 			// notify other users (if any) of disconnect
-			try {
-				for(String userKey : usernameToSession.keySet()) {
-					// send data back out to all clients
-					Session s = usernameToSession.get(userKey);
-					if(s != session) {
-						s.getBasicRemote().sendText(commands[1] + " has left the fray!");
-					}
-				}
-			} catch(IOException ioe) {
-				System.out.println("ioe: " + ioe.getMessage());
-			}
+//			try {
+//				for(String userKey : usernameToSession.keySet()) {
+//					// send data back out to all clients
+//					Session s = usernameToSession.get(userKey);
+//					if(s != session) {
+//						s.getBasicRemote().sendText(commands[1] + " has left the fray!");
+//					}
+//				}
+//			} catch(IOException ioe) {
+//				System.out.println("ioe: " + ioe.getMessage());
+//			}
 			
 			// remove session from internal server vector
 			String username = commands[1];
@@ -79,7 +79,6 @@ public class fiendFrayServer {
 			} catch(IOException ioe) {
 				System.out.println("ioe: " + ioe.getMessage());
 			}
-			break;
 		case "Buy":
 			// send message to all other clients
 			try {
@@ -317,7 +316,7 @@ public class fiendFrayServer {
 				for(String key : usernameToSession.keySet()) {
 					// send data back out to all clients
 					Session s = usernameToSession.get(key);
-					s.getBasicRemote().sendText(userKey + " has left the fray!");
+					//s.getBasicRemote().sendText(userKey + " has left the fray!");
 				}
 			}
 		}

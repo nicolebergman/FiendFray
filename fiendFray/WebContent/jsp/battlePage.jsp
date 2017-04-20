@@ -44,6 +44,10 @@ var yourMaxHealth = 0;
 var opponentMaxHealth = 0;
 var yourPrevHealth = 0;
 var opponentPrevHealth = 0;
+var gotPetInfo = false;
+var petInfoSet = false;
+var petImage = "";
+var petWeapon = "";
 
 function connectToServer() {
 	// create connection to server
@@ -147,6 +151,15 @@ function connectToServer() {
 				document.getElementById("opponentCard2").src = commands[33];
 				document.getElementById("opponentCard3").src = commands[34];
 				document.getElementById("opponentCard4").src = commands[35];
+				
+				// intialise opponent images
+				if(!gotPetInfo) {
+					var petImage = commands[41];
+					var petWeapon = commands[42];
+					
+					gotPetInfo = true;
+				}
+				
 			} else {
 				// show correct number of hearts
 				var yourCurrHealth = parseInt(commands[27]);
@@ -206,6 +219,20 @@ function connectToServer() {
 				document.getElementById("yourCard2").src = commands[33];
 				document.getElementById("yourCard3").src = commands[34];
 				document.getElementById("yourCard4").src = commands[35];
+				
+				// intialise opponent images
+				if(!gotPetInfo) {
+					var petImage = commands[39];
+					var petWeapon = commands[40];
+					
+					gotPetInfo = true;
+				}
+			}
+			
+			// show opponent pet image and weapon
+			if(!petInfoSet) {
+				document.getElementById("opponentPetImage").src = petImage;
+				document.getElementById("opponentPetWeapon").src = petWeapon;
 			}
 			
 			updated = true;
@@ -518,6 +545,10 @@ function loseGame() {
 
 <img src=<%=currUser.getUserPet().getImageURL()%> style="margin-left: 1093px; margin-top: 320px;">
 <img src=<%=currUser.getUserPet().getEquippedWeapon().getImgURL()%> style="margin-left: 1154px; margin-top: -104px;">
+
+<img id="opponentPetImage" style="margin-left: 100px; margin-top: 100px;">
+<img id="opponentPetWeapon" style="margin-left: 1154px; margin-top: 100px;">
+
 <div id="shim"></div>
 <div id="msgbx">
 	<h3 id="winnerText" style="display:none; text-align: center;">You win!</h3>

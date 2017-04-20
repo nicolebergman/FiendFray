@@ -936,6 +936,14 @@ public class battle extends Thread{
 			int heartsToReturn = (int) fractionHP;
 			s = s + "~" + Integer.toString(heartsToReturn); 
 		}
+		
+		
+		s = s + "~" + user1.getUserPet().getImageURL();
+		s = s + "~" +  user1.getUserPet().getEquippedWeapon().getImgURL();
+		
+		s = s + "~" + user2.getUserPet().getImageURL();
+		s = s + "~" + user2.getUserPet().getEquippedWeapon().getImgURL();
+		
 		return s;
 	}
 	//DEBUG
